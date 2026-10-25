@@ -1,0 +1,116 @@
+[
+  {
+    "restaurant": "Le Méridien Dhaka",
+    "rating": 4.5,
+    "ratingCount": 17600,
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Sheraton Dhaka",
+    "rating": 4.6,
+    "ratingCount": 2268,
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "InterContinental Dhaka",
+    "rating": 4.7,
+    "ratingCount": 13887,
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Renaissance Dhaka Gulshan",
+    "rating": 4.5,
+    "ratingCount": 4229,
+    "aliases": ["Renaissance Dhaka Gulshan Hotel"],
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Radisson Blu Dhaka Water Garden",
+    "rating": 4.5,
+    "ratingCount": 14535,
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "The Westin Dhaka",
+    "rating": 4.5,
+    "ratingCount": 17219,
+    "aliases": ["Westin Dhaka"],
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Pan Pacific Sonargaon",
+    "rating": 4.5,
+    "ratingCount": 21794,
+    "aliases": ["Pan Pacific Sonargaon Dhaka"],
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Amari Dhaka",
+    "rating": 4.4,
+    "ratingCount": 12898,
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Six Seasons Hotel",
+    "rating": 4.3,
+    "ratingCount": 7660,
+    "aliases": ["Six Seasons Hotel Dhaka"],
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "The Lakeshore Hotel",
+    "rating": 4.3,
+    "ratingCount": 6313,
+    "aliases": ["The Lakeshore Hotel Gulshan", "Lakeshore Hotel Gulshan"],
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Hotel Sarina",
+    "rating": 4.3,
+    "ratingCount": 7887,
+    "aliases": ["Hotel Sarina Dhaka"],
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Four Points by Sheraton Dhaka",
+    "rating": 4.4,
+    "ratingCount": 3828,
+    "aliases": ["Four Points by Sheraton Dhaka Gulshan"],
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Holiday Inn Dhaka City Centre",
+    "rating": 4.5,
+    "ratingCount": 2787,
+    "aliases": ["Holiday Inn Dhaka City Centre by IHG"],
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Dhaka Regency Hotel",
+    "rating": 4.3,
+    "ratingCount": 10452,
+    "aliases": ["Dhaka Regency Hotel & Resort", "Dhaka Regency"],
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Crowne Plaza Dhaka Gulshan",
+    "rating": 4.5,
+    "ratingCount": 3243,
+    "aliases": ["Crowne Plaza Dhaka Gulshan by IHG"],
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Teriyaki Boy & Sizzlin' Steak",
+    "rating": 4.3,
+    "ratingCount": 387,
+    "aliases": ["Teriyaki Boy Dhaka", "Teriyaki Boy"],
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Beyond Buffet",
+    "rating": 4.0,
+    "ratingCount": 4206,
+    "aliases": ["Beyond Buffet Gulshan"],
+    "checkedAt": "2026-10-25"
+  }
+]

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hunger for Dhaka\'s BOGO Buffet</string>
+    <string name="notif_channel_name">Buffet offers</string>
+    <string name="notif_channel_description">Alerts when a new buffet or Buy 1 Get 1 offer is found in Dhaka.</string>
+</resources>

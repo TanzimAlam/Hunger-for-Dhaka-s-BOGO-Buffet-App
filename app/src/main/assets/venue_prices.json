@@ -1,0 +1,187 @@
+[
+  {
+    "restaurant": "Hotel Sarina Dhaka",
+    "aliases": ["Hotel Sarina", "Summerfields by Sarina", "Sarina"],
+    "lunch": 1800,
+    "dinner": 2100,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/HotelSarinaDhaka/videos/looking-for-the-best-value-packed-buffet-dinner-in-dhakaindulge-in-100-delicious/1139704848281255/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Amari Dhaka",
+    "aliases": ["Amaya Food Gallery", "Amari"],
+    "lunch": 3999,
+    "dinner": 8499,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/AmariDhaka/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Six Seasons Hotel",
+    "aliases": ["Six Seasons"],
+    "lunch": 1750,
+    "dinner": 2500,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/SixSeasonsHotel/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Beyond Buffet",
+    "aliases": ["Beyond Buffet Gulshan"],
+    "lunch": 1250,
+    "dinner": 1500,
+    "unit": "per person",
+    "sourceUrl": "https://beyondbuffetbd.com/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Le Méridien Dhaka",
+    "aliases": ["Le Meridien", "Le Meridien Dhaka", "LM Dhaka"],
+    "dinner": 8950,
+    "unit": "per person",
+    "sourceUrl": "https://www.instagram.com/p/DeRWiXGgdVA/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Radisson Blu Dhaka Water Garden",
+    "aliases": ["Radisson Blu Dhaka", "Radisson Dhaka"],
+    "dinner": 8450,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/RadissonBluDhaka/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Holiday Inn Dhaka City Centre",
+    "aliases": ["Holiday Inn Dhaka", "Holiday Inn Dhaka City Center"],
+    "dinner": 4444,
+    "unit": "per person · Sun–Wed",
+    "sourceUrl": "https://www.bangladeshmonitor.com.bd/en/holiday-inn-dhaka-city-centres-theme-night-buffet-dinner",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Golden Tulip The Grandmark Dhaka",
+    "aliases": ["Golden Tulip", "The Grandmark Dhaka", "Grandmark"],
+    "dinner": 3699,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/GrandmarkDhaka/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Sheraton Dhaka",
+    "aliases": ["Sheraton Dhaka Gulshan", "The Garden Kitchen Sheraton"],
+    "lunch": 7950,
+    "dinner": 9950,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/SheratonDhaka/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "The Westin Dhaka",
+    "aliases": ["Westin Dhaka", "Seasonal Tastes"],
+    "dinner": 4999,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/The.Westin.Dhaka/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Pan Pacific Sonargaon Dhaka",
+    "aliases": ["Pan Pacific Sonargaon", "Cafe Bazar", "Sonargaon"],
+    "lunch": 5000,
+    "dinner": 8500,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/PanPacificSonargaonDhaka/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Renaissance Dhaka Gulshan Hotel",
+    "aliases": ["Renaissance Dhaka Gulshan", "Renaissance Dhaka"],
+    "lunch": 2450,
+    "dinner": 4999,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/RenaissanceDhakaGulshanHotel/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "InterContinental Dhaka",
+    "aliases": ["InterContinental Dhaka", "Inter Continental Dhaka"],
+    "dinner": 5500,
+    "unit": "per person · all inclusive",
+    "sourceUrl": "https://www.facebook.com/DhakaInterContinental/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Crowne Plaza Dhaka Gulshan",
+    "aliases": ["Crowne Plaza Gulshan", "Crowne Plaza Gulshan Dhaka"],
+    "dinner": 5999,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/CrownePlazaDhakaGulshan/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Four Points by Sheraton Dhaka",
+    "aliases": ["Four Points Dhaka", "Four Points by Sheraton"],
+    "dinner": 3000,
+    "unit": "per person · plus tax",
+    "sourceUrl": "https://goromgorom.com/offers/buy-1-get-1-free-at-four-points-by-sheraton/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Dhaka Regency Hotel & Resort",
+    "aliases": ["Dhaka Regency Hotel", "Dhaka Regency"],
+    "dinner": 5555,
+    "unit": "per person",
+    "sourceUrl": "https://www.dhakaregency.com/dining/grandiose-restuarant",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Hyatt Place Dhaka Uttara",
+    "aliases": ["Hyatt Place Dhaka", "Hyatt Place Uttara"],
+    "dinner": 5555,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/61578709273108/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Best Western Plus Maya",
+    "aliases": ["Best Western Maya", "Best Western Plus"],
+    "dinner": 2999,
+    "unit": "per person · all inclusive",
+    "sourceUrl": "https://www.instagram.com/reel/DRlqb69AHKj/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Platinum Grand Dhaka",
+    "aliases": ["Platinum Grand"],
+    "breakfast": 1399,
+    "dinner": 2900,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/PlatinumGrandBySHELTECH/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Ascott Palace Dhaka",
+    "aliases": ["Ascott Palace"],
+    "breakfast": 4300,
+    "unit": "per person",
+    "sourceUrl": "https://www.instagram.com/p/DbkaobYkdUU/",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Ascott the Residence Dhaka",
+    "aliases": ["Ascott the Residence", "Ascott Residence"],
+    "breakfast": 2499,
+    "unit": "per person",
+    "sourceUrl": "https://ascottpalace.com/offers",
+    "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Teriyaki Boy & Sizzlin' Steak",
+    "aliases": ["Teriyaki Boy", "Sizzlin' Steak", "TB and SS"],
+    "lunch": 2519,
+    "dinner": 2519,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/TBandSS.BD/",
+    "checkedAt": "2026-10-25"
+  }
+]
