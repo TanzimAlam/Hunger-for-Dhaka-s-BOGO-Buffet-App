@@ -44,12 +44,13 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Locale
 
+// Taken from the emblem: warm taupe, its steel-blue disc, coffee and ink.
 private val heroPalettes = listOf(
-    listOf(Color(0xFFB3541E), Color(0xFFE58A4E)),
-    listOf(Color(0xFF4E5D2E), Color(0xFF8FA05A)),
-    listOf(Color(0xFF3D4A6B), Color(0xFF7C8CB3)),
-    listOf(Color(0xFF6B3D4A), Color(0xFFB37C8C)),
-    listOf(Color(0xFF5B4636), Color(0xFF9C7A5B)),
+    listOf(Color(0xFF4A4238), Color(0xFF7A6C58)),
+    listOf(Color(0xFF3B4A55), Color(0xFF5D7486)),
+    listOf(Color(0xFF54422F), Color(0xFF8A7358)),
+    listOf(Color(0xFF44413A), Color(0xFF79705F)),
+    listOf(Color(0xFF33302C), Color(0xFF635C52)),
 )
 
 /** The server's own emblem, rounded into the header tile. */
@@ -65,13 +66,13 @@ fun BrandMark(modifier: Modifier = Modifier, size: Dp = 48.dp) {
     )
 }
 
-/** The small green "LIVE" pill next to the app name. */
+/** The small sage "LIVE" pill next to the app name. */
 @Composable
 fun LiveChip(modifier: Modifier = Modifier) {
     Surface(
         modifier = modifier,
-        color = Color(0xFF15803D),
-        contentColor = Color.White,
+        color = BuffetColors.Green,
+        contentColor = BuffetColors.OnGreen,
         shape = RoundedCornerShape(999.dp),
     ) {
         Text(
@@ -84,13 +85,13 @@ fun LiveChip(modifier: Modifier = Modifier) {
     }
 }
 
-/** Orange deal badge shown over the photo, e.g. "Buy 1 Get 1". */
+/** Cream deal badge shown over the photo, e.g. "Buy 1 Get 1". */
 @Composable
 fun DealBadge(text: String, modifier: Modifier = Modifier) {
     Surface(
         modifier = modifier,
         color = BuffetColors.Accent,
-        contentColor = Color.White,
+        contentColor = BuffetColors.OnAccent,
         shape = RoundedCornerShape(8.dp),
     ) {
         Text(
@@ -372,10 +373,10 @@ fun fullValidityLabel(validFrom: Long?, validUntil: Long?): String {
 }
 
 fun sourceLabel(source: String): String = when (source) {
-    Sources.FACEBOOK -> "Facebook"
-    Sources.GOOGLE -> "Web"
+    Sources.FACEBOOK -> "Restaurant's Facebook post"
+    Sources.GOOGLE -> "Web search"
     Sources.CURATED -> "Checked listing"
-    Sources.BANK -> "Bank offer page"
+    Sources.BANK -> "Bank card-offer page"
     Sources.NEWS -> "News report"
     else -> "Added"
 }

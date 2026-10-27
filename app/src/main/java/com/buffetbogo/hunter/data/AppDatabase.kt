@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
     entities = [Offer::class, RestaurantRating::class],
-    version = 2,
+    version = 3,
     exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -25,6 +25,16 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        /** v3 added the restaurant's own ad link, its label, timings and the check date. */
+        private val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE offers ADD COLUMN adUrl TEXT")
+                db.execSQL("ALTER TABLE offers ADD COLUMN adLabel TEXT")
+                db.execSQL("ALTER TABLE offers ADD COLUMN timing TEXT")
+                db.execSQL("ALTER TABLE offers ADD COLUMN adCheckedAt INTEGER")
+            }
+        }
+
         @Volatile
         private var instance: AppDatabase? = null
 
@@ -35,7 +45,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "buffet-hunter.db",
                 )
-                    .addMigrations(MIGRATION_1_2)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                     .build()
                     .also { instance = it }
             }

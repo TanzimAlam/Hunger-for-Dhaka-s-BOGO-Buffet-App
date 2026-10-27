@@ -1,6 +1,7 @@
 package com.buffetbogo.hunter.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,6 +34,12 @@ fun AppRoot() {
     var screenName by rememberSaveable { mutableStateOf(Screen.LIST.name) }
     var selectedId by rememberSaveable { mutableStateOf<String?>(null) }
 
+    // The feed's own state lives here, above the screen switch, so coming back from a detail
+    // lands on the exact card and filter the user left.
+    val feedState = rememberLazyListState()
+    var feedQuery by rememberSaveable { mutableStateOf("") }
+    var feedFilter by rememberSaveable { mutableStateOf(FeedFilter.ALL.name) }
+
     LaunchedEffect(sync.message) {
         val message = sync.message ?: return@LaunchedEffect
         snackbarHostState.showSnackbar(message)
@@ -49,6 +56,11 @@ fun AppRoot() {
             sync = sync,
             sortOrder = sortOrder,
             snackbarHostState = snackbarHostState,
+            listState = feedState,
+            query = feedQuery,
+            filterName = feedFilter,
+            onQueryChange = { feedQuery = it },
+            onFilterChange = { feedFilter = it.name },
             onRefresh = viewModel::refresh,
             onSortChange = viewModel::setSortOrder,
             onOpenSettings = { screenName = Screen.SETTINGS.name },
@@ -81,6 +93,7 @@ fun AppRoot() {
             snackbarHostState = snackbarHostState,
             onBack = { screenName = Screen.LIST.name },
             onSaveKeys = viewModel::saveKeys,
+            onSaveFacebookToken = viewModel::saveFacebookToken,
             onToggleNotifications = viewModel::setNotificationsEnabled,
             onSyncNow = viewModel::syncNow,
             onRestoreSamples = viewModel::restoreBundled,

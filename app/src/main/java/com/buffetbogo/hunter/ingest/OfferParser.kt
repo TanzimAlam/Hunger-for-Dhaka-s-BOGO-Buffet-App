@@ -63,6 +63,38 @@ object OfferParser {
         Regex("(?i)([\\d,]{3,7})\\s*(?:tk\\.?|bdt|৳|taka)\\b"),
     )
 
+    // "6:30 pm – 10:30 pm", "6.30pm to 10.30pm", "12:30-3:30 PM".
+    private val timeWindow = Regex(
+        "(?i)\\b(\\d{1,2}(?:[:.]\\d{2})?)\\s*(am|pm)?\\s*(?:-|–|—|to|till)\\s*" +
+            "(\\d{1,2}(?:[:.]\\d{2})?)\\s*(am|pm)\\b",
+    )
+    private val mealBefore = Regex(
+        "(?i)\\b(lunch|dinner|breakfast|brunch|iftar|high\\s*tea)\\b[^\\d]{0,24}$",
+    )
+
+    /**
+     * Reads the serving window out of an ad, e.g. "Dinner 6:30 pm – 10:30 pm". Ads often print
+     * the meridiem only on the closing time, so it is copied onto the opening one.
+     */
+    fun extractTiming(text: String): String? {
+        val windows = LinkedHashSet<String>()
+        for (match in timeWindow.findAll(text)) {
+            val start = match.groupValues[1].replace('.', ':')
+            val startMeridiem = match.groupValues[2].lowercase(Locale.ROOT)
+            val end = match.groupValues[3].replace('.', ':')
+            val endMeridiem = match.groupValues[4].lowercase(Locale.ROOT)
+            val startTime = if (startMeridiem.isBlank()) "$start $endMeridiem" else "$start $startMeridiem"
+            val label = mealBefore.find(text.substring(0, match.range.first))
+                ?.groupValues?.get(1)
+                ?.lowercase(Locale.ROOT)
+                ?.replaceFirstChar { it.titlecase(Locale.ROOT) }
+            val window = (label?.let { "$it " } ?: "") + "$startTime – $end $endMeridiem"
+            windows += window
+            if (windows.size == 2) break
+        }
+        return windows.takeIf { it.isNotEmpty() }?.joinToString(" · ")
+    }
+
     private val monthNumbers = mapOf(
         "jan" to Month.JANUARY, "feb" to Month.FEBRUARY, "mar" to Month.MARCH,
         "apr" to Month.APRIL, "may" to Month.MAY, "jun" to Month.JUNE,

@@ -58,12 +58,24 @@ data class Offer(
     val validFrom: Long?,
     val validUntil: Long?,
     val source: String,
+    /** Where the app discovered the promotion; not always where the ad itself lives. */
     val sourceUrl: String,
     val imageUrl: String?,
     val rating: Double?,
     val ratingCount: Int?,
     val fetchedAt: Long,
     val hidden: Boolean = false,
+    /**
+     * The restaurant's own post or page carrying the ad (price, dates, conditions, timings).
+     * This is what "Open the original ad" opens — never a bank's listing page.
+     */
+    val adUrl: String? = null,
+    /** Human label for [adUrl]: "Facebook post", "Facebook page", "Restaurant website" … */
+    val adLabel: String? = null,
+    /** Serving window printed in the ad, e.g. "Lunch 12:30–3:30 pm · Dinner 6:30–10:30 pm". */
+    val timing: String? = null,
+    /** When [adUrl] was last resolved, so the lookup is not repeated on every sync. */
+    val adCheckedAt: Long? = null,
 )
 
 @Entity(tableName = "restaurant_ratings")
@@ -105,6 +117,29 @@ fun stableOfferId(sourceUrl: String, kind: String): String {
 /** True when the card must admit the price was not printed in the ad itself. */
 fun Offer.priceIsEstimate(): Boolean =
     priceSource == PriceSources.SEARCH || priceSource == PriceSources.TYPICAL
+
+/**
+ * The link the detail screen opens. Ad posts and restaurant pages win; a bank or news page is
+ * used only when it is itself the ad (a curated entry pointing at the restaurant's own site),
+ * which is decided when the offer is built — never here.
+ */
+fun Offer.adToOpen(): String? = adUrl?.takeIf { it.isNotBlank() }
+
+/**
+ * Last-resort link when no ad has been resolved yet: Facebook's own keyword search for this
+ * restaurant's buffet posts. Always valid, and never a bank page.
+ */
+fun Offer.facebookSearchUrl(): String = VenueSocials.facebookSearchUrl(restaurant)
+
+/** True when the link is the restaurant's own post, not just its page or a search. */
+fun Offer.hasExactAdLink(): Boolean {
+    val url = adUrl ?: return false
+    val isPost = DIFF_LINK_PATTERNS.any { url.contains(it, ignoreCase = true) }
+    return isPost
+}
+
+private val DIFF_LINK_PATTERNS = listOf("/posts/", "/videos/", "/permalink/", "pfbid", "/reel/")
+
 
 fun Offer.isExpired(now: Long = System.currentTimeMillis()): Boolean =
     validUntil != null && validUntil < now

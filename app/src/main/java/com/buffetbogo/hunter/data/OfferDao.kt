@@ -40,6 +40,18 @@ interface OfferDao {
     )
     suspend fun setPrice(id: String, price: Int, unit: String?, source: String)
 
+    @Query(
+        "UPDATE offers SET adUrl = :url, adLabel = :label, " +
+            "timing = COALESCE(:timing, timing), adCheckedAt = :checkedAt WHERE id = :id",
+    )
+    suspend fun setAdReference(
+        id: String,
+        url: String?,
+        label: String?,
+        timing: String?,
+        checkedAt: Long,
+    )
+
     @Query("DELETE FROM offers WHERE validUntil IS NOT NULL AND validUntil < :cutoff")
     suspend fun pruneExpiredBefore(cutoff: Long): Int
 

@@ -19,6 +19,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
+import androidx.compose.material.icons.rounded.Public
+import androidx.compose.material.icons.rounded.Restaurant
 import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material.icons.rounded.VisibilityOff
 import androidx.compose.material3.Button
@@ -44,6 +46,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.buffetbogo.hunter.data.OfferUi
+import com.buffetbogo.hunter.data.Sources
+import com.buffetbogo.hunter.data.adToOpen
+import com.buffetbogo.hunter.data.facebookSearchUrl
+import com.buffetbogo.hunter.data.hasExactAdLink
 import com.buffetbogo.hunter.data.priceIsEstimate
 import com.buffetbogo.hunter.ui.theme.BuffetColors
 import java.util.Locale
@@ -58,7 +64,9 @@ fun OfferDetailScreen(
 ) {
     val offer = item.offer
     val uriHandler = LocalUriHandler.current
-    val canOpenLink = offer.sourceUrl.isNotBlank()
+    val adLink = offer.adToOpen()
+    val exactAd = offer.hasExactAdLink()
+    val adTarget = adLink ?: offer.facebookSearchUrl()
 
     Scaffold(
         containerColor = BuffetColors.Background,
@@ -180,7 +188,7 @@ fun OfferDetailScreen(
                     PaymentChip(text = offer.paymentNote, modifier = Modifier.fillMaxWidth())
 
                     Spacer(Modifier.height(14.dp))
-                    Timeline(start = offer.validFrom, end = offer.validUntil)
+                    Timeline(start = offer.validFrom, end = offer.validUntil, timing = offer.timing)
 
                     Spacer(Modifier.height(22.dp))
                     SectionTitle("The offer")
@@ -208,21 +216,26 @@ fun OfferDetailScreen(
                     )
 
                     Spacer(Modifier.height(20.dp))
-                    SectionTitle("Source")
-                    Text(
-                        text = "${sourceLabel(offer.source)} · listed ${postedLongLabel(offer.postedAt)}",
-                        fontSize = 12.5.sp,
-                        color = BuffetColors.TextSecondary,
+                    SectionTitle("The ad")
+                    AdReference(
+                        label = offer.adLabel ?: if (adLink != null) "Restaurant page" else "Not linked yet",
+                        url = adLink ?: offer.facebookSearchUrl(),
+                        restaurant = offer.restaurant,
+                        note = discoveryNote(
+                            source = offer.source,
+                            restaurant = offer.restaurant,
+                            posted = offer.postedAt,
+                            linked = adLink != null,
+                        ),
                     )
 
-                    Spacer(Modifier.height(24.dp))
+                    Spacer(Modifier.height(18.dp))
                     Button(
-                        onClick = { uriHandler.openUri(offer.sourceUrl) },
-                        enabled = canOpenLink,
+                        onClick = { uriHandler.openUri(adTarget) },
                         shape = RoundedCornerShape(12.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = BuffetColors.Accent,
-                            contentColor = Color.White,
+                            contentColor = BuffetColors.OnAccent,
                         ),
                         modifier = Modifier
                             .fillMaxWidth()
@@ -231,15 +244,19 @@ fun OfferDetailScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
                             contentDescription = null,
-                            modifier = Modifier
-                                .size(17.dp)
-                                .padding(end = 0.dp),
+                            modifier = Modifier.size(17.dp),
                         )
                         Spacer(Modifier.width(8.dp))
                         Text(
-                            text = if (canOpenLink) "Open the original ad" else "No link available",
+                            text = when {
+                                exactAd -> "Open the original ad"
+                                adLink != null -> "Open ${offer.restaurant}'s page"
+                                else -> "Search Facebook for this offer"
+                            },
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 13.5.sp,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                         )
                     }
                     Spacer(Modifier.height(8.dp))
@@ -280,7 +297,7 @@ fun OfferDetailScreen(
 }
 
 @Composable
-private fun Timeline(start: Long?, end: Long?) {
+private fun Timeline(start: Long?, end: Long?, timing: String? = null) {
     val soon = endsSoon(end)
     Surface(
         color = BuffetColors.SurfaceHigh,
@@ -312,10 +329,108 @@ private fun Timeline(start: Long?, end: Long?) {
                     fontSize = 11.5.sp,
                     color = BuffetColors.TextSecondary,
                 )
+                if (!timing.isNullOrBlank()) {
+                    Spacer(Modifier.height(6.dp))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Rounded.Restaurant,
+                            contentDescription = null,
+                            tint = BuffetColors.TextSecondary,
+                            modifier = Modifier.size(13.dp),
+                        )
+                        Spacer(Modifier.width(6.dp))
+                        Text(
+                            text = "Served $timing",
+                            fontSize = 11.5.sp,
+                            color = BuffetColors.TextPrimary.copy(alpha = 0.85f),
+                            lineHeight = 16.sp,
+                        )
+                    }
+                }
             }
         }
     }
 }
+
+/**
+ * The link card above the "Open the original ad" button: where the link goes and why it is the
+ * right place to check price, timings and conditions.
+ */
+@Composable
+private fun AdReference(
+    label: String,
+    url: String,
+    restaurant: String,
+    note: String,
+) {
+    Surface(
+        color = BuffetColors.SurfaceHigh,
+        shape = RoundedCornerShape(14.dp),
+        border = BorderStroke(1.dp, BuffetColors.Border),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.Top,
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.Public,
+                contentDescription = null,
+                tint = BuffetColors.Accent,
+                modifier = Modifier
+                    .padding(top = 1.dp)
+                    .size(17.dp),
+            )
+            Spacer(Modifier.width(10.dp))
+            Column(Modifier.weight(1f)) {
+                Text(
+                    text = label,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = BuffetColors.TextPrimary,
+                )
+                Spacer(Modifier.height(2.dp))
+                Text(
+                    text = hostOf(url),
+                    fontSize = 11.5.sp,
+                    color = BuffetColors.TextSecondary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    text = "$restaurant publishes the price, dates, timings and conditions here." +
+                        if (note.isNotBlank()) " $note" else "",
+                    fontSize = 11.sp,
+                    color = BuffetColors.TextSecondary,
+                    lineHeight = 16.sp,
+                )
+            }
+        }
+    }
+}
+
+/** Explains how the app found the offer without ever advertising a bank as the ad's home. */
+private fun discoveryNote(
+    source: String,
+    restaurant: String,
+    posted: Long,
+    linked: Boolean,
+): String {
+    return when {
+        source == Sources.BANK ->
+            "Listed on a bank card-offer page on ${postedLongLabel(posted)}; the link above is " +
+                "$restaurant's own."
+        source == Sources.NEWS ->
+            "Reported in the press on ${postedLongLabel(posted)}; the link above is " +
+                "$restaurant's own."
+        !linked -> "No post has been matched yet, so the button opens a Facebook search."
+        else -> ""
+    }.trim()
+}
+
+private fun hostOf(url: String): String =
+    url.substringAfter("://", url).substringBefore("/").removePrefix("www.")
 
 @Composable
 private fun SectionTitle(text: String) {

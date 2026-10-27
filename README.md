@@ -3,10 +3,11 @@
 A small Android app that hunts for All-You-Can-Eat / buffet deals in Dhaka — Buy 1 Get 1,
 Buy 1 Get 2/3/4, Dine 3 Pay 1, Eat 4 Pay 1, Eat 5 Pay 1 — and alerts you when a new one appears.
 
-The home screen is a dark feed of photo cards. Each card carries the deal badge, the Google star
-rating, the **price**, the card / bKash / cash condition and how long the offer has left.
-Search and category chips sit above the list, and the default order is **by end date**, so whatever
-is about to run out is at the top. The app icon and header use the restaurant's own emblem.
+The home screen is a warm charcoal feed of photo cards, coloured from the app's own emblem. Each
+card carries the deal badge, the Google star rating, the **price**, the card / bKash / cash
+condition and how long the offer has left. Search and category chips sit above the list, and the
+default order is **by end date**, so whatever is about to run out is at the top. Opening an offer
+and coming back leaves the feed exactly where it was — same card, same search, same filter.
 
 **It works with no API keys and no account.** Two public sources are read directly, a checked
 set of Google ratings and buffet prices ships with the app, and missing prices are looked up with
@@ -16,10 +17,11 @@ a keyless search. Keys in Settings only widen coverage and refresh live data.
 
 | Source | Key needed | What it gives |
 | --- | --- | --- |
-| Standard Chartered BD buffet page `av.sc.com/bd/edm/b1g1-offers/` | none | ~17 Dhaka five-star venues with the deal wording ("Dine 4 Pay 1"), card eligibility, "Valid till" date and the hotel's own photo |
+| Standard Chartered BD buffet page `av.sc.com/bd/edm/b1g1-offers/` | none | **Discovery only** — which ~17 Dhaka five-star venues currently run a buffet deal, the deal wording ("Dine 4 Pay 1") and card eligibility. The bank's link is never shown or opened |
 | Google News RSS (`news.google.com/rss/search`) | none | Dated press coverage of new campaigns — catches short promotions like "Buy 1 Get 3 free buffet, 18–24 October" |
-| DuckDuckGo HTML results | none | Price lookup when an ad omits the figure (default fallback) |
-| Brave Search API (optional) | free key | General web results, including public Facebook pages that search engines have indexed, and a better price lookup |
+| `app/src/main/assets/venue_socials.json` | none | Every venue's **official Facebook page** and its own dining page — the ad link each card opens |
+| Facebook Graph API (optional) | Meta app + Page token | The venues' own posts: the restaurant's price, dates, serving hours and conditions, read through the official API |
+| DuckDuckGo HTML / Brave results | none / free key | Finds a venue's exact promotion post (`site:facebook.com`) and prices an ad that omits the figure |
 | Google Places API (New) (optional) | free key | Refreshes each restaurant's star rating and review count |
 
 ## Prices — every card has one
@@ -40,6 +42,45 @@ The feed never renders a card without a figure. A price comes from, in order:
 
 If all three come back empty, the row stays in the database but is filtered out of the feed until a
 price is found — the app would rather show an offer late than show it with no price at all.
+
+## The ad behind every card
+
+A bank page proves an offer exists; it is not the ad. It usually omits the price, the serving hours
+and the restaurant's own conditions, so it is used only as a lead. Every card resolves to a link on
+the restaurant's own side, in this order:
+
+1. **The restaurant's own post** — the permalink of the buffet post itself, from the Graph API or a
+   `site:facebook.com "<restaurant>" buffet` search hit, and only when it comes from that venue's
+   page.
+2. **The restaurant's official page** — from the bundled `venue_socials.json` (19 venues, each with
+   the page it actually posts offers on, checked on 26 October 2026).
+3. **The restaurant's own dining page** — when a venue has no verified Facebook page.
+4. **Facebook's search for that restaurant** — only when none of the above is known yet; the button
+   then says "Search Facebook for this offer" instead of pretending to be the ad.
+
+A Standard Chartered, news or any other discovery URL is never used as the ad link. The detail
+screen says where the listing was found, but the link always goes to the restaurant.
+
+## Facebook (optional, real Graph API)
+
+Facebook is where Dhaka's hotels publish these offers, so the app speaks to Meta's Graph API
+directly when it is allowed to. `FacebookGraph` calls `/{page}/feed` on version `v26.0` for each
+venue in the directory, reads `message`, `created_time`, `permalink_url` and `full_picture`, and
+keeps only posts about a buffet deal. Those posts supply the card's ad link, price, end date,
+serving window ("Dinner 6:30 pm – 10:30 pm") and conditions; `AdEnricher` folds them into the
+corresponding discovered offer instead of showing the same deal twice.
+
+Meta does not let an app read another page's posts without **Page Public Content Access**, which
+must be approved for the Meta app (business verification included). Add a Page token in
+**Settings → Facebook posts** and the app reads the venues' pages; if Meta refuses, its own message
+is shown verbatim — e.g. `(#10) Application does not have permission for this call` — and the app
+keeps working through the page and search links. The token can also be baked in:
+
+```properties
+FACEBOOK_PAGE_TOKEN=your-page-token
+```
+
+No token is required for the app to be useful: the link to the restaurant's own page always works.
 
 ## Star ratings
 
@@ -75,13 +116,14 @@ overrides it. Keys stay on the device or in the local build — never in the APK
 | Area | Implementation |
 | --- | --- |
 | UI | Kotlin + Jetpack Compose (Material 3), dark-only theme, single activity |
-| Storage | Room (`offers`, `restaurant_ratings`) with a v1→v2 migration for the price unit and source, DataStore for settings and the chosen sort order |
+| Storage | Room (`offers`, `restaurant_ratings`) with v1→v2 (price unit/source) and v2→v3 (ad link, ad label, timing, checked date) migrations, DataStore for settings and the chosen sort order |
 | Background work | WorkManager every 6 hours, plus a refresh on launch when the feed is older than 6 hours |
 | Notifications | One summary notification per sync, only for offers never seen before |
 | Bundled catalogue | 6 real, sourced Dhaka offers in `app/src/main/assets/seed_offers.json`, all priced |
 | Price book | 22 venues' checked buffet rates in `app/src/main/assets/venue_prices.json`, used to price bank ads that never state one |
-| Branding | Launcher icon and in-app header logo generated from the supplied emblem (`tools/IconGen.java`) |
-| Parsing | `OfferParser` (English wording), `StandardCharteredSource`, `NewsRssSource` |
+| Venue directory | 19 venues' official Facebook pages and dining pages in `app/src/main/assets/venue_socials.json` |
+| Branding | Launcher icon and in-app header logo generated from the supplied emblem (`tools/IconGen.java`); the Compose palette is sampled from that emblem (warm charcoal, steel blue, cream) |
+| Parsing | `OfferParser` (English wording, prices, dates, serving windows), `StandardCharteredSource`, `NewsRssSource`, `FacebookPageSource`, `AdEnricher`, `AdLinkResolver` |
 
 ### Screens
 
@@ -91,10 +133,14 @@ overrides it. Keys stay on the device or in the local build — never in the APK
    rated), and photo cards showing badge, Google rating, restaurant, title, price with its unit,
    payment condition, countdown and a details button. A price filled in from the book or a search
    carries a small **typical** tag.
-2. **Offer detail** — hero photo, offer text, price, rating with review count, validity, payment
-   conditions, source, "Open the original ad" and "Hide this offer".
-3. **Settings** — Google ratings status and key, alerts toggle, sources, manual check, reload
-   listings, and the optional Brave key.
+2. **Offer detail** — hero photo, offer text, price, rating with review count, validity and the
+   serving window, payment conditions, an **ad reference card** naming the restaurant's page, the
+   "Open the original ad" button (or "Search Facebook for this offer"), and "Hide this offer".
+3. **Settings** — Google ratings status and key, the optional Facebook Page token with its status,
+   alerts toggle, sources, manual check, reload listings, and the optional Brave key.
+
+The feed keeps its scroll position, search text and chosen filter while an offer is open, because
+that state lives above the screen switch in `AppRoot`.
 
 ## Build it
 
@@ -109,11 +155,12 @@ Open the folder in Android Studio and press Run (Android 8.0 / API 26+).
 
 ## First run
 
-1. Launch — the checked catalogue shows immediately, and a refresh against the two keyless sources
+1. Launch — the checked catalogue shows immediately, and a refresh against the keyless sources
    starts in the background.
 2. Tap the refresh chip any time, or wait for the 6-hourly check.
-3. Optional: paste a Places key for live ratings and/or a
-   [Brave key](https://brave.com/search/api/) for broader search.
+3. Optional: paste a Places key for live ratings, a
+   [Brave key](https://brave.com/search/api/) for broader search, and/or a Facebook Page token to
+   read the venues' own posts through the Graph API.
 
 ## The bundled catalogue
 
@@ -137,11 +184,22 @@ They carry absolute dates, so they disappear like any other offer once a campaig
   against known Dhaka hotels) and area. Anything without a buffet word and a recognisable deal is
   dropped, as is anything already expired.
 
-**About Facebook:** Meta provides no way for a third-party app to keyword-search ordinary public
-restaurant posts. The Ad Library API covers political/social-issue ads worldwide plus all ad types
-in the EU/UK — not commercial restaurant ads in Bangladesh — and scraping is prohibited by Meta's
-Automated Data Collection Terms. With a Brave key the app searches `site:facebook.com` and labels
-those hits "Facebook"; it never scrapes Facebook.
+- `FacebookPageSource` reads each venue's feed through `FacebookGraph` (Graph API `v26.0`), keeps
+  posts that mention a buffet deal, parses the price, end date and serving window, and stores the
+  post's permalink as the ad link.
+- `AdLinkResolver` settles every offer on the restaurant's own link, first from the bundled
+  directory, then (only for venues whose exact post is still unknown, at most four per sync) from a
+  `site:facebook.com` search restricted to that venue's page handle. A resolved post is trusted for
+  seven days.
+- `AdEnricher` matches a post to a discovered offer by venue and deal kind, moves the post's price,
+  date, timings and photo onto the card, and drops the duplicate row so one promotion is one card.
+
+**About Facebook:** Meta has no keyword search for ordinary public restaurant posts, and scraping is
+prohibited by its Automated Data Collection Terms. What Meta does support is reading a page's own
+posts through the Graph API, which this app implements; for other pages that requires the approved
+**Page Public Content Access** feature, and the app reports Meta's refusal rather than hiding it.
+The Ad Library API covers political/social-issue ads worldwide plus all ad types in the EU/UK — not
+commercial restaurant ads in Bangladesh.
 
 References:
 
@@ -177,9 +235,10 @@ References:
   all, so their offers stay hidden until a lookup succeeds.
 - The keyless price fallback reads DuckDuckGo's HTML results. It is fine for personal use but can
   rate-limit or change markup; with a Brave key the app uses the official API instead.
-- Facebook posts are only ever seen through a search index, so an unindexed post is invisible.
-- No device or emulator was available in this environment: the app compiles and 61 JVM tests pass,
-  but the screens and the launcher icon have not been inspected on hardware.
+- Without the approved Facebook permission, posts can only be found through a search index, so an
+  unindexed post is invisible; the card then links to the venue's page instead of the exact post.
+- No device or emulator was available in this environment: the app compiles and its JVM tests pass,
+  but the screens have not been inspected on hardware.
 
 ## Next steps
 

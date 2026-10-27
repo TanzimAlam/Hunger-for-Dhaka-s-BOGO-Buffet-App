@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -74,7 +75,7 @@ import com.buffetbogo.hunter.ui.theme.BuffetColors
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
-private enum class FeedFilter(val label: String) {
+enum class FeedFilter(val label: String) {
     ALL("All Offers"),
     BOGO("Buy 1 Get 1+"),
     EAT("Eat 3/4/5 Pay 1"),
@@ -96,13 +97,16 @@ fun OfferListScreen(
     sync: SyncState,
     sortOrder: SortOrder,
     snackbarHostState: SnackbarHostState,
+    listState: LazyListState,
+    query: String,
+    filterName: String,
+    onQueryChange: (String) -> Unit,
+    onFilterChange: (FeedFilter) -> Unit,
     onRefresh: () -> Unit,
     onSortChange: (SortOrder) -> Unit,
     onOpenSettings: () -> Unit,
     onOpenOffer: (String) -> Unit,
 ) {
-    var query by rememberSaveable { mutableStateOf("") }
-    var filterName by rememberSaveable { mutableStateOf(FeedFilter.ALL.name) }
     var showAlerts by rememberSaveable { mutableStateOf(false) }
     val filter = FeedFilter.valueOf(filterName)
 
@@ -139,9 +143,9 @@ fun OfferListScreen(
                 alerts = endingSoon.size,
                 onShowAlerts = { showAlerts = true },
             )
-            SearchField(query = query, onQueryChange = { query = it })
+            SearchField(query = query, onQueryChange = onQueryChange)
             Spacer(Modifier.height(14.dp))
-            FilterRow(selected = filter, onSelect = { filterName = it.name })
+            FilterRow(selected = filter, onSelect = onFilterChange)
             MetaRow(
                 count = visible.size,
                 running = sync.running,
@@ -159,6 +163,7 @@ fun OfferListScreen(
                 )
             } else {
                 LazyColumn(
+                    state = listState,
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
@@ -266,7 +271,7 @@ private fun AlertsButton(count: Int, onClick: () -> Unit) {
                     text = if (count > 9) "9+" else count.toString(),
                     fontSize = 9.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White,
+                    color = BuffetColors.OnAccent,
                 )
             }
         }
@@ -353,7 +358,7 @@ private fun FilterChipView(label: String, selected: Boolean, onClick: () -> Unit
         onClick = onClick,
         shape = RoundedCornerShape(10.dp),
         color = if (selected) BuffetColors.Accent else BuffetColors.Chip,
-        contentColor = if (selected) Color.White else BuffetColors.TextSecondary,
+        contentColor = if (selected) BuffetColors.OnAccent else BuffetColors.TextSecondary,
         border = if (selected) null else BorderStroke(1.dp, BuffetColors.Border),
     ) {
         Text(

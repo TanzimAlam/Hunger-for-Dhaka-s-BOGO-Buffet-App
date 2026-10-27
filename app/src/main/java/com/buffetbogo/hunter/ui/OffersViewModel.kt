@@ -82,6 +82,22 @@ class OffersViewModel(
         }
     }
 
+    /** Saves the Facebook token and immediately pulls the venues' posts, reporting Meta's reply. */
+    fun saveFacebookToken(token: String) {
+        viewModelScope.launch {
+            settingsStore.setFacebookToken(token)
+            if (token.isBlank()) {
+                _sync.value = SyncState(
+                    message = "Facebook is off — offers link to each restaurant's own page.",
+                )
+                return@launch
+            }
+            _sync.value = SyncState(running = true)
+            val result = repository.refresh()
+            _sync.value = SyncState(running = false, message = result.message)
+        }
+    }
+
     fun setNotificationsEnabled(enabled: Boolean) {
         viewModelScope.launch { settingsStore.setNotificationsEnabled(enabled) }
     }

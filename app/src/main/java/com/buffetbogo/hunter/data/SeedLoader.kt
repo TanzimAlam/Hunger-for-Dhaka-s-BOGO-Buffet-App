@@ -20,7 +20,7 @@ import java.time.ZoneId
 object SeedLoader {
 
     /** Bump whenever seed_offers.json or venue_ratings.json changes. */
-    const val VERSION = 4
+    const val VERSION = 5
 
     suspend fun load(context: Context, now: Long = System.currentTimeMillis()): List<Offer> =
         withContext(Dispatchers.IO) {
@@ -44,6 +44,10 @@ object SeedLoader {
             }
             val details = item.optString("details")
             val terms = item.optString("terms")
+            val source = item.optString("source", Sources.CURATED)
+            // Curated rows link to the restaurant's own ad; a bank row never does.
+            val adUrl = item.optString("adUrl").takeIf { it.isNotBlank() }
+                ?: sourceUrl.takeIf { source != Sources.BANK }
             offers += Offer(
                 id = id,
                 title = item.getString("title"),
@@ -67,12 +71,18 @@ object SeedLoader {
                 postedAt = date(item, "postedAt", now, zone, endOfDay = false) ?: now,
                 validFrom = date(item, "validFrom", now, zone, endOfDay = false),
                 validUntil = date(item, "validUntil", now, zone, endOfDay = true),
-                source = item.optString("source", Sources.CURATED),
+                source = source,
                 sourceUrl = sourceUrl,
                 imageUrl = if (item.has("imageUrl")) item.optString("imageUrl") else null,
                 rating = if (item.has("rating")) item.optDouble("rating") else null,
                 ratingCount = if (item.has("ratingCount")) item.optInt("ratingCount") else null,
                 fetchedAt = now,
+                adUrl = adUrl,
+                adLabel = item.optString("adLabel")
+                    .takeIf { it.isNotBlank() }
+                    ?: adUrl?.let { VenueSocials.kindOf(it).label },
+                timing = item.optString("timing").takeIf { it.isNotBlank() },
+                adCheckedAt = if (adUrl != null) now else null,
             )
         }
         return offers

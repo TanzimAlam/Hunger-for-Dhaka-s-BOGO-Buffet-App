@@ -71,6 +71,7 @@ fun SettingsScreen(
     snackbarHostState: SnackbarHostState,
     onBack: () -> Unit,
     onSaveKeys: (braveKey: String, placesKey: String) -> Unit,
+    onSaveFacebookToken: (String) -> Unit,
     onToggleNotifications: (Boolean) -> Unit,
     onSyncNow: () -> Unit,
     onRestoreSamples: () -> Unit,
@@ -83,6 +84,8 @@ fun SettingsScreen(
     var placesKey by remember(settings.placesApiKey) { mutableStateOf(settings.placesApiKey) }
     var braveVisible by rememberSaveable { mutableStateOf(false) }
     var placesVisible by rememberSaveable { mutableStateOf(false) }
+    var facebookToken by remember(settings.facebookToken) { mutableStateOf(settings.facebookToken) }
+    var facebookVisible by rememberSaveable { mutableStateOf(false) }
 
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -196,7 +199,7 @@ fun SettingsScreen(
                             onClick = { onSaveKeys(braveKey, placesKey) },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = BuffetColors.Accent,
-                                contentColor = Color.White,
+                                contentColor = BuffetColors.OnAccent,
                             ),
                             shape = RoundedCornerShape(10.dp),
                         ) {
@@ -218,6 +221,101 @@ fun SettingsScreen(
             }
 
             item {
+                SectionCard(title = "Facebook posts (optional)") {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        StatusPill(
+                            text = if (settings.usesFacebook) "CONNECTED" else "OFF",
+                            positive = settings.usesFacebook,
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            text = if (settings.usesFacebook) {
+                                "Reading the venues' official pages for their own posts."
+                            } else {
+                                "Offers still link to each restaurant's official page."
+                            },
+                            fontSize = 11.5.sp,
+                            color = BuffetColors.TextSecondary,
+                        )
+                    }
+                    Spacer(Modifier.height(10.dp))
+                    Text(
+                        text = "Facebook is where Dhaka's hotels publish these offers. Meta only lets " +
+                            "an app read another page's posts with Page Public Content Access, which has " +
+                            "to be approved for your Meta app. With a Page token here the app reads each " +
+                            "venue's posts directly — price, dates, timings and conditions — and those " +
+                            "posts become the offer details. Without it, the app links to the venue's own " +
+                            "public page instead.",
+                        fontSize = 11.5.sp,
+                        color = BuffetColors.TextSecondary,
+                        lineHeight = 17.sp,
+                    )
+                    Spacer(Modifier.height(10.dp))
+                    OutlinedTextField(
+                        value = facebookToken,
+                        onValueChange = { facebookToken = it },
+                        label = { Text("Facebook Page / User access token") },
+                        singleLine = true,
+                        visualTransformation = if (facebookVisible) {
+                            VisualTransformation.None
+                        } else {
+                            PasswordVisualTransformation()
+                        },
+                        trailingIcon = {
+                            IconButton(onClick = { facebookVisible = !facebookVisible }) {
+                                Icon(
+                                    imageVector = if (facebookVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility,
+                                    contentDescription = if (facebookVisible) "Hide token" else "Show token",
+                                )
+                            }
+                        },
+                        colors = fieldColors(),
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                    if (settings.facebookTokenFromBuild) {
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            text = "Using the token baked into this build.",
+                            fontSize = 11.sp,
+                            color = BuffetColors.Green,
+                        )
+                    }
+                    Spacer(Modifier.height(8.dp))
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Button(
+                            onClick = { onSaveFacebookToken(facebookToken) },
+                            enabled = !sync.running,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = BuffetColors.Accent,
+                                contentColor = BuffetColors.OnAccent,
+                            ),
+                            shape = RoundedCornerShape(10.dp),
+                        ) {
+                            Text("Save & fetch posts", fontSize = 12.5.sp)
+                        }
+                        OutlinedButton(
+                            onClick = { onSaveFacebookToken("") },
+                            enabled = !sync.running && settings.usesFacebook,
+                            shape = RoundedCornerShape(10.dp),
+                            border = BorderStroke(1.dp, BuffetColors.Border),
+                        ) {
+                            Text("Turn off", fontSize = 12.5.sp, color = BuffetColors.TextPrimary)
+                        }
+                    }
+                    TextButton(
+                        onClick = {
+                            uriHandler.openUri(
+                                "https://developers.facebook.com/docs/features-reference/" +
+                                    "page-public-content-access/",
+                            )
+                        },
+                    ) {
+                        Text("What Meta requires", color = BuffetColors.Accent, fontSize = 12.5.sp)
+                    }
+                }
+            }
+
+            item {
                 SectionCard(title = "Alerts") {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Column(Modifier.weight(1f)) {
@@ -232,7 +330,7 @@ fun SettingsScreen(
                             checked = settings.notificationsEnabled,
                             onCheckedChange = updateNotifications,
                             colors = SwitchDefaults.colors(
-                                checkedThumbColor = Color.White,
+                                checkedThumbColor = BuffetColors.OnAccent,
                                 checkedTrackColor = BuffetColors.Accent,
                                 uncheckedThumbColor = BuffetColors.TextSecondary,
                                 uncheckedTrackColor = BuffetColors.Chip,
@@ -245,13 +343,14 @@ fun SettingsScreen(
             item {
                 SectionCard(title = "Live sources") {
                     Text(
-                        text = "Two sources run with no setup and no account:",
+                        text = "Discovery runs with no setup and no account:",
                         fontSize = 12.sp,
                         color = BuffetColors.TextPrimary,
                     )
                     Spacer(Modifier.height(6.dp))
-                    Bullet("Standard Chartered Bangladesh's buffet page — Dhaka five-star venues with validity dates and photos.")
+                    Bullet("Standard Chartered Bangladesh's buffet page — used to discover which Dhaka venues currently run a BOGO buffet.")
                     Bullet("Google News RSS — dated press coverage of new buffet campaigns.")
+                    Bullet("Each venue's own Facebook page and website — the ad every card links to.")
                     Spacer(Modifier.height(10.dp))
                     Text(
                         text = "Last check: ${lastSyncLabel(settings.lastSyncAt)}",
@@ -325,10 +424,11 @@ fun SettingsScreen(
             item {
                 SectionCard(title = "How offers are found") {
                     Bullet("Checks run every 6 hours, and once when you open the app with a stale feed.")
-                    Bullet("Every card carries a price: the ad's own figure, the restaurant's checked buffet rate, or a price found by searching the restaurant. Filled-in prices are marked typical.")
+                    Bullet("A bank page or news story is only used to discover an offer. The card always links to the restaurant's own post or page, never to the bank.")
+                    Bullet("When the restaurant's own post is available it supplies the price, the dates, the serving times and the conditions.")
+                    Bullet("Every card carries a price: the post's own figure, the restaurant's checked buffet rate, or a price found by searching the restaurant. Filled-in prices are marked typical.")
                     Bullet("The default order is by end date, so the offers that run out first are at the top.")
                     Bullet("Expired offers disappear on their own.")
-                    Bullet("Facebook offers only ever come from pages a search engine has indexed; Meta publishes no keyword search API for restaurant posts.")
                     Bullet("A news-only listing with no stated end date is kept for 21 days.")
                 }
             }
@@ -360,9 +460,12 @@ private fun SectionCard(title: String, content: @Composable () -> Unit) {
 @Composable
 private fun StatusPill(text: String, positive: Boolean) {
     Surface(
-        color = if (positive) Color(0xFF14532D) else BuffetColors.Chip,
+        color = if (positive) BuffetColors.AccentSoft else BuffetColors.Chip,
         shape = RoundedCornerShape(999.dp),
-        border = BorderStroke(1.dp, if (positive) Color(0xFF166534) else BuffetColors.Border),
+        border = BorderStroke(
+            1.dp,
+            if (positive) BuffetColors.Border else BuffetColors.Border,
+        ),
     ) {
         Text(
             text = text,

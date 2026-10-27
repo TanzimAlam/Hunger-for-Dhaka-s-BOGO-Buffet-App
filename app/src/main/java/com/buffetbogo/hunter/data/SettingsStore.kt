@@ -24,6 +24,9 @@ data class AppSettings(
     /** Google Places key: either typed into Settings or baked in from local.properties. */
     val placesApiKey: String = "",
     val placesKeyFromBuild: Boolean = false,
+    /** Optional Facebook Page token: reads the venues' own posts through the Graph API. */
+    val facebookToken: String = "",
+    val facebookTokenFromBuild: Boolean = false,
     val notificationsEnabled: Boolean = true,
     val lastSyncAt: Long = 0L,
     val seedVersion: Int = 0,
@@ -31,6 +34,7 @@ data class AppSettings(
 ) {
     val usesBrave: Boolean get() = braveApiKey.isNotBlank()
     val canFetchRatings: Boolean get() = placesApiKey.isNotBlank()
+    val usesFacebook: Boolean get() = facebookToken.isNotBlank()
 }
 
 class SettingsStore(private val context: Context) {
@@ -38,6 +42,7 @@ class SettingsStore(private val context: Context) {
     private object Keys {
         val BRAVE_API_KEY = stringPreferencesKey("brave_api_key")
         val PLACES_API_KEY = stringPreferencesKey("places_api_key")
+        val FACEBOOK_TOKEN = stringPreferencesKey("facebook_page_token")
         val NOTIFICATIONS_ENABLED = booleanPreferencesKey("notifications_enabled")
         val LAST_SYNC_AT = longPreferencesKey("last_sync_at")
         val SEED_VERSION = intPreferencesKey("seed_version")
@@ -51,10 +56,14 @@ class SettingsStore(private val context: Context) {
         .map { prefs ->
             val storedPlacesKey = prefs[Keys.PLACES_API_KEY].orEmpty()
             val bakedKey = BuildConfig.PLACES_API_KEY
+            val storedFacebook = prefs[Keys.FACEBOOK_TOKEN].orEmpty()
+            val bakedFacebook = BuildConfig.FACEBOOK_PAGE_TOKEN
             AppSettings(
                 braveApiKey = prefs[Keys.BRAVE_API_KEY].orEmpty(),
                 placesApiKey = storedPlacesKey.ifBlank { bakedKey },
                 placesKeyFromBuild = storedPlacesKey.isBlank() && bakedKey.isNotBlank(),
+                facebookToken = storedFacebook.ifBlank { bakedFacebook },
+                facebookTokenFromBuild = storedFacebook.isBlank() && bakedFacebook.isNotBlank(),
                 notificationsEnabled = prefs[Keys.NOTIFICATIONS_ENABLED] ?: true,
                 lastSyncAt = prefs[Keys.LAST_SYNC_AT] ?: 0L,
                 seedVersion = prefs[Keys.SEED_VERSION] ?: 0,
@@ -65,6 +74,9 @@ class SettingsStore(private val context: Context) {
     suspend fun setBraveApiKey(value: String) = context.dataStore.edit { it[Keys.BRAVE_API_KEY] = value.trim() }
 
     suspend fun setPlacesApiKey(value: String) = context.dataStore.edit { it[Keys.PLACES_API_KEY] = value.trim() }
+
+    suspend fun setFacebookToken(value: String) =
+        context.dataStore.edit { it[Keys.FACEBOOK_TOKEN] = value.trim() }
 
     suspend fun setNotificationsEnabled(enabled: Boolean) =
         context.dataStore.edit { it[Keys.NOTIFICATIONS_ENABLED] = enabled }

@@ -1,9 +1,15 @@
 package com.buffetbogo.hunter.data
 
 import android.content.Context
+import com.buffetbogo.hunter.ingest.AdEnricher
+import com.buffetbogo.hunter.ingest.AdLinkResolver
+import com.buffetbogo.hunter.ingest.AdPost
+import com.buffetbogo.hunter.ingest.FacebookPageSource
+import com.buffetbogo.hunter.ingest.FacebookResult
 import com.buffetbogo.hunter.ingest.WebOfferSource
 import com.buffetbogo.hunter.net.BuffetPriceSearch
 import com.buffetbogo.hunter.net.PlacesClient
+import com.buffetbogo.hunter.net.VenueAdFinder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -25,6 +31,9 @@ class OfferRepository(
 
     /** Loaded once from assets; aliases let "Sarina" match "Hotel Sarina Dhaka". */
     private var priceBook: Map<String, VenuePrice> = emptyMap()
+
+    /** Each venue's own Facebook page and website, used for the "original ad" link. */
+    private var socials: Map<String, VenueSocial> = emptyMap()
 
     /** Re-emits every minute so expired offers drop out of the list without a restart. */
     private val expiryTicker: Flow<Unit> = flow {
@@ -58,6 +67,7 @@ class OfferRepository(
     init {
         scope.launch {
             runCatching { loadPriceBook() }
+            runCatching { loadSocials() }
             runCatching { syncBundled() }
             runCatching { ensurePrices() }
             runCatching { refreshIfStale() }
@@ -86,6 +96,8 @@ class OfferRepository(
 
     suspend fun refresh(now: Long = System.currentTimeMillis()): RefreshResult {
         val current = settingsStore.settings.first()
+        if (socials.isEmpty()) runCatching { loadSocials() }
+
         val outcome = runCatching { WebOfferSource(current.braveApiKey).fetch(now) }
             .getOrElse { error ->
                 return RefreshResult(
@@ -96,7 +108,13 @@ class OfferRepository(
                 )
             }
 
-        if (outcome.allSourcesFailed) {
+        // The venues' own posts. Optional: without a token Meta cannot be read, and the offers
+        // still get their restaurant's public page as the ad link.
+        val facebook = runCatching {
+            FacebookPageSource(current.facebookToken).fetch(socials, now)
+        }.getOrElse { FacebookResult(emptyList(), 0, 1, it.message) }
+
+        if (outcome.allSourcesFailed && facebook.offers.isEmpty()) {
             return RefreshResult(
                 found = 0,
                 new = emptyList(),
@@ -105,18 +123,24 @@ class OfferRepository(
             )
         }
 
+        val resolver = AdLinkResolver(socials, VenueAdFinder(current.braveApiKey))
+
+        // Settle each offer on its venue's canonical name and own page before matching posts.
+        val base = (outcome.offers + facebook.offers).map { resolver.withDirectoryLink(it, now) }
+
+        // Posts become both an enrichment of the discovered offers and offers in their own right.
+        val posts = facebook.offers.map { it.asAdPost() }
+        val discovered = AdEnricher.enrich(base, posts, now)
+
         val existing = dao.all().associateBy { it.id }
-        val merged = outcome.offers.map { offer ->
-            val known = existing[offer.id]
-            if (known != null) {
-                // Keep the first-seen date and the user's hide action across refreshes.
-                offer.copy(postedAt = known.postedAt, hidden = known.hidden)
-            } else {
-                offer
-            }
+        val merged = discovered.map { offer ->
+            existing[offer.id]?.let { known -> carryForward(offer, known, now) } ?: offer
         }
 
-        if (merged.isNotEmpty()) dao.upsertAll(merged)
+        // Every card must open the restaurant's own ad, never a bank's listing page.
+        val resolved = resolver.resolve(merged, now)
+
+        if (resolved.isNotEmpty()) dao.upsertAll(resolved)
         runCatching { ensurePrices(now) }
         dao.pruneExpiredBefore(now - TimeUnit.DAYS.toMillis(45))
         settingsStore.markSynced(now)
@@ -125,15 +149,45 @@ class OfferRepository(
         // Only offers that ended up with a price are visible, so count and alert on those.
         val visible = dao.all().filter { it.isLive(now) && it.priceBdt != null }
         val newOffers = visible.filter { it.id !in existing }
-        val message = when {
+        val status = when {
             visible.isEmpty() -> "No live buffet offers matched this time."
             else -> "Updated — ${visible.size} live offers, ${newOffers.size} new."
+        }
+        val facebookNote = when {
+            current.facebookToken.isBlank() -> null
+            facebook.error != null -> "Facebook: ${facebook.error}"
+            facebook.pagesRead > 0 ->
+                "Facebook (${facebook.account ?: "connected"}): " +
+                    "${facebook.pagesRead} venue pages read, ${facebook.offers.size} buffet posts."
+            else -> null
         }
         return RefreshResult(
             found = visible.size,
             new = newOffers,
-            message = message,
+            message = listOfNotNull(status, facebookNote).joinToString(" "),
             failed = false,
+        )
+    }
+
+    /**
+     * Keeps what must not change between syncs: the first date we saw the offer, the user's hide
+     * action, and a recently resolved ad link (so it is not looked up again on every refresh).
+     */
+    private fun carryForward(offer: Offer, known: Offer, now: Long): Offer {
+        val linkFresh = known.adUrl != null &&
+            known.adCheckedAt != null &&
+            now - known.adCheckedAt < AD_LINK_TTL_MS
+        return offer.copy(
+            postedAt = known.postedAt,
+            hidden = known.hidden,
+            adUrl = offer.adUrl ?: known.adUrl.takeIf { linkFresh },
+            adLabel = offer.adLabel ?: known.adLabel.takeIf { linkFresh },
+            timing = offer.timing ?: known.timing,
+            adCheckedAt = when {
+                offer.adUrl != null -> offer.adCheckedAt
+                linkFresh -> known.adCheckedAt
+                else -> offer.adCheckedAt
+            },
         )
     }
 
@@ -173,6 +227,11 @@ class OfferRepository(
     private suspend fun loadPriceBook() {
         val raw = appContext.assets.open("venue_prices.json").bufferedReader().use { it.readText() }
         priceBook = VenuePriceBook.parse(raw)
+    }
+
+    private suspend fun loadSocials() {
+        val raw = appContext.assets.open("venue_socials.json").bufferedReader().use { it.readText() }
+        socials = VenueSocials.parse(raw)
     }
 
     /**
@@ -283,5 +342,19 @@ class OfferRepository(
         private const val MAX_PRICE_LOOKUPS = 25
         private val RATING_TTL_MS = TimeUnit.DAYS.toMillis(30)
         private val AUTO_REFRESH_AFTER_MS = TimeUnit.HOURS.toMillis(6)
+        private val AD_LINK_TTL_MS = TimeUnit.DAYS.toMillis(7)
     }
 }
+
+/** A restaurant post viewed as an ad: the link, its wording and any figure it states. */
+private fun Offer.asAdPost(): AdPost = AdPost(
+    restaurant = restaurant,
+    url = adUrl ?: sourceUrl,
+    text = listOf(details, terms).filter { it.isNotBlank() }.joinToString(" — "),
+    image = imageUrl,
+    postedAt = postedAt,
+    kind = offerKind,
+    priceBdt = priceBdt,
+    validUntil = validUntil,
+    timing = timing,
+)

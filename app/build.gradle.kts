@@ -16,6 +16,11 @@ val localProperties = Properties().apply {
 val placesApiKey = (localProperties.getProperty("PLACES_API_KEY") ?: System.getenv("PLACES_API_KEY") ?: "")
     .replace("\\", "\\\\")
     .replace("\"", "\\\"")
+// Optional Facebook Page token with Page Public Content Access, so venue posts are read live.
+val facebookPageToken = (localProperties.getProperty("FACEBOOK_PAGE_TOKEN")
+    ?: System.getenv("FACEBOOK_PAGE_TOKEN") ?: "")
+    .replace("\\", "\\\\")
+    .replace("\"", "\\\"")
 
 android {
     namespace = "com.buffetbogo.hunter"
@@ -25,10 +30,11 @@ android {
         applicationId = "com.buffetbogo.hunter"
         minSdk = 26
         targetSdk = 35
-        versionCode = 4
-        versionName = "1.3"
+        versionCode = 5
+        versionName = "1.4"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "PLACES_API_KEY", "\"$placesApiKey\"")
+        buildConfigField("String", "FACEBOOK_PAGE_TOKEN", "\"$facebookPageToken\"")
     }
 
     buildTypes {
