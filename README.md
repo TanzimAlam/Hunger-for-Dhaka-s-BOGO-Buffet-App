@@ -3,13 +3,15 @@
 A small Android app that hunts for All-You-Can-Eat / buffet deals in Dhaka — Buy 1 Get 1,
 Buy 1 Get 2/3/4, Dine 3 Pay 1, Eat 4 Pay 1, Eat 5 Pay 1 — and alerts you when a new one appears.
 
-The home screen is a warm charcoal feed of photo cards, coloured from the app's own emblem. Each
-card carries the deal badge, the Google star rating, the **price**, the card / bKash / cash
-condition and how long the offer has left. Search and category chips sit above the list, and the
-default order is **by end date**, so whatever is about to run out is at the top. Opening an offer
-and coming back leaves the feed exactly where it was — same card, same search, same filter.
+The home screen is a warm charcoal feed with **one card per restaurant**, coloured from the app's
+own emblem. A venue running three deals is still one card: every deal's short badge (B1G1, B1G3,
+Eat 3 Pay 1) sits side by side on the top-left of the thumbnail, and each deal is listed inside the
+card with its own **price**, Google star rating and remaining days. Search and category chips sit
+above the list, and the default order is **by end date**, so whatever is about to run out is at the
+top. Opening a deal and coming back leaves the feed exactly where it was — same card, same search,
+same filter.
 
-**It works with no API keys and no account.** Two public sources are read directly, a checked
+**It works with no API keys and no account.** Nine public pages are read directly, a checked
 set of Google ratings and buffet prices ships with the app, and missing prices are looked up with
 a keyless search. Keys in Settings only widen coverage and refresh live data.
 
@@ -17,7 +19,7 @@ a keyless search. Keys in Settings only widen coverage and refresh live data.
 
 | Source | Key needed | What it gives |
 | --- | --- | --- |
-| Standard Chartered BD buffet page `av.sc.com/bd/edm/b1g1-offers/` | none | **Discovery only** — which ~17 Dhaka five-star venues currently run a buffet deal, the deal wording ("Dine 4 Pay 1") and card eligibility. The bank's link is never shown or opened |
+| Bank dining pages: Standard Chartered `av.sc.com/bd/edm/b1g1-offers/`, City Bank, Mutual Trust Bank, Prime Bank, Trust Bank, Shimanto Bank, NCC Bank | none | **Discovery only** — which Dhaka venues currently run a buffet deal, the deal wording ("Dine 4 Pay 1", "BOGO Free Buffet") and card eligibility. A bank's link is never shown or opened |
 | Google News RSS (`news.google.com/rss/search`) | none | Dated press coverage of new campaigns — catches short promotions like "Buy 1 Get 3 free buffet, 18–24 October" |
 | `app/src/main/assets/venue_socials.json` | none | Every venue's **official Facebook page** and its own dining page — the ad link each card opens |
 | Facebook Graph API (optional) | Meta app + Page token | The venues' own posts: the restaurant's price, dates, serving hours and conditions, read through the official API |
@@ -52,8 +54,8 @@ the restaurant's own side, in this order:
 1. **The restaurant's own post** — the permalink of the buffet post itself, from the Graph API or a
    `site:facebook.com "<restaurant>" buffet` search hit, and only when it comes from that venue's
    page.
-2. **The restaurant's official page** — from the bundled `venue_socials.json` (19 venues, each with
-   the page it actually posts offers on, checked on 26 October 2026).
+2. **The restaurant's official page** — from the bundled `venue_socials.json` (31 venues, each with
+   the page it actually posts offers on, checked on 27 October 2026).
 3. **The restaurant's own dining page** — when a venue has no verified Facebook page.
 4. **Facebook's search for that restaurant** — only when none of the above is known yet; the button
    then says "Search Facebook for this offer" instead of pretending to be the ad.
@@ -118,21 +120,23 @@ overrides it. Keys stay on the device or in the local build — never in the APK
 | UI | Kotlin + Jetpack Compose (Material 3), dark-only theme, single activity |
 | Storage | Room (`offers`, `restaurant_ratings`) with v1→v2 (price unit/source) and v2→v3 (ad link, ad label, timing, checked date) migrations, DataStore for settings and the chosen sort order |
 | Background work | WorkManager every 6 hours, plus a refresh on launch when the feed is older than 6 hours |
-| Notifications | One summary notification per sync, only for offers never seen before |
+| Notifications | One notification per new offer (never a bundled summary), carrying that offer's id; tapping it opens that offer's own detail screen, and its action button opens the venue's ad directly |
 | Bundled catalogue | 6 real, sourced Dhaka offers in `app/src/main/assets/seed_offers.json`, all priced |
-| Price book | 22 venues' checked buffet rates in `app/src/main/assets/venue_prices.json`, used to price bank ads that never state one |
-| Venue directory | 19 venues' official Facebook pages and dining pages in `app/src/main/assets/venue_socials.json` |
-| Branding | Launcher icon and in-app header logo generated from the supplied emblem (`tools/IconGen.java`); the Compose palette is sampled from that emblem (warm charcoal, steel blue, cream) |
-| Parsing | `OfferParser` (English wording, prices, dates, serving windows), `StandardCharteredSource`, `NewsRssSource`, `FacebookPageSource`, `AdEnricher`, `AdLinkResolver` |
+| Price book | 28 venues' checked buffet rates in `app/src/main/assets/venue_prices.json`, used to price bank ads that never state one |
+| Venue directory | 31 venues' official Facebook pages and dining pages in `app/src/main/assets/venue_socials.json` |
+| Grouping | `FeedGrouper` folds the offer list into one card per restaurant, orders venues by their best deal for the chosen sort, and keeps one copy of a deal that several banks list |
+| Branding | Launcher icon, adaptive icon and in-app header logo generated from the supplied emblem by `tools/BrandIcons.java`; the Compose palette is sampled from that emblem (warm charcoal, steel blue, cream) |
+| Parsing | `OfferParser` (English wording, prices, dates, serving windows), `StandardCharteredSource`, `BankPageSource` + `BankHtml` (six more banks), `NewsRssSource`, `FacebookPageSource`, `AdEnricher`, `AdLinkResolver` |
 
 ### Screens
 
 1. **Feed** — the emblem in the header with the app name, LIVE chip and an alerts bell (counts
    offers ending within three days), search field, category chips (All / Buy 1 Get 1+ / Eat 3-4-5
    Pay 1 / 5★ Hotels), a sort menu (default **Ends soonest**, plus Newest, Price low→high, Top
-   rated), and photo cards showing badge, Google rating, restaurant, title, price with its unit,
-   payment condition, countdown and a details button. A price filled in from the book or a search
-   carries a small **typical** tag.
+   rated), and one card per restaurant: deal badges on the thumbnail's top-left, the Google rating
+   on its top-right, then a row per deal with its price and unit, payment condition and countdown.
+   Tapping a row opens that deal. A price filled in from the book or a search carries a small
+   **typical** tag.
 2. **Offer detail** — hero photo, offer text, price, rating with review count, validity and the
    serving window, payment conditions, an **ad reference card** naming the restaurant's page, the
    "Open the original ad" button (or "Search Facebook for this offer"), and "Hide this offer".
@@ -176,6 +180,13 @@ They carry absolute dates, so they disappear like any other offer once a campaig
 
 - `StandardCharteredSource` splits the bank page on `div class=box`, reads the `<h3>` venue, every
   `offer-info` line, the "Valid till" date and the thumbnail, and turns each Dhaka venue into one offer.
+- `BankPageSource` fetches the six other banks' dining pages concurrently (gzip, browser user agent)
+  and hands each to `BankPageParser`. Because those pages share no markup, it works from the visible
+  text: find the deal phrase, walk back for the venue it belongs to and forward for the card
+  condition, then take the price and campaign date from the same window. Known venues are matched
+  against `venue_socials.json`, so "HYATT PLACE" becomes "Hyatt Place Dhaka Uttara" and the same
+  hotel from two banks is one restaurant. Pages that publish only images or PDFs (DBBL, EBL,
+  Southeast, Mercantile) are deliberately not listed.
 - `NewsRssSource` runs six queries (`buffet Dhaka buy 1 get 1`, `buffet offer Dhaka hotel`,
   `b1g1 buffet Dhaka`, `dine 3 pay 1 buffet Dhaka`, …), drops anything older than 60 days or without
   a recognisable deal, and keeps the rest. The RSS item is only a headline, so when no end date is
@@ -209,15 +220,20 @@ References:
 - Google Custom Search JSON API is closed to new customers: <https://developers.google.com/custom-search/v1/overview>
 - Places field/SKU mapping: <https://developers.google.com/maps/documentation/places/web-service/data-fields>
 
-## Expiry and ordering rules
+## Grouping, expiry and ordering rules
+
+- The feed groups live offers by `nameKey(restaurant)` before display, so a hotel with two deals is
+  one card. Within a card, a deal that two sources reported is kept once, preferring the copy that
+  links to the restaurant's own post. Filters and search still act on individual deals, and a
+  card appears when any of its deals matches.
 
 - `validUntil` is the end of the last date found (23:59 local). A single date is the expiry; two
   dates become `validFrom`/`validUntil`; a bank page's "Valid till 31-Dec-27" is parsed as-is.
 - The list flow filters `hidden == false && (validUntil == null || validUntil >= now)` and
   re-evaluates every 60 seconds, so an offer vanishes while the app is open.
-- **Default order is `ENDS_SOONEST`** — offers with a date first, earliest deadline at the top,
-  offers with no stated end date last. The other orders are `NEWEST` (post date), `PRICE_LOW_HIGH`
-  (unlisted prices last) and `RATING_HIGH_LOW` (unrated last). The choice is stored in DataStore.
+- **Default order is `ENDS_SOONEST`** — restaurants whose first deal ends soonest at the top, and
+  restaurants with no stated end date last. The other orders are `NEWEST` (latest deal), `PRICE_LOW_HIGH`
+  (cheapest deal on the card) and `RATING_HIGH_LOW` (unrated last). The choice is stored in DataStore.
 - New rows use the publish date when the source has one, otherwise the moment they were first
   found — and that first-seen date is preserved on later refreshes so standing offers do not jump
   back to the top.
@@ -239,6 +255,12 @@ References:
   unindexed post is invisible; the card then links to the venue's page instead of the exact post.
 - No device or emulator was available in this environment: the app compiles and its JVM tests pass,
   but the screens have not been inspected on hardware.
+- Bank dining pages are whole web pages (roughly 2 MB uncompressed across the six, ~400 KB over
+  gzip), fetched concurrently once per sync. They also redesign without notice: a changed page
+  contributes nothing rather than half a venue name, and the snapshot tests catch the ones covered.
+- Some venues (The Way Dhaka, Shinepukur Suites, Bengal Inn, Platinum Residence) print no buffet
+  price anywhere readable, so until the keyless price search finds one their bank offers stay out
+  of the feed under the no-price-no-card rule.
 
 ## Next steps
 

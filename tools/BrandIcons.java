@@ -1,0 +1,160 @@
+import javax.imageio.ImageIO;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+/**
+ * Turns the supplied circular emblem artwork into the app's launcher icons and in-app logo.
+ *
+ * The source is a round badge on a flat grey backdrop. This tool finds the badge, crops it to a
+ * square, makes the backdrop transparent, and writes every density Android needs:
+ *
+ *   res/drawable-nodpi/app_logo.png          - the header mark
+ *   res/mipmap-<density>/ic_launcher.png     - legacy launcher icon (48..192 px)
+ *   res/mipmap-<density>/ic_launcher_round.png
+ *   res/mipmap-<density>/ic_launcher_foreground.png - adaptive foreground on a 108dp canvas
+ *
+ * Usage: java tools/BrandIcons.java <source.png>
+ */
+public final class BrandIcons {
+
+    private static final String[] DENSITIES = {"mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"};
+    private static final int[] LEGACY_PX = {48, 72, 96, 144, 192};
+    private static final int[] FOREGROUND_PX = {108, 162, 216, 324, 432};
+
+    /** Adaptive icons are 108dp; content must sit inside the 66dp safe zone. */
+    private static final double FOREGROUND_FILL = 0.70;
+
+    public static void main(String[] args) throws Exception {
+        if (args.length < 1) {
+            System.err.println("usage: BrandIcons <source.png>");
+            System.exit(2);
+        }
+        BufferedImage source = ImageIO.read(new File(args[0]));
+        if (source == null) {
+            System.err.println("could not read " + args[0]);
+            System.exit(2);
+        }
+
+        BufferedImage badge = cutBadge(source);
+        System.out.println("badge: " + badge.getWidth() + "x" + badge.getHeight());
+
+        File res = new File("app/src/main/res");
+        write(badge, new File(res, "drawable-nodpi/app_logo.png"), 512);
+
+        for (int i = 0; i < DENSITIES.length; i++) {
+            File dir = new File(res, "mipmap-" + DENSITIES[i]);
+            if (!dir.isDirectory() && !dir.mkdirs()) {
+                throw new IllegalStateException("cannot create " + dir);
+            }
+            write(badge, new File(dir, "ic_launcher.png"), LEGACY_PX[i]);
+            write(badge, new File(dir, "ic_launcher_round.png"), LEGACY_PX[i]);
+            write(adaptiveForeground(badge, FOREGROUND_PX[i]), new File(dir, "ic_launcher_foreground.png"), FOREGROUND_PX[i]);
+            System.out.println("wrote " + dir.getName());
+        }
+    }
+
+    /**
+     * Finds the round badge on its flat backdrop and returns it as a square RGBA image with
+     * everything outside the circle made transparent.
+     */
+    private static BufferedImage cutBadge(BufferedImage source) {
+        int w = source.getWidth();
+        int h = source.getHeight();
+
+        // The artwork sits on a neutral grey studio backdrop, which has a soft vignette and so
+        // cannot be found by comparing against one corner colour. The badge is the only
+        // coloured or cream-white thing in frame: the cream ring is bright, the disc is blue.
+        int minX = w, minY = h, maxX = -1, maxY = -1;
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                int rgb = source.getRGB(x, y);
+                int r = (rgb >> 16) & 0xff;
+                int g = (rgb >> 8) & 0xff;
+                int b = rgb & 0xff;
+                int chroma = Math.max(r, Math.max(g, b)) - Math.min(r, Math.min(g, b));
+                int luma = (r * 299 + g * 587 + b * 114) / 1000;
+                if (chroma > 18 || luma > 205) {
+                    if (x < minX) minX = x;
+                    if (y < minY) minY = y;
+                    if (x > maxX) maxX = x;
+                    if (y > maxY) maxY = y;
+                }
+            }
+        }
+        if (maxX <= minX || maxY <= minY) {
+            throw new IllegalStateException("no badge found in the artwork");
+        }
+
+        int side = Math.max(maxX - minX + 1, maxY - minY + 1);
+        int cx = (minX + maxX) / 2;
+        int cy = (minY + maxY) / 2;
+        int left = cx - side / 2;
+        int top = cy - side / 2;
+
+        BufferedImage out = new BufferedImage(side, side, BufferedImage.TYPE_INT_ARGB);
+        double radius = side / 2.0;
+        for (int y = 0; y < side; y++) {
+            for (int x = 0; x < side; x++) {
+                int sx = left + x;
+                int sy = top + y;
+                if (sx < 0 || sy < 0 || sx >= w || sy >= h) continue;
+                double dx = x - radius + 0.5;
+                double dy = y - radius + 0.5;
+                double distance = Math.sqrt(dx * dx + dy * dy);
+                // One-pixel soft edge, so the circle is not jagged when scaled down.
+                double alpha = clamp((radius - distance) / 1.5, 0, 1);
+                int rgb = source.getRGB(sx, sy);
+                int a = (int) Math.round(((rgb >>> 24) & 0xff) * alpha);
+                out.setRGB(x, y, (a << 24) | (rgb & 0x00ffffff));
+            }
+        }
+        return out;
+    }
+
+    /** The badge centred on a transparent 108dp canvas, inside the adaptive-icon safe zone. */
+    private static BufferedImage adaptiveForeground(BufferedImage badge, int size) {
+        BufferedImage canvas = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = canvas.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        int inner = (int) Math.round(size * FOREGROUND_FILL);
+        int offset = (size - inner) / 2;
+        g.drawImage(scale(badge, inner), offset, offset, null);
+        g.dispose();
+        return canvas;
+    }
+
+    private static void write(BufferedImage image, File target, int size) throws Exception {
+        BufferedImage scaled = image.getWidth() == size && image.getHeight() == size
+            ? image
+            : scale(image, size);
+        ImageIO.write(scaled, "png", target);
+    }
+
+    /** Progressive halving keeps small launcher icons free of the aliasing a single big jump adds. */
+    private static BufferedImage scale(BufferedImage source, int size) {
+        BufferedImage current = source;
+        while (current.getWidth() / 2 >= size) {
+            current = resize(current, current.getWidth() / 2);
+        }
+        return resize(current, size);
+    }
+
+    private static BufferedImage resize(BufferedImage source, int size) {
+        BufferedImage out = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = out.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.drawImage(source, 0, 0, size, size, null);
+        g.dispose();
+        return out;
+    }
+
+    private static double clamp(double value, double min, double max) {
+        return Math.max(min, Math.min(max, value));
+    }
+}

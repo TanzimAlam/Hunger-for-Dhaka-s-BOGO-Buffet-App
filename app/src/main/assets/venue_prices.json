@@ -183,5 +183,55 @@
     "unit": "per person",
     "sourceUrl": "https://www.facebook.com/TBandSS.BD/",
     "checkedAt": "2026-10-25"
+  },
+  {
+    "restaurant": "Grace 21 Smart Hotel",
+    "aliases": ["Grace 21"],
+    "breakfast": 549,
+    "unit": "per person · breakfast",
+    "sourceUrl": "https://www.facebook.com/Grace21SmartHotel/posts/make-your-mornings-more-delicious-at-grace-21-smart-hotel-start-your-day-with-a-/1424708813139068/",
+    "checkedAt": "2026-10-27"
+  },
+  {
+    "restaurant": "Hotel Bengal Canary Park",
+    "aliases": ["Bengal Canary Park"],
+    "lunch": 850,
+    "dinner": 950,
+    "unit": "per person",
+    "sourceUrl": "https://www.facebook.com/hotelcanarypark/posts/dive-into-freshness-with-our-fish-special-at-hotel-bengal-canary-park-treat-your/1534604062033271/",
+    "checkedAt": "2026-10-27"
+  },
+  {
+    "restaurant": "Hotel Bengal Blueberry",
+    "aliases": ["Bengal Blueberry"],
+    "lunch": 1499,
+    "unit": "per person · plus tax",
+    "sourceUrl": "https://www.facebook.com/bengalblueberry/posts/discover-culinary-wonder-at-hotel-bengal-blueberry-where-every-course-is-a-culin/1542022417969789/",
+    "checkedAt": "2026-10-27"
+  },
+  {
+    "restaurant": "Best Western Plus Maple Leaf",
+    "aliases": ["Maple Leaf Hotel"],
+    "lunch": 4500,
+    "dinner": 7450,
+    "unit": "per person · net",
+    "sourceUrl": "https://www.facebook.com/mapleleafhotels/videos/-a-feast-that-looks-as-good-as-it-tastesfrom-sizzling-specialties-to-irresistibl/4538115399799743/",
+    "checkedAt": "2026-10-27"
+  },
+  {
+    "restaurant": "The Lakeshore Hotel",
+    "aliases": ["Lakeshore Hotel Gulshan", "Lakeshore"],
+    "dinner": 5555,
+    "unit": "per person · net",
+    "sourceUrl": "https://www.facebook.com/LakeshoreHotelGulshan/posts/experience-a-culinary-journey-at-lakeshore-grand-with-our-theme-night-dinner-buf/1168252972006670/",
+    "checkedAt": "2026-10-27"
+  },
+  {
+    "restaurant": "Crowne Plaza Dhaka Airport",
+    "aliases": ["Crowne Plaza Airport"],
+    "dinner": 8499,
+    "unit": "per person · Sun–Wed",
+    "sourceUrl": "https://www.facebook.com/61584765623675/posts/the-feast-without-equal-at-mosaic-meet-chef-romano-the-host-with-the-mostdiscove/122143710693158854/",
+    "checkedAt": "2026-10-27"
   }
 ]

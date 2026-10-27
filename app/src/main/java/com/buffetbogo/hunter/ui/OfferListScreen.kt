@@ -6,6 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -66,10 +68,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.buffetbogo.hunter.data.OfferSorter
+import com.buffetbogo.hunter.data.FeedGrouper
 import com.buffetbogo.hunter.data.OfferUi
+import com.buffetbogo.hunter.data.RestaurantGroup
 import com.buffetbogo.hunter.data.SortOrder
 import com.buffetbogo.hunter.data.isFiveStar
+import com.buffetbogo.hunter.data.nameKey
 import com.buffetbogo.hunter.data.priceIsEstimate
 import com.buffetbogo.hunter.ui.theme.BuffetColors
 import java.util.Locale
@@ -110,13 +114,15 @@ fun OfferListScreen(
     var showAlerts by rememberSaveable { mutableStateOf(false) }
     val filter = FeedFilter.valueOf(filterName)
 
-    val visible = remember(offers, query, filter, sortOrder) {
+    // One card per restaurant: the filter picks the deals, the grouping collapses the venues.
+    val groups = remember(offers, query, filter, sortOrder) {
         val needle = query.trim()
         val matching = offers.filter { item ->
             filter.matches(item) && (needle.isBlank() || item.matches(needle))
         }
-        OfferSorter.sort(matching, sortOrder)
+        FeedGrouper.group(matching, sortOrder)
     }
+    val dealCount = remember(groups) { groups.sumOf { it.offerCount } }
 
     val endingSoon = remember(offers) {
         val now = System.currentTimeMillis()
@@ -147,14 +153,15 @@ fun OfferListScreen(
             Spacer(Modifier.height(14.dp))
             FilterRow(selected = filter, onSelect = onFilterChange)
             MetaRow(
-                count = visible.size,
+                restaurants = groups.size,
+                deals = dealCount,
                 running = sync.running,
                 sortOrder = sortOrder,
                 onSortChange = onSortChange,
                 onRefresh = onRefresh,
             )
 
-            if (visible.isEmpty()) {
+            if (groups.isEmpty()) {
                 EmptyState(
                     modifier = Modifier.weight(1f),
                     filtered = filter != FeedFilter.ALL || query.isNotBlank(),
@@ -170,8 +177,8 @@ fun OfferListScreen(
                     contentPadding = PaddingValues(start = 18.dp, end = 18.dp, top = 4.dp, bottom = 26.dp),
                     verticalArrangement = Arrangement.spacedBy(14.dp),
                 ) {
-                    items(visible, key = { it.offer.id }) { item ->
-                        OfferCard(item = item, onClick = { onOpenOffer(item.offer.id) })
+                    items(groups, key = { nameKey(it.restaurant) }) { group ->
+                        RestaurantCard(group = group, onOpenOffer = onOpenOffer)
                     }
                 }
             }
@@ -373,7 +380,8 @@ private fun FilterChipView(label: String, selected: Boolean, onClick: () -> Unit
 
 @Composable
 private fun MetaRow(
-    count: Int,
+    restaurants: Int,
+    deals: Int,
     running: Boolean,
     sortOrder: SortOrder,
     onSortChange: (SortOrder) -> Unit,
@@ -394,7 +402,13 @@ private fun MetaRow(
             Spacer(Modifier.width(6.dp))
         }
         Text(
-            text = if (running) "Checking sources…" else "$count live offer${if (count == 1) "" else "s"}",
+            text = if (running) {
+                "Checking sources…"
+            } else {
+                val venues = "$restaurants restaurant${if (restaurants == 1) "" else "s"}"
+                val offers = "$deals deal${if (deals == 1) "" else "s"}"
+                "$venues · $offers"
+            },
             fontSize = 11.5.sp,
             color = BuffetColors.TextSecondary,
             modifier = Modifier.weight(1f),
@@ -487,11 +501,10 @@ private fun SortMenu(sortOrder: SortOrder, onSortChange: (SortOrder) -> Unit) {
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun OfferCard(item: OfferUi, onClick: () -> Unit) {
-    val offer = item.offer
+private fun RestaurantCard(group: RestaurantGroup, onOpenOffer: (String) -> Unit) {
     Card(
-        onClick = onClick,
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(containerColor = BuffetColors.Surface),
         border = BorderStroke(1.dp, BuffetColors.Border),
@@ -500,7 +513,7 @@ private fun OfferCard(item: OfferUi, onClick: () -> Unit) {
     ) {
         Column {
             Box {
-                OfferHero(imageUrl = offer.imageUrl, name = offer.restaurant, height = 186.dp)
+                OfferHero(imageUrl = group.heroImage, name = group.restaurant, height = 186.dp)
                 Box(
                     Modifier
                         .matchParentSize()
@@ -518,9 +531,16 @@ private fun OfferCard(item: OfferUi, onClick: () -> Unit) {
                         .padding(12.dp),
                     verticalAlignment = Alignment.Top,
                 ) {
-                    DealBadge(offer.headline, modifier = Modifier.widthIn(max = 200.dp))
+                    // Every deal this restaurant runs sits side by side on the thumbnail.
+                    FlowRow(
+                        modifier = Modifier.widthIn(max = 232.dp),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                    ) {
+                        group.dealLabels.forEach { label -> DealBadge(label) }
+                    }
                     Spacer(Modifier.weight(1f))
-                    RatingPill(item.rating)
+                    RatingPill(group.rating)
                 }
                 Column(
                     Modifier
@@ -528,13 +548,13 @@ private fun OfferCard(item: OfferUi, onClick: () -> Unit) {
                         .padding(start = 14.dp, end = 14.dp, bottom = 10.dp),
                 ) {
                     Text(
-                        text = postedLongLabel(offer.postedAt),
+                        text = postedLongLabel(group.newest),
                         fontSize = 11.sp,
                         color = Color.White.copy(alpha = 0.74f),
                     )
                     Spacer(Modifier.height(2.dp))
                     Text(
-                        text = offer.restaurant,
+                        text = group.restaurant,
                         fontSize = 17.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
@@ -545,55 +565,81 @@ private fun OfferCard(item: OfferUi, onClick: () -> Unit) {
             }
             Column(Modifier.padding(horizontal = 14.dp, vertical = 12.dp)) {
                 Text(
-                    text = offer.title,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = BuffetColors.TextPrimary,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Spacer(Modifier.height(8.dp))
-                PriceTag(
-                    priceBdt = offer.priceBdt,
-                    unit = offer.priceUnit,
-                    typical = offer.priceIsEstimate(),
+                    text = listOfNotNull(
+                        group.area,
+                        if (group.offerCount > 1) "${group.offerCount} offers" else null,
+                    ).joinToString(" · "),
+                    fontSize = 11.5.sp,
+                    color = BuffetColors.TextSecondary,
                 )
                 Spacer(Modifier.height(10.dp))
-                PaymentChip(offer.paymentNote, modifier = Modifier.fillMaxWidth())
-                Spacer(Modifier.height(12.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    ExpiryLine(offer.validUntil, modifier = Modifier.weight(1f))
-                    ViewAdButton(onClick)
+                group.offers.forEachIndexed { index, item ->
+                    if (index > 0) Spacer(Modifier.height(8.dp))
+                    OfferLine(item = item, onClick = { onOpenOffer(item.offer.id) })
                 }
             }
         }
     }
 }
 
+/** One deal inside a restaurant's card; tapping it opens that deal's own ad and conditions. */
 @Composable
-private fun ViewAdButton(onClick: () -> Unit) {
+private fun OfferLine(item: OfferUi, onClick: () -> Unit) {
+    val offer = item.offer
     Surface(
         onClick = onClick,
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(12.dp),
         color = BuffetColors.SurfaceHigh,
         border = BorderStroke(1.dp, BuffetColors.Border),
+        modifier = Modifier.fillMaxWidth(),
     ) {
         Row(
-            modifier = Modifier.padding(start = 11.dp, end = 7.dp, top = 8.dp, bottom = 8.dp),
+            modifier = Modifier.padding(start = 12.dp, end = 8.dp, top = 10.dp, bottom = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
-                text = "View Ad & Details",
-                fontSize = 11.5.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = BuffetColors.TextPrimary,
-                maxLines = 1,
-            )
+            Column(Modifier.weight(1f)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = offer.headline,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = BuffetColors.TextPrimary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f, fill = false),
+                    )
+                    Spacer(Modifier.width(8.dp))
+                    ExpiryLine(offer.validUntil)
+                }
+                Spacer(Modifier.height(4.dp))
+                Row(verticalAlignment = Alignment.Bottom) {
+                    PriceTagCompact(
+                        priceBdt = offer.priceBdt,
+                        typical = offer.priceIsEstimate(),
+                    )
+                    Spacer(Modifier.width(5.dp))
+                    Text(
+                        text = offer.priceUnit ?: "per person",
+                        fontSize = 10.sp,
+                        color = BuffetColors.TextSecondary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = offer.paymentNote,
+                    fontSize = 10.5.sp,
+                    color = BuffetColors.TextSecondary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
             Icon(
                 imageVector = Icons.Rounded.ChevronRight,
-                contentDescription = null,
-                tint = BuffetColors.TextPrimary,
-                modifier = Modifier.size(15.dp),
+                contentDescription = "Open this deal",
+                tint = BuffetColors.TextSecondary,
+                modifier = Modifier.size(18.dp),
             )
         }
     }

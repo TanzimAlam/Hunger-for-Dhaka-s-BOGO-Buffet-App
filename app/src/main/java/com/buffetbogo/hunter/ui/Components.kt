@@ -208,6 +208,51 @@ fun PriceTag(
     }
 }
 
+/**
+ * One deal's price inside a restaurant card. Smaller than [PriceTag] so several deals fit on a
+ * single card, but still shows the exact figure and flags a fallback estimate.
+ */
+@Composable
+fun PriceTagCompact(
+    priceBdt: Int?,
+    typical: Boolean = false,
+    modifier: Modifier = Modifier,
+) {
+    Row(modifier = modifier, verticalAlignment = Alignment.Bottom) {
+        if (priceBdt == null) {
+            Text(
+                text = "Price being checked",
+                fontSize = 11.sp,
+                color = BuffetColors.TextSecondary,
+            )
+            return@Row
+        }
+        Text(
+            text = "৳",
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold,
+            color = BuffetColors.Accent,
+            modifier = Modifier.padding(bottom = 1.dp, end = 1.dp),
+        )
+        Text(
+            text = formatBdt(priceBdt),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+            color = BuffetColors.TextPrimary,
+        )
+        if (typical) {
+            Spacer(Modifier.width(4.dp))
+            Text(
+                text = "typical",
+                fontSize = 9.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = BuffetColors.Star,
+                modifier = Modifier.padding(bottom = 2.dp),
+            )
+        }
+    }
+}
+
 /** Payment / card condition pill with the bank glyph. */
 @Composable
 fun PaymentChip(text: String, modifier: Modifier = Modifier) {

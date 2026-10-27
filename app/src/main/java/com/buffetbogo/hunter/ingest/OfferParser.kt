@@ -34,13 +34,18 @@ object OfferParser {
     )
     private val plusOne = Regex("(?i)(?<![\\d.])(\\d)\\s*\\+\\s*(\\d)(?![\\d.])")
     // The bank marketing shorthand for the same thing: B1G1, B1G3, B2G1 …
-    private val b1g = Regex("(?i)\\bb\\s*(\\d)\\s*g\\s*(\\d)\\b")
+    // Bank pages often print it jammed against the next word ("B1G1BUFFET"), so the closing
+    // boundary only forbids another digit.
+    private val b1g = Regex("(?i)\\bb\\s*(\\d)\\s*g\\s*(\\d)(?![\\d])")
+    // "BOGO Free Buffet" — Bangladeshi banks use the acronym as the deal's name.
+    private val bogo = Regex("(?i)\\bbogo\\b")
     // "Eat 4 Pay 1" and the equally common "Dine 4 Pay 1" / "Dine 3, Pay 1" wording.
     private val eatPay = Regex(
         "(?i)\\b(eat|dine)\\s*(\\d+|three|four|five|six|seven)\\s*(?:people\\s*)?[,;:\\-]?\\s*" +
             "pay\\s*(?:for\\s*)?(\\d+)\\b",
     )
-    private val percentOff = Regex("(?i)(\\d{1,2})\\s*%\\s*off")
+    // "25% off", and the bank wording "25% savings" / "20% discount".
+    private val percentOff = Regex("(?i)(\\d{1,2})\\s*%\\s*(?:off|savings|discount)")
     // Some headlines reverse the wording: "Pay 1 Eat 3" means the same as "Eat 3 Pay 1".
     private val payEat = Regex("(?i)\\bpay\\s*(\\d+)\\s*(?:for\\s*)?(?:and\\s*)?eat\\s*(\\d+)\\b")
 
@@ -116,6 +121,12 @@ object OfferParser {
         "dbbl" to "Dutch-Bangla Bank",
         "standard chartered" to "Standard Chartered",
         "prime bank" to "Prime Bank",
+        "trust bank" to "Trust Bank",
+        "mutual trust" to "MTB",
+        "mtb" to "MTB",
+        "ncc bank" to "NCC Bank",
+        "ucb" to "UCB",
+        "eastern bank" to "Eastern Bank",
         "southeast bank" to "Southeast Bank",
         "hsbc" to "HSBC",
         "bkash" to "bKash",
@@ -158,7 +169,10 @@ object OfferParser {
     }
 
     // "Minimum spend BDT 5,000" is a card condition, not the price of a buffet.
-    private val priceNoise = Regex("(?i)\\bminimum\\s+(spend|purchase)|min\\.?\\s+spend|spend\\s+of|cashback")
+    private val priceNoise = Regex(
+        "(?i)\\bminimum\\.?\\s*(spend|purchase|transaction)|min\\.?\\s+(spend|transaction)|" +
+            "spend\\s+of|cashback|instal+ment",
+    )
 
     fun extractPrice(text: String): Int? {
         for (pattern in pricePatterns) {
@@ -214,6 +228,7 @@ object OfferParser {
             val get = m.groupValues[2].toIntOrNull() ?: return@let
             if (buy in 1..4 && get in 1..5) return "BOGO_${buy}_$get" to "Buy $buy Get $get"
         }
+        if (bogo.containsMatchIn(text)) return "BOGO_1_1" to "Buy 1 Get 1"
         b1g.find(text)?.let { m ->
             val buy = m.groupValues[1].toIntOrNull() ?: return@let
             val get = m.groupValues[2].toIntOrNull() ?: return@let

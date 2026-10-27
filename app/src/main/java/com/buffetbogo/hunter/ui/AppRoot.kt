@@ -14,6 +14,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.buffetbogo.hunter.BuffetApp
+import com.buffetbogo.hunter.notify.DeepLinks
+import kotlinx.coroutines.delay
 
 private enum class Screen { LIST, DETAIL, SETTINGS }
 
@@ -29,6 +31,7 @@ fun AppRoot() {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     val sortOrder by viewModel.sortOrder.collectAsStateWithLifecycle()
     val sync by viewModel.sync.collectAsStateWithLifecycle()
+    val pendingOfferId by DeepLinks.pendingOfferId.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 
     var screenName by rememberSaveable { mutableStateOf(Screen.LIST.name) }
@@ -39,6 +42,23 @@ fun AppRoot() {
     val feedState = rememberLazyListState()
     var feedQuery by rememberSaveable { mutableStateOf("") }
     var feedFilter by rememberSaveable { mutableStateOf(FeedFilter.ALL.name) }
+
+    // A tapped alert opens that exact offer, once the feed has the row to show.
+    LaunchedEffect(pendingOfferId, offers) {
+        val id = pendingOfferId ?: return@LaunchedEffect
+        if (offers.any { it.offer.id == id }) {
+            selectedId = id
+            screenName = Screen.DETAIL.name
+            DeepLinks.clear()
+        }
+    }
+
+    // If the offer expired or was hidden before the tap was handled, do not hold it forever.
+    LaunchedEffect(pendingOfferId) {
+        val id = pendingOfferId ?: return@LaunchedEffect
+        delay(12_000L)
+        if (DeepLinks.pendingOfferId.value == id) DeepLinks.clear()
+    }
 
     LaunchedEffect(sync.message) {
         val message = sync.message ?: return@LaunchedEffect

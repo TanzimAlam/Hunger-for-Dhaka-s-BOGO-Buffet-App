@@ -98,7 +98,7 @@ class OfferRepository(
         val current = settingsStore.settings.first()
         if (socials.isEmpty()) runCatching { loadSocials() }
 
-        val outcome = runCatching { WebOfferSource(current.braveApiKey).fetch(now) }
+        val outcome = runCatching { WebOfferSource(current.braveApiKey, socials).fetch(now) }
             .getOrElse { error ->
                 return RefreshResult(
                     found = 0,
@@ -161,10 +161,16 @@ class OfferRepository(
                     "${facebook.pagesRead} venue pages read, ${facebook.offers.size} buffet posts."
             else -> null
         }
+        val bankNote = when {
+            outcome.bankPagesRead == 0 -> null
+            else ->
+                "Banks: ${outcome.bankPagesRead} dining pages read, " +
+                    "${outcome.bankVenues} restaurant${if (outcome.bankVenues == 1) "" else "s"} listed."
+        }
         return RefreshResult(
             found = visible.size,
             new = newOffers,
-            message = listOfNotNull(status, facebookNote).joinToString(" "),
+            message = listOfNotNull(status, bankNote, facebookNote).joinToString(" "),
             failed = false,
         )
     }

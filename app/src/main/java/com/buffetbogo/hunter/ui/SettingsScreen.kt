@@ -348,8 +348,13 @@ fun SettingsScreen(
                         color = BuffetColors.TextPrimary,
                     )
                     Spacer(Modifier.height(6.dp))
-                    Bullet("Standard Chartered Bangladesh's buffet page — used to discover which Dhaka venues currently run a BOGO buffet.")
+                    Bullet(
+                        "Seven bank dining pages — Standard Chartered, City Bank, Mutual Trust Bank, " +
+                            "Prime Bank, Trust Bank, Shimanto Bank and NCC Bank — list the Dhaka " +
+                            "venues currently running a BOGO or Eat-N-Pay buffet.",
+                    )
                     Bullet("Google News RSS — dated press coverage of new buffet campaigns.")
+                    Bullet("The checked price book — a typical buffet rate when an ad prints no price.")
                     Bullet("Each venue's own Facebook page and website — the ad every card links to.")
                     Spacer(Modifier.height(10.dp))
                     Text(

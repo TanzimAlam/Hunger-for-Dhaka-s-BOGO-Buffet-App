@@ -85,7 +85,7 @@
   },
   {
     "restaurant": "Crowne Plaza Dhaka Airport",
-    "aliases": ["Crowne Plaza Airport", "Crowne Plaza Dhaka Airport by IHG"],
+    "aliases": ["Crowne Plaza Airport", "Crownplaza Airport", "Crowne Plaza Dhaka Airport by IHG"],
     "facebook": "https://www.facebook.com/61584765623675",
     "website": "https://www.ihg.com/crowneplaza/hotels/us/en/dhaka/dacrp/hoteldetail/dining",
     "checkedAt": "2026-10-26"
@@ -159,5 +159,61 @@
     "facebook": "https://www.facebook.com/PlatinumResidenceBySHELTECH/",
     "website": "https://platinumhotels.com.bd/restaurant/terrabistro-uttara",
     "checkedAt": "2026-10-26"
+  },
+  {
+    "restaurant": "Grace 21 Smart Hotel",
+    "aliases": ["Grace 21"],
+    "facebook": "https://www.facebook.com/Grace21SmartHotel/",
+    "website": "https://www.hotelgrace21.com/dining",
+    "checkedAt": "2026-10-27"
+  },
+  {
+    "restaurant": "The Way Dhaka",
+    "aliases": ["The Way"],
+    "facebook": "https://www.facebook.com/thewaydhaka/",
+    "website": "https://www.thewaydhaka.com/surround.html",
+    "checkedAt": "2026-10-27"
+  },
+  {
+    "restaurant": "Shinepukur Suites",
+    "aliases": ["Shinepukur Suite"],
+    "facebook": "https://www.facebook.com/luxurysuiteshinepukur/",
+    "website": "https://shinepukursuites.com/resturant",
+    "checkedAt": "2026-10-27"
+  },
+  {
+    "restaurant": "Hotel Bengal Canary Park",
+    "aliases": ["Bengal Canary Park"],
+    "facebook": "https://www.facebook.com/hotelcanarypark/",
+    "website": "https://www.hotelcanarypark.com/dining/Canary-Dine-out-",
+    "checkedAt": "2026-10-27"
+  },
+  {
+    "restaurant": "Hotel Bengal Blueberry",
+    "aliases": ["Bengal Blueberry"],
+    "facebook": "https://www.facebook.com/bengalblueberry/",
+    "website": "https://www.bengalblueberry.com/dining.php",
+    "checkedAt": "2026-10-27"
+  },
+  {
+    "restaurant": "Bengal Inn",
+    "aliases": ["Bengal Inn Dhaka"],
+    "facebook": "https://www.facebook.com/bengalinn/",
+    "website": null,
+    "checkedAt": "2026-10-27"
+  },
+  {
+    "restaurant": "Hotel Omni Residency",
+    "aliases": ["Omni Residency"],
+    "facebook": "https://www.facebook.com/omniresidency/",
+    "website": "https://hotelomniresidency.com/fiddle-head-restaurant",
+    "checkedAt": "2026-10-27"
+  },
+  {
+    "restaurant": "Best Western Plus Maple Leaf",
+    "aliases": ["Maple Leaf Hotel"],
+    "facebook": "https://www.facebook.com/mapleleafhotels/",
+    "website": "https://www.mapleleafhotels.com/dining/",
+    "checkedAt": "2026-10-27"
   }
 ]

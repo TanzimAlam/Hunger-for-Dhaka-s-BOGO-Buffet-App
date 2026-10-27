@@ -2,6 +2,8 @@ package com.buffetbogo.hunter.ingest
 
 import com.buffetbogo.hunter.data.Offer
 import com.buffetbogo.hunter.data.Sources
+import com.buffetbogo.hunter.data.VenueSocial
+import com.buffetbogo.hunter.data.nameKey
 import com.buffetbogo.hunter.data.stableOfferId
 import com.buffetbogo.hunter.net.BraveSearchClient
 import com.buffetbogo.hunter.net.SearchHit
@@ -12,6 +14,9 @@ data class FetchOutcome(
     val offers: List<Offer>,
     val sourcesTried: Int,
     val sourcesFailed: Int,
+    /** How many banks' dining pages answered, and how many distinct venues they listed. */
+    val bankPagesRead: Int = 0,
+    val bankVenues: Int = 0,
 ) {
     val allSourcesFailed: Boolean get() = sourcesTried > 0 && sourcesFailed == sourcesTried
 }
@@ -19,12 +24,15 @@ data class FetchOutcome(
 /**
  * Collects buffet offers from every configured source.
  *
- * The two keyless sources run on every refresh: Standard Chartered's buffet page (plain HTML,
- * several Dhaka five-star venues with validity dates) and Google News RSS (dated press releases
- * about new campaigns). A Brave API key is optional and only adds broader web coverage,
- * including public Facebook pages that search engines have indexed.
+ * The keyless sources run on every refresh: Standard Chartered's buffet page, the dining lists
+ * of six more Dhaka banks, and Google News RSS (dated press releases about new campaigns). A
+ * Brave API key is optional and only adds broader web coverage, including public Facebook pages
+ * that search engines have indexed.
  */
-class WebOfferSource(private val braveApiKey: String) {
+class WebOfferSource(
+    private val braveApiKey: String,
+    private val venueDirectory: Map<String, VenueSocial> = emptyMap(),
+) {
 
     suspend fun fetch(now: Long = System.currentTimeMillis()): FetchOutcome {
         val found = LinkedHashMap<String, Offer>()
@@ -39,15 +47,38 @@ class WebOfferSource(private val braveApiKey: String) {
         }
 
         collect { StandardCharteredSource.fetch(now) }
+
+        // Every other bank that publishes its dining list as readable HTML.
+        var banksRead = 0
+        var bankVenues = 0
+        tried++
+        runCatching { BankPageSource(now, directory = venueDirectory).fetchAll() }
+            .onSuccess { banks ->
+                banksRead = banks.pagesRead
+                bankVenues = banks.venuesFound
+                if (banks.pagesRead == 0) failed++
+                banks.offers.forEach { found.putIfAbsent(it.id, it) }
+            }
+            .onFailure { failed++ }
+
         collect { NewsRssSource.fetch(now) }
         if (braveApiKey.isNotBlank()) {
             collect { searchWeb(now) }
         }
 
+        // Banks repeat each other: the same hotel runs the same B1G1 under several banks. One
+        // offer per restaurant and deal keeps the feed honest (different deals all survive).
+        val unique = LinkedHashMap<String, Offer>()
+        found.values.forEach { offer ->
+            unique.putIfAbsent(nameKey(offer.restaurant) + "|" + offer.offerKind, offer)
+        }
+
         return FetchOutcome(
-            offers = found.values.toList(),
+            offers = unique.values.toList(),
             sourcesTried = tried,
             sourcesFailed = failed,
+            bankPagesRead = banksRead,
+            bankVenues = bankVenues,
         )
     }
 
