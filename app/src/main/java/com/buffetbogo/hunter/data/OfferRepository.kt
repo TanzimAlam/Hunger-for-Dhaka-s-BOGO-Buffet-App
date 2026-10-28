@@ -19,6 +19,8 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.TimeUnit
 
 class OfferRepository(
@@ -34,6 +36,13 @@ class OfferRepository(
 
     /** Each venue's own Facebook page and website, used for the "original ad" link. */
     private var socials: Map<String, VenueSocial> = emptyMap()
+
+    /** Keeps the launch refresh and a worker/user refresh from fetching every source twice. */
+    private val refreshMutex = Mutex()
+
+    /** When this process last started a check, so a failed launch attempt is not repeated at once. */
+    @Volatile
+    private var lastAttemptAt = 0L
 
     /** Re-emits every minute so expired offers drop out of the list without a restart. */
     private val expiryTicker: Flow<Unit> = flow {
@@ -94,7 +103,26 @@ class OfferRepository(
         ensurePrices(now)
     }
 
-    suspend fun refresh(now: Long = System.currentTimeMillis()): RefreshResult {
+    /** A user- or worker-started check; serialised with the launch refresh. */
+    suspend fun refresh(now: Long = System.currentTimeMillis()): RefreshResult =
+        refreshMutex.withLock { refreshNow(now) }
+
+    /**
+     * The launch path: refreshes only when the last successful check is older than [maxAgeMs].
+     * Returns null when the feed was still fresh; safe to call from both the repository and the
+     * screen, because the second caller re-checks inside the lock.
+     */
+    suspend fun refreshIfStale(
+        maxAgeMs: Long = AUTO_REFRESH_AFTER_MS,
+    ): RefreshResult? = refreshMutex.withLock {
+        val last = maxOf(settingsStore.settings.first().lastSyncAt, lastAttemptAt)
+        val now = System.currentTimeMillis()
+        if (last != 0L && now - last <= maxAgeMs) return@withLock null
+        refreshNow(now)
+    }
+
+    private suspend fun refreshNow(now: Long): RefreshResult {
+        lastAttemptAt = System.currentTimeMillis()
         val current = settingsStore.settings.first()
         if (socials.isEmpty()) runCatching { loadSocials() }
 
@@ -312,13 +340,6 @@ class OfferRepository(
         }
     }
 
-    /** The first launch, and any launch after a long gap, fetches fresh offers immediately. */
-    private suspend fun refreshIfStale() {
-        val current = settingsStore.settings.first()
-        val stale = System.currentTimeMillis() - current.lastSyncAt > AUTO_REFRESH_AFTER_MS
-        if (current.lastSyncAt == 0L || stale) refresh()
-    }
-
     /** Ratings are re-checked weekly rather than on every launch. */
     private suspend fun refreshRatingsIfDue() {
         if (settingsStore.settings.first().placesApiKey.isBlank()) return
@@ -347,7 +368,7 @@ class OfferRepository(
         // Enough to price a whole bank page's venues in one pass; later passes retry stragglers.
         private const val MAX_PRICE_LOOKUPS = 25
         private val RATING_TTL_MS = TimeUnit.DAYS.toMillis(30)
-        private val AUTO_REFRESH_AFTER_MS = TimeUnit.HOURS.toMillis(6)
+        private val AUTO_REFRESH_AFTER_MS = TimeUnit.MINUTES.toMillis(30)
         private val AD_LINK_TTL_MS = TimeUnit.DAYS.toMillis(7)
     }
 }

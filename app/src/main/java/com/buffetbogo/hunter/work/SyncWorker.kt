@@ -45,8 +45,12 @@ object WorkScheduler {
         .setRequiredNetworkType(NetworkType.CONNECTED)
         .build()
 
+    /**
+     * Every half hour. A stale feed is also refreshed as soon as the app opens, so the list is
+     * never older than this window while the app is in use.
+     */
     fun schedulePeriodicSync(context: Context) {
-        val request = PeriodicWorkRequestBuilder<SyncWorker>(6, TimeUnit.HOURS)
+        val request = PeriodicWorkRequestBuilder<SyncWorker>(30, TimeUnit.MINUTES)
             .setConstraints(networkConstraints)
             .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 15, TimeUnit.MINUTES)
             .build()

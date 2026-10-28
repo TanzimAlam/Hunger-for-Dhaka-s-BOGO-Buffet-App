@@ -44,13 +44,13 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Locale
 
-// Taken from the emblem: warm taupe, its steel-blue disc, coffee and ink.
+// Taken from the emblem and the table it advertises: steel blue, clay, herb green, saffron, ink.
 private val heroPalettes = listOf(
-    listOf(Color(0xFF4A4238), Color(0xFF7A6C58)),
-    listOf(Color(0xFF3B4A55), Color(0xFF5D7486)),
-    listOf(Color(0xFF54422F), Color(0xFF8A7358)),
-    listOf(Color(0xFF44413A), Color(0xFF79705F)),
-    listOf(Color(0xFF33302C), Color(0xFF635C52)),
+    listOf(Color(0xFF2F5B82), Color(0xFF5C88AE)),
+    listOf(Color(0xFF8C4327), Color(0xFFB96C48)),
+    listOf(Color(0xFF35513A), Color(0xFF5F8265)),
+    listOf(Color(0xFF7A5626), Color(0xFFA8834A)),
+    listOf(Color(0xFF25333F), Color(0xFF4C6376)),
 )
 
 /** The server's own emblem, rounded into the header tile. */
@@ -113,10 +113,11 @@ fun RatingPill(
     modifier: Modifier = Modifier,
 ) {
     if (rating == null) return
+    // Sits over the photo, so it stays ink-dark with white type whatever the page colour is.
     Surface(
         modifier = modifier,
-        color = BuffetColors.Background.copy(alpha = 0.74f),
-        contentColor = BuffetColors.TextPrimary,
+        color = BuffetColors.Scrim.copy(alpha = 0.78f),
+        contentColor = Color.White,
         shape = RoundedCornerShape(8.dp),
     ) {
         Row(
@@ -140,7 +141,7 @@ fun RatingPill(
                 Text(
                     text = "(${formatCount(count)})",
                     fontSize = 10.sp,
-                    color = BuffetColors.TextSecondary,
+                    color = Color.White.copy(alpha = 0.72f),
                 )
             }
         }
@@ -192,8 +193,8 @@ fun PriceTag(
         if (typical) {
             Spacer(Modifier.width(6.dp))
             Surface(
-                color = BuffetColors.AccentSoft,
-                contentColor = BuffetColors.Star,
+                color = BuffetColors.AmberSoft,
+                contentColor = BuffetColors.Amber,
                 shape = RoundedCornerShape(5.dp),
                 modifier = Modifier.padding(bottom = 2.dp),
             ) {
@@ -246,7 +247,7 @@ fun PriceTagCompact(
                 text = "typical",
                 fontSize = 9.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = BuffetColors.Star,
+                color = BuffetColors.Amber,
                 modifier = Modifier.padding(bottom = 2.dp),
             )
         }
@@ -258,7 +259,7 @@ fun PriceTagCompact(
 fun PaymentChip(text: String, modifier: Modifier = Modifier) {
     Surface(
         modifier = modifier,
-        color = BuffetColors.SurfaceHigh,
+        color = BuffetColors.Surface,
         contentColor = BuffetColors.TextPrimary,
         shape = RoundedCornerShape(10.dp),
         border = BorderStroke(1.dp, BuffetColors.Border),

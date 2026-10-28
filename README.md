@@ -3,13 +3,14 @@
 A small Android app that hunts for All-You-Can-Eat / buffet deals in Dhaka — Buy 1 Get 1,
 Buy 1 Get 2/3/4, Dine 3 Pay 1, Eat 4 Pay 1, Eat 5 Pay 1 — and alerts you when a new one appears.
 
-The home screen is a warm charcoal feed with **one card per restaurant**, coloured from the app's
-own emblem. A venue running three deals is still one card: every deal's short badge (B1G1, B1G3,
+The home screen is a light, white-forward feed: cream paper, white cards and the steel blue, clay
+and saffron of the app's own emblem, with bottle green marking what is live. **One card per
+restaurant**: a venue running three deals is still one card, every deal's short badge (B1G1, B1G3,
 Eat 3 Pay 1) sits side by side on the top-left of the thumbnail, and each deal is listed inside the
-card with its own **price**, Google star rating and remaining days. Search and category chips sit
-above the list, and the default order is **by end date**, so whatever is about to run out is at the
-top. Opening a deal and coming back leaves the feed exactly where it was — same card, same search,
-same filter.
+card with its own **price**, Google star rating and remaining days. Search, category chips and the
+meal chips (Any time / Breakfast / Brunch / Lunch / Dinner) sit above the list, and the default
+order is **by end date**, so whatever is about to run out is at the top. Opening a deal and coming
+back leaves the feed exactly where it was — same card, same search, same chips.
 
 **It works with no API keys and no account.** Nine public pages are read directly, a checked
 set of Google ratings and buffet prices ships with the app, and missing prices are looked up with
@@ -117,26 +118,28 @@ overrides it. Keys stay on the device or in the local build — never in the APK
 
 | Area | Implementation |
 | --- | --- |
-| UI | Kotlin + Jetpack Compose (Material 3), dark-only theme, single activity |
+| UI | Kotlin + Jetpack Compose (Material 3), light theme in white, cream and ink, single activity |
 | Storage | Room (`offers`, `restaurant_ratings`) with v1→v2 (price unit/source) and v2→v3 (ad link, ad label, timing, checked date) migrations, DataStore for settings and the chosen sort order |
-| Background work | WorkManager every 6 hours, plus a refresh on launch when the feed is older than 6 hours |
+| Background work | WorkManager every 30 minutes, plus a refresh on launch when the feed is older than 30 minutes |
 | Notifications | One notification per new offer (never a bundled summary), carrying that offer's id; tapping it opens that offer's own detail screen, and its action button opens the venue's ad directly |
 | Bundled catalogue | 6 real, sourced Dhaka offers in `app/src/main/assets/seed_offers.json`, all priced |
 | Price book | 28 venues' checked buffet rates in `app/src/main/assets/venue_prices.json`, used to price bank ads that never state one |
 | Venue directory | 31 venues' official Facebook pages and dining pages in `app/src/main/assets/venue_socials.json` |
 | Grouping | `FeedGrouper` folds the offer list into one card per restaurant, orders venues by their best deal for the chosen sort, and keeps one copy of a deal that several banks list |
-| Branding | Launcher icon, adaptive icon and in-app header logo generated from the supplied emblem by `tools/BrandIcons.java`; the Compose palette is sampled from that emblem (warm charcoal, steel blue, cream) |
+| Branding | Launcher icon, adaptive icon and in-app header logo generated from the supplied emblem by `tools/BrandIcons.java`; the whole round badge is fitted inside each icon, never cropped. The Compose palette is sampled from that emblem (white paper, steel blue, clay, saffron, bottle green) |
 | Parsing | `OfferParser` (English wording, prices, dates, serving windows), `StandardCharteredSource`, `BankPageSource` + `BankHtml` (six more banks), `NewsRssSource`, `FacebookPageSource`, `AdEnricher`, `AdLinkResolver` |
 
 ### Screens
 
 1. **Feed** — the emblem in the header with the app name, LIVE chip and an alerts bell (counts
    offers ending within three days), search field, category chips (All / Buy 1 Get 1+ / Eat 3-4-5
-   Pay 1 / 5★ Hotels), a sort menu (default **Ends soonest**, plus Newest, Price low→high, Top
-   rated), and one card per restaurant: deal badges on the thumbnail's top-left, the Google rating
-   on its top-right, then a row per deal with its price and unit, payment condition and countdown.
-   Tapping a row opens that deal. A price filled in from the book or a search carries a small
-   **typical** tag.
+   Pay 1 / 5★ Hotels) and, directly beneath them, the meal chips (Any time / Breakfast / Brunch /
+   Lunch / Dinner). The meal chips filter by the serving window named in each ad and are separate
+   from the sort menu (default **Ends soonest**, plus Newest, Price low→high, Top rated), so the
+   order is kept while the day part changes. One card per restaurant: deal badges on the
+   thumbnail's top-left, the Google rating on its top-right, then a row per deal with its price and
+   unit, payment condition and countdown. Tapping a row opens that deal. A price filled in from the
+   book or a search carries a small **typical** tag.
 2. **Offer detail** — hero photo, offer text, price, rating with review count, validity and the
    serving window, payment conditions, an **ad reference card** naming the restaurant's page, the
    "Open the original ad" button (or "Search Facebook for this offer"), and "Hide this offer".
@@ -161,7 +164,7 @@ Open the folder in Android Studio and press Run (Android 8.0 / API 26+).
 
 1. Launch — the checked catalogue shows immediately, and a refresh against the keyless sources
    starts in the background.
-2. Tap the refresh chip any time, or wait for the 6-hourly check.
+2. Tap the refresh chip any time, or wait for the half-hourly check.
 3. Optional: paste a Places key for live ratings, a
    [Brave key](https://brave.com/search/api/) for broader search, and/or a Facebook Page token to
    read the venues' own posts through the Graph API.
@@ -267,4 +270,4 @@ References:
 - Move discovery to a backend with a cron job so the phone needs no keys at all and every user
   shares one checked feed.
 - Add Bangla numeral/wording support and OCR for offer posters.
-- Filter by area, by card you actually hold, or by meal period.
+- Filter by area or by the card you actually hold.

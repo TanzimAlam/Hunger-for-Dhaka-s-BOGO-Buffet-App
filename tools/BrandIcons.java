@@ -7,13 +7,14 @@ import java.io.File;
 /**
  * Turns the supplied circular emblem artwork into the app's launcher icons and in-app logo.
  *
- * The source is a round badge on a flat grey backdrop. This tool finds the badge, crops it to a
- * square, makes the backdrop transparent, and writes every density Android needs:
+ * The source is a round badge on a flat grey backdrop. This tool measures the badge, cuts it out
+ * without clipping any of the ring, and then fits that whole badge — never crops it — inside each
+ * icon:
  *
- *   res/drawable-nodpi/app_logo.png          - the header mark
- *   res/mipmap-<density>/ic_launcher.png     - legacy launcher icon (48..192 px)
+ *   res/drawable-nodpi/app_logo.png                  - the header mark (badge with a hairline margin)
+ *   res/mipmap-<density>/ic_launcher.png             - legacy launcher icon
  *   res/mipmap-<density>/ic_launcher_round.png
- *   res/mipmap-<density>/ic_launcher_foreground.png - adaptive foreground on a 108dp canvas
+ *   res/mipmap-<density>/ic_launcher_foreground.png  - adaptive foreground inside the 66dp safe zone
  *
  * Usage: java tools/BrandIcons.java <source.png>
  */
@@ -23,8 +24,12 @@ public final class BrandIcons {
     private static final int[] LEGACY_PX = {48, 72, 96, 144, 192};
     private static final int[] FOREGROUND_PX = {108, 162, 216, 324, 432};
 
-    /** Adaptive icons are 108dp; content must sit inside the 66dp safe zone. */
-    private static final double FOREGROUND_FILL = 0.70;
+    /** Adaptive icons are 108dp; the guaranteed-safe circle is 66dp, so the badge stays inside it. */
+    private static final double FOREGROUND_FILL = 0.60;
+    /** Legacy icons keep a small margin so no launcher mask touches the ring. */
+    private static final double LEGACY_FILL = 0.92;
+    /** The in-app mark sits in a rounded tile, so it needs only a hairline margin. */
+    private static final double LOGO_FILL = 0.94;
 
     public static void main(String[] args) throws Exception {
         if (args.length < 1) {
@@ -41,41 +46,38 @@ public final class BrandIcons {
         System.out.println("badge: " + badge.getWidth() + "x" + badge.getHeight());
 
         File res = new File("app/src/main/res");
-        write(badge, new File(res, "drawable-nodpi/app_logo.png"), 512);
+        write(compose(badge, 512, LOGO_FILL), new File(res, "drawable-nodpi/app_logo.png"), 512);
 
         for (int i = 0; i < DENSITIES.length; i++) {
             File dir = new File(res, "mipmap-" + DENSITIES[i]);
             if (!dir.isDirectory() && !dir.mkdirs()) {
                 throw new IllegalStateException("cannot create " + dir);
             }
-            write(badge, new File(dir, "ic_launcher.png"), LEGACY_PX[i]);
-            write(badge, new File(dir, "ic_launcher_round.png"), LEGACY_PX[i]);
-            write(adaptiveForeground(badge, FOREGROUND_PX[i]), new File(dir, "ic_launcher_foreground.png"), FOREGROUND_PX[i]);
+            BufferedImage legacy = compose(badge, LEGACY_PX[i], LEGACY_FILL);
+            write(legacy, new File(dir, "ic_launcher.png"), LEGACY_PX[i]);
+            write(legacy, new File(dir, "ic_launcher_round.png"), LEGACY_PX[i]);
+            write(
+                compose(badge, FOREGROUND_PX[i], FOREGROUND_FILL),
+                new File(dir, "ic_launcher_foreground.png"),
+                FOREGROUND_PX[i]
+            );
             System.out.println("wrote " + dir.getName());
         }
     }
 
     /**
-     * Finds the round badge on its flat backdrop and returns it as a square RGBA image with
-     * everything outside the circle made transparent.
+     * Measures the badge against the flat studio backdrop and returns it as a square RGBA image,
+     * with everything outside the ring transparent. The square is the badge's larger dimension,
+     * so no part of the artwork is ever cut off.
      */
     private static BufferedImage cutBadge(BufferedImage source) {
         int w = source.getWidth();
         int h = source.getHeight();
 
-        // The artwork sits on a neutral grey studio backdrop, which has a soft vignette and so
-        // cannot be found by comparing against one corner colour. The badge is the only
-        // coloured or cream-white thing in frame: the cream ring is bright, the disc is blue.
         int minX = w, minY = h, maxX = -1, maxY = -1;
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
-                int rgb = source.getRGB(x, y);
-                int r = (rgb >> 16) & 0xff;
-                int g = (rgb >> 8) & 0xff;
-                int b = rgb & 0xff;
-                int chroma = Math.max(r, Math.max(g, b)) - Math.min(r, Math.min(g, b));
-                int luma = (r * 299 + g * 587 + b * 114) / 1000;
-                if (chroma > 18 || luma > 205) {
+                if (!isBackdrop(source.getRGB(x, y))) {
                     if (x < minX) minX = x;
                     if (y < minY) minY = y;
                     if (x > maxX) maxX = x;
@@ -87,7 +89,8 @@ public final class BrandIcons {
             throw new IllegalStateException("no badge found in the artwork");
         }
 
-        int side = Math.max(maxX - minX + 1, maxY - minY + 1);
+        // Two spare pixels keep the antialiased ring edge inside the cut-out.
+        int side = Math.max(maxX - minX + 1, maxY - minY + 1) + 2;
         int cx = (minX + maxX) / 2;
         int cy = (minY + maxY) / 2;
         int left = cx - side / 2;
@@ -103,7 +106,7 @@ public final class BrandIcons {
                 double dx = x - radius + 0.5;
                 double dy = y - radius + 0.5;
                 double distance = Math.sqrt(dx * dx + dy * dy);
-                // One-pixel soft edge, so the circle is not jagged when scaled down.
+                // One-pixel soft edge, so the ring is not jagged when scaled down.
                 double alpha = clamp((radius - distance) / 1.5, 0, 1);
                 int rgb = source.getRGB(sx, sy);
                 int a = (int) Math.round(((rgb >>> 24) & 0xff) * alpha);
@@ -113,16 +116,22 @@ public final class BrandIcons {
         return out;
     }
 
-    /** The badge centred on a transparent 108dp canvas, inside the adaptive-icon safe zone. */
-    private static BufferedImage adaptiveForeground(BufferedImage badge, int size) {
+    /** Centres the whole badge in a square canvas at [fill] of its width, leaving the rest clear. */
+    private static BufferedImage compose(BufferedImage badge, int size, double fill) {
         BufferedImage canvas = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = canvas.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int inner = (int) Math.round(size * FOREGROUND_FILL);
-        int offset = (size - inner) / 2;
-        g.drawImage(scale(badge, inner), offset, offset, null);
+        // Half-pixel offsets keep a scaled circle round rather than one pixel off-centre.
+        double inner = size * fill;
+        double offset = (size - inner) / 2.0;
+        g.drawImage(
+            scale(badge, (int) Math.round(inner)),
+            (int) Math.round(offset),
+            (int) Math.round(offset),
+            null
+        );
         g.dispose();
         return canvas;
     }
@@ -152,6 +161,19 @@ public final class BrandIcons {
         g.drawImage(source, 0, 0, size, size, null);
         g.dispose();
         return out;
+    }
+
+    /**
+     * The backdrop is a flat neutral studio grey. Anything with some colour, or clearly lighter
+     * or darker than the grey, belongs to the badge.
+     */
+    private static boolean isBackdrop(int rgb) {
+        int r = (rgb >> 16) & 0xff;
+        int g = (rgb >> 8) & 0xff;
+        int b = rgb & 0xff;
+        int chroma = Math.max(r, Math.max(g, b)) - Math.min(r, Math.min(g, b));
+        int luma = (r * 299 + g * 587 + b * 114) / 1000;
+        return chroma <= 8 && luma >= 60 && luma <= 130;
     }
 
     private static double clamp(double value, double min, double max) {

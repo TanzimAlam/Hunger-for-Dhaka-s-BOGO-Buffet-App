@@ -333,7 +333,7 @@ fun SettingsScreen(
                                 checkedThumbColor = BuffetColors.OnAccent,
                                 checkedTrackColor = BuffetColors.Accent,
                                 uncheckedThumbColor = BuffetColors.TextSecondary,
-                                uncheckedTrackColor = BuffetColors.Chip,
+                                uncheckedTrackColor = BuffetColors.Border,
                             ),
                         )
                     }
@@ -428,7 +428,10 @@ fun SettingsScreen(
 
             item {
                 SectionCard(title = "How offers are found") {
-                    Bullet("Checks run every 6 hours, and once when you open the app with a stale feed.")
+                    Bullet(
+                        "Checks run every 30 minutes, and again when you open the app with a feed " +
+                            "older than 30 minutes.",
+                    )
                     Bullet("A bank page or news story is only used to discover an offer. The card always links to the restaurant's own post or page, never to the bank.")
                     Bullet("When the restaurant's own post is available it supplies the price, the dates, the serving times and the conditions.")
                     Bullet("Every card carries a price: the post's own figure, the restaurant's checked buffet rate, or a price found by searching the restaurant. Filled-in prices are marked typical.")
@@ -465,12 +468,9 @@ private fun SectionCard(title: String, content: @Composable () -> Unit) {
 @Composable
 private fun StatusPill(text: String, positive: Boolean) {
     Surface(
-        color = if (positive) BuffetColors.AccentSoft else BuffetColors.Chip,
+        color = if (positive) BuffetColors.GreenSoft else BuffetColors.Chip,
         shape = RoundedCornerShape(999.dp),
-        border = BorderStroke(
-            1.dp,
-            if (positive) BuffetColors.Border else BuffetColors.Border,
-        ),
+        border = BorderStroke(1.dp, BuffetColors.Border),
     ) {
         Text(
             text = text,
@@ -505,8 +505,9 @@ private fun fieldColors() = OutlinedTextFieldDefaults.colors(
     focusedLabelColor = BuffetColors.Accent,
     unfocusedLabelColor = BuffetColors.TextSecondary,
     cursorColor = BuffetColors.Accent,
-    focusedContainerColor = BuffetColors.Chip,
-    unfocusedContainerColor = BuffetColors.Chip,
+    // Cream fields sit inside white cards, so the input area is visible without a heavy border.
+    focusedContainerColor = BuffetColors.SurfaceHigh,
+    unfocusedContainerColor = BuffetColors.SurfaceHigh,
     focusedTrailingIconColor = BuffetColors.TextSecondary,
     unfocusedTrailingIconColor = BuffetColors.TextSecondary,
 )

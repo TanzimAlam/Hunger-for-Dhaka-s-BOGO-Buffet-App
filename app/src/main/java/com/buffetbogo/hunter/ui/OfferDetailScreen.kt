@@ -89,9 +89,9 @@ fun OfferDetailScreen(
                             .matchParentSize()
                             .background(
                                 Brush.verticalGradient(
-                                    0f to BuffetColors.Background.copy(alpha = 0.35f),
-                                    0.45f to Color.Transparent,
-                                    1f to BuffetColors.Background,
+                                    0f to BuffetColors.Scrim.copy(alpha = 0.45f),
+                                    0.4f to Color.Transparent,
+                                    1f to BuffetColors.Scrim.copy(alpha = 0.92f),
                                 ),
                             ),
                     )
@@ -104,7 +104,7 @@ fun OfferDetailScreen(
                         Surface(
                             onClick = onBack,
                             shape = CircleShape,
-                            color = BuffetColors.Background.copy(alpha = 0.62f),
+                            color = BuffetColors.Scrim.copy(alpha = 0.55f),
                             modifier = Modifier.size(40.dp),
                         ) {
                             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -300,7 +300,7 @@ fun OfferDetailScreen(
 private fun Timeline(start: Long?, end: Long?, timing: String? = null) {
     val soon = endsSoon(end)
     Surface(
-        color = BuffetColors.SurfaceHigh,
+        color = BuffetColors.Surface,
         shape = RoundedCornerShape(14.dp),
         border = BorderStroke(1.dp, BuffetColors.Border),
         modifier = Modifier.fillMaxWidth(),
@@ -364,7 +364,7 @@ private fun AdReference(
     note: String,
 ) {
     Surface(
-        color = BuffetColors.SurfaceHigh,
+        color = BuffetColors.Surface,
         shape = RoundedCornerShape(14.dp),
         border = BorderStroke(1.dp, BuffetColors.Border),
         modifier = Modifier.fillMaxWidth(),

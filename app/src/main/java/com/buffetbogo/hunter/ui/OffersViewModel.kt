@@ -10,6 +10,7 @@ import com.buffetbogo.hunter.data.OfferRepository
 import com.buffetbogo.hunter.data.OfferUi
 import com.buffetbogo.hunter.data.SettingsStore
 import com.buffetbogo.hunter.data.SortOrder
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -58,6 +59,14 @@ class OffersViewModel(
             val result = repository.refresh()
             _sync.value = SyncState(running = false, message = result.message)
         }
+    }
+
+    /**
+     * Called when the feed comes back to the foreground. A feed older than half an hour is
+     * refreshed quietly, so returning to the app never shows a spinner over an unchanged list.
+     */
+    fun refreshOnOpen() {
+        viewModelScope.launch(Dispatchers.IO) { repository.refreshIfStale() }
     }
 
     fun hide(offerId: String) {
