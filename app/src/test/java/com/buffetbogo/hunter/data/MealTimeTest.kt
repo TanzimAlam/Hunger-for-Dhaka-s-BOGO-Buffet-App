@@ -74,6 +74,50 @@ class MealTimeTest {
     }
 
     @Test
+    fun `several meals can be on at once`() {
+        val breakfast = offer("Breakfast buffet", timing = "Daily 7 am – 10:30 am")
+        val dinner = offer("Buy 1 Get 1 buffet dinner")
+        val chosen = setOf(MealTime.BREAKFAST, MealTime.DINNER)
+
+        assertTrue(breakfast.servesAny(chosen))
+        assertTrue(dinner.servesAny(chosen))
+        // One chosen meal still narrows the list.
+        assertFalse(dinner.servesAny(setOf(MealTime.BREAKFAST)))
+    }
+
+    @Test
+    fun `no meal chosen means every serving window`() {
+        assertTrue(offer("Buy 1 Get 1 buffet").servesAny(emptySet()))
+        assertTrue(offer("Breakfast buffet").servesAny(emptySet()))
+    }
+
+    @Test
+    fun `tapping a meal selects it and tapping again clears it`() {
+        var keys = ""
+        keys = toggleMeal(keys, MealTime.BREAKFAST)
+        assertEquals("breakfast", keys)
+
+        keys = toggleMeal(keys, MealTime.DINNER)
+        assertEquals("breakfast,dinner", keys)
+
+        keys = toggleMeal(keys, MealTime.BREAKFAST)
+        assertEquals("dinner", keys)
+
+        keys = toggleMeal(keys, MealTime.DINNER)
+        assertEquals("", keys)
+        assertEquals(emptySet<MealTime>(), parseMeals(keys))
+    }
+
+    @Test
+    fun `the saved chip state ignores junk and all day`() {
+        assertEquals(setOf(MealTime.LUNCH), parseMeals("nonsense,lunch,all_day"))
+        assertEquals(emptySet<MealTime>(), parseMeals(null))
+        assertEquals(emptySet<MealTime>(), parseMeals("   "))
+        // ALL_DAY is not a chip; it must leave an existing selection untouched.
+        assertEquals("breakfast,lunch", toggleMeal("breakfast,lunch", MealTime.ALL_DAY))
+    }
+
+    @Test
     fun `an unknown key restores the all day option`() {
         assertEquals(MealTime.ALL_DAY, MealTime.fromKey(null))
         assertEquals(MealTime.ALL_DAY, MealTime.fromKey("nonsense"))

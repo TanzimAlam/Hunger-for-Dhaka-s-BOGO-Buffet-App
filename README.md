@@ -7,10 +7,11 @@ The home screen is a light, white-forward feed: cream paper, white cards and the
 and saffron of the app's own emblem, with bottle green marking what is live. **One card per
 restaurant**: a venue running three deals is still one card, every deal's short badge (B1G1, B1G3,
 Eat 3 Pay 1) sits side by side on the top-left of the thumbnail, and each deal is listed inside the
-card with its own **price**, Google star rating and remaining days. Search and the category chips
-sit above the list, and the default order is **by end date**, so whatever is about to run out is at
-the top. Opening a deal and coming
-back leaves the feed exactly where it was — same card, same search, same chips.
+card with its own **price**, Google star rating and remaining days. Search, the category chips and
+the serving-window toggles (Breakfast / Brunch / Lunch / Dinner, any number on at once) sit above
+the list, and the default order is **by end date**, so whatever is about to run out is at the top.
+Opening a deal and coming back leaves the feed exactly where it was — same card, same search, same
+chips.
 
 **It works with no API keys and no account.** Sixteen public pages are read directly, a checked
 set of Google ratings and buffet prices ships with the app, and missing prices are looked up with
@@ -133,8 +134,11 @@ overrides it. Keys stay on the device or in the local build — never in the APK
 ### Screens
 
 1. **Feed** — the emblem in the header with the app name, LIVE chip and an alerts bell (counts
-   offers ending within three days), search field and category chips (All / Buy 1 Get 1+ / Eat 3-4-5
-   Pay 1 / 5★ Hotels). The sort menu sits above the list (default **Ends soonest**, plus Newest,
+   offers ending within three days), search field, category chips (All / Buy 1 Get 1+ / Eat 3-4-5
+   Pay 1 / 5★ Hotels) and, after a divider in the same row, the meal toggles (Breakfast / Brunch /
+   Lunch / Dinner). The categories are single-select; the meal chips are independent switches, so
+   Breakfast and Dinner can both be on, and tapping one again clears it — with none on, every
+   serving window shows. The sort menu sits above the list (default **Ends soonest**, plus Newest,
    Price low→high, Top rated). One card per restaurant: deal badges on the
    thumbnail's top-left, the Google rating on its top-right, then a row per deal with its price and
    unit, payment condition and countdown. Tapping a row opens that deal. A price filled in from the

@@ -26,10 +26,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.BrunchDining
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.DinnerDining
+import androidx.compose.material.icons.rounded.FreeBreakfast
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
+import androidx.compose.material.icons.rounded.LunchDining
 import androidx.compose.material.icons.rounded.NotificationsNone
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Restaurant
@@ -63,18 +67,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.buffetbogo.hunter.data.FeedGrouper
+import com.buffetbogo.hunter.data.MealTime
 import com.buffetbogo.hunter.data.OfferUi
 import com.buffetbogo.hunter.data.RestaurantGroup
 import com.buffetbogo.hunter.data.SortOrder
 import com.buffetbogo.hunter.data.isFiveStar
 import com.buffetbogo.hunter.data.nameKey
+import com.buffetbogo.hunter.data.parseMeals
 import com.buffetbogo.hunter.data.priceIsEstimate
+import com.buffetbogo.hunter.data.servesAny
 import com.buffetbogo.hunter.ui.theme.BuffetColors
 import java.util.Locale
 import java.util.concurrent.TimeUnit
@@ -104,8 +112,10 @@ fun OfferListScreen(
     listState: LazyListState,
     query: String,
     filterName: String,
+    mealKeys: String,
     onQueryChange: (String) -> Unit,
     onFilterChange: (FeedFilter) -> Unit,
+    onToggleMeal: (MealTime) -> Unit,
     onRefresh: () -> Unit,
     onSortChange: (SortOrder) -> Unit,
     onOpenSettings: () -> Unit,
@@ -113,12 +123,16 @@ fun OfferListScreen(
 ) {
     var showAlerts by rememberSaveable { mutableStateOf(false) }
     val filter = FeedFilter.valueOf(filterName)
+    val meals = remember(mealKeys) { parseMeals(mealKeys) }
 
-    // One card per restaurant: the deal chips pick the deals, the grouping collapses the venues.
-    val groups = remember(offers, query, filter, sortOrder) {
+    // One card per restaurant: the deal chips pick the deals, the meal toggles pick the serving
+    // windows (any of them is enough), and the grouping collapses the venues.
+    val groups = remember(offers, query, filter, meals, sortOrder) {
         val needle = query.trim()
         val matching = offers.filter { item ->
-            filter.matches(item) && (needle.isBlank() || item.matches(needle))
+            filter.matches(item) &&
+                item.offer.servesAny(meals) &&
+                (needle.isBlank() || item.matches(needle))
         }
         FeedGrouper.group(matching, sortOrder)
     }
@@ -151,7 +165,13 @@ fun OfferListScreen(
             )
             SearchField(query = query, onQueryChange = onQueryChange)
             Spacer(Modifier.height(14.dp))
-            FilterRow(selected = filter, onSelect = onFilterChange)
+            FilterRow(
+                selected = filter,
+                meals = meals,
+                onSelect = onFilterChange,
+                onToggleMeal = onToggleMeal,
+            )
+            Spacer(Modifier.height(9.dp))
             MetaRow(
                 restaurants = groups.size,
                 deals = dealCount,
@@ -164,7 +184,7 @@ fun OfferListScreen(
             if (groups.isEmpty()) {
                 EmptyState(
                     modifier = Modifier.weight(1f),
-                    filtered = filter != FeedFilter.ALL || query.isNotBlank(),
+                    filtered = filter != FeedFilter.ALL || meals.isNotEmpty() || query.isNotBlank(),
                     onRefresh = onRefresh,
                     onOpenSettings = onOpenSettings,
                 )
@@ -340,12 +360,23 @@ private fun SearchField(query: String, onQueryChange: (String) -> Unit) {
     }
 }
 
+/**
+ * Deal-type chips on the left, serving-window toggles on the right. The deal chips are
+ * single-select (a category questionnaire), while the meal chips are independent switches: any
+ * number can be on, and tapping one again turns it off.
+ */
 @Composable
-private fun FilterRow(selected: FeedFilter, onSelect: (FeedFilter) -> Unit) {
+private fun FilterRow(
+    selected: FeedFilter,
+    meals: Set<MealTime>,
+    onSelect: (FeedFilter) -> Unit,
+    onToggleMeal: (MealTime) -> Unit,
+) {
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(horizontal = 18.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         FeedFilter.entries.forEach { filter ->
             item(key = filter.name) {
@@ -356,8 +387,64 @@ private fun FilterRow(selected: FeedFilter, onSelect: (FeedFilter) -> Unit) {
                 )
             }
         }
+        item(key = "meal_split") {
+            Box(
+                Modifier
+                    .padding(horizontal = 2.dp)
+                    .size(width = 1.dp, height = 22.dp)
+                    .background(BuffetColors.Border),
+            )
+        }
+        items(MEAL_FILTERS, key = { it.name }) { meal ->
+            MealChipView(
+                meal = meal,
+                selected = meal in meals,
+                onClick = { onToggleMeal(meal) },
+            )
+        }
     }
 }
+
+/** ALL_DAY is not a chip: with every toggle off, the feed already shows every serving window. */
+private val MEAL_FILTERS = MealTime.entries.filter { it != MealTime.ALL_DAY }
+
+@Composable
+private fun MealChipView(meal: MealTime, selected: Boolean, onClick: () -> Unit) {
+    Surface(
+        onClick = onClick,
+        shape = RoundedCornerShape(999.dp),
+        color = if (selected) BuffetColors.Clay else BuffetColors.Chip,
+        contentColor = if (selected) BuffetColors.OnClay else BuffetColors.TextSecondary,
+        border = if (selected) null else BorderStroke(1.dp, BuffetColors.Border),
+    ) {
+        Row(
+            modifier = Modifier.padding(start = 10.dp, end = 12.dp, top = 7.dp, bottom = 7.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                imageVector = meal.icon,
+                contentDescription = null,
+                modifier = Modifier.size(13.dp),
+            )
+            Spacer(Modifier.width(5.dp))
+            Text(
+                text = meal.label,
+                fontSize = 12.sp,
+                fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
+                maxLines = 1,
+            )
+        }
+    }
+}
+
+private val MealTime.icon: ImageVector
+    get() = when (this) {
+        MealTime.ALL_DAY -> Icons.Rounded.Restaurant
+        MealTime.BREAKFAST -> Icons.Rounded.FreeBreakfast
+        MealTime.BRUNCH -> Icons.Rounded.BrunchDining
+        MealTime.LUNCH -> Icons.Rounded.LunchDining
+        MealTime.DINNER -> Icons.Rounded.DinnerDining
+    }
 
 @Composable
 private fun FilterChipView(label: String, selected: Boolean, onClick: () -> Unit) {
