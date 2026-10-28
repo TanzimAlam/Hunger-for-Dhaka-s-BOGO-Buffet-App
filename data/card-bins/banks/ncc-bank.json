@@ -1,0 +1,109 @@
+{
+  "bank": "NCC Bank",
+  "cards": [
+    {
+      "name": "NCC Bank Prepaid Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["916001"]
+    },
+    {
+      "name": "NCC Bank Proprietary Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Proprietary",
+      "bestFor": "debit-card dining offers",
+      "bins": ["916002"]
+    },
+    {
+      "name": "NCC Bank Mastercard Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["520206"]
+    },
+    {
+      "name": "NCC Bank Mastercard World Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "World",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["513456"]
+    },
+    {
+      "name": "NCC Bank Prepaid Debit Card",
+      "brand": "Private label",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["705310"]
+    },
+    {
+      "name": "NCC Bank Proprietary Debit Card",
+      "brand": "Private label",
+      "type": "Debit",
+      "tier": "Proprietary",
+      "bestFor": "debit-card dining offers",
+      "bins": ["995300"]
+    },
+    {
+      "name": "NCC Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["436473", "440819"]
+    },
+    {
+      "name": "NCC Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["440820", "458170"]
+    },
+    {
+      "name": "NCC Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["421863"]
+    },
+    {
+      "name": "NCC Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["400926"]
+    },
+    {
+      "name": "NCC Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["450530", "474857"]
+    },
+    {
+      "name": "NCC Bank VISA Gold Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["464741"]
+    },
+    {
+      "name": "NCC Bank VISA Prepaid Gold Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["416801"]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "bank": "NRB Bank",
+  "cards": [
+    {
+      "name": "NRB Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["434186", "453139"]
+    },
+    {
+      "name": "NRB Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["434187", "453140"]
+    },
+    {
+      "name": "NRB Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["434180", "453141"]
+    },
+    {
+      "name": "NRB Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["400866", "434184", "434185", "453143"]
+    },
+    {
+      "name": "NRB Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["403715", "478277"]
+    }
+  ]
+}

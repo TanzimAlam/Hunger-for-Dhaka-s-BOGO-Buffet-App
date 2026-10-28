@@ -1,0 +1,109 @@
+{
+  "bank": "City Bank",
+  "cards": [
+    {
+      "name": "City Bank American Express Personal Credit Card",
+      "brand": "American Express",
+      "type": "Credit",
+      "tier": "Personal",
+      "bestFor": "entry-level dining offers",
+      "bins": ["371598", "371599", "376947", "376948"]
+    },
+    {
+      "name": "City Bank American Express Small Business Credit Card",
+      "brand": "American Express",
+      "type": "Credit",
+      "tier": "Small Business",
+      "bestFor": "entry-level dining offers",
+      "bins": ["376949"]
+    },
+    {
+      "name": "City Bank American Express Prepaid Reloadable Debit Card",
+      "brand": "American Express",
+      "type": "Debit",
+      "tier": "Prepaid Reloadable",
+      "bestFor": "debit-card dining offers",
+      "bins": ["379848"]
+    },
+    {
+      "name": "City Bank Mastercard Platinum Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["517555"]
+    },
+    {
+      "name": "City Bank Mastercard Prepaid Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["528631"]
+    },
+    {
+      "name": "City Bank Mastercard Prepaid Business Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid Business",
+      "bestFor": "debit-card dining offers",
+      "bins": ["519507"]
+    },
+    {
+      "name": "City Bank Mastercard Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["519625", "554561"]
+    },
+    {
+      "name": "City Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["410516"]
+    },
+    {
+      "name": "City Bank VISA Infinite Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Infinite",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["409765"]
+    },
+    {
+      "name": "City Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["472147", "474867"]
+    },
+    {
+      "name": "City Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["455378"]
+    },
+    {
+      "name": "City Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["405796"]
+    },
+    {
+      "name": "City Bank VISA Electron Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Electron",
+      "bestFor": "debit-card dining offers",
+      "bins": ["410520"]
+    }
+  ]
+}

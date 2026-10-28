@@ -1,0 +1,37 @@
+{
+  "bank": "Bengal Commercial Bank",
+  "cards": [
+    {
+      "name": "Bengal Commercial Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["421452"]
+    },
+    {
+      "name": "Bengal Commercial Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["410519"]
+    },
+    {
+      "name": "Bengal Commercial Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["410518"]
+    },
+    {
+      "name": "Bengal Commercial Bank VISA Prepaid Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["410517"]
+    }
+  ]
+}

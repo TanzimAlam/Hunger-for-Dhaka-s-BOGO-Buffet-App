@@ -1,0 +1,61 @@
+{
+  "bank": "Shahjalal Islami Bank",
+  "cards": [
+    {
+      "name": "Shahjalal Islami Bank Prepaid Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["919001", "919002", "919003"]
+    },
+    {
+      "name": "Shahjalal Islami Bank Prepaid Debit Card",
+      "brand": "Private label",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["700701", "700781", "700791"]
+    },
+    {
+      "name": "Shahjalal Islami Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["460547"]
+    },
+    {
+      "name": "Shahjalal Islami Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["460601", "484825"]
+    },
+    {
+      "name": "Shahjalal Islami Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["461641"]
+    },
+    {
+      "name": "Shahjalal Islami Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["418129"]
+    },
+    {
+      "name": "Shahjalal Islami Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["418128"]
+    }
+  ]
+}

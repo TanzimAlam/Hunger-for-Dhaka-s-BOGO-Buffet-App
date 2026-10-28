@@ -11,7 +11,7 @@ import java.time.ZoneId
 class SeedLoaderTest {
 
     private val zone: ZoneId = ZoneId.of("Asia/Dhaka")
-    private val now: Long = LocalDate.of(2026, 10, 25)
+    private val now: Long = LocalDate.of(2026, 10, 28)
         .atStartOfDay(zone)
         .toInstant()
         .toEpochMilli()
@@ -23,23 +23,44 @@ class SeedLoaderTest {
     @Test
     fun `every bundled offer is a real sourced listing`() {
         assertTrue(json.isNotBlank())
-        assertTrue("catalogue should not be empty", offers.size >= 5)
+        assertTrue("catalogue should not be empty", offers.size >= 15)
         offers.forEach { offer ->
             assertTrue("${offer.restaurant} needs a link", offer.sourceUrl.startsWith("https://"))
             assertTrue("${offer.restaurant} needs a real title", offer.title.length > 10)
-            assertEquals(Sources.CURATED, offer.source)
+            // A curated listing links to the restaurant's own ad; a bank rate card never does.
+            assertTrue(
+                "${offer.restaurant} has an unsupported source",
+                offer.source == Sources.CURATED || offer.source == Sources.BANK,
+            )
+            if (offer.source == Sources.BANK) {
+                // A rate card proves the deal; the button must still land on the restaurant.
+                assertTrue(
+                    "${offer.restaurant} must not advertise a bank page as the ad",
+                    offer.adUrl == null || offer.adUrl != offer.sourceUrl,
+                )
+            }
             assertTrue("${offer.restaurant} needs a payment note", offer.paymentNote.isNotBlank())
         }
     }
 
     @Test
-    fun `every bundled offer carries a price`() {
+    fun `prices are real whenever the ad prints one`() {
         offers.forEach { offer ->
-            assertTrue("${offer.restaurant} has no price", offer.priceBdt != null)
-            assertTrue("${offer.restaurant} has an implausible price", offer.priceBdt!! > 0)
+            val price = offer.priceBdt
+            if (price == null) {
+                // Only a bank rate card may omit the figure: "Dine 2 Pay 1" prints no rate.
+                assertEquals(
+                    "${offer.restaurant} is unpriced but is not a bank rate card",
+                    Sources.BANK,
+                    offer.source,
+                )
+                return@forEach
+            }
+            assertTrue("${offer.restaurant} has an implausible price", price > 0)
             assertTrue("${offer.restaurant} has no price unit", !offer.priceUnit.isNullOrBlank())
             assertEquals(PriceSources.AD, offer.priceSource)
         }
+        assertTrue("too few priced offers", offers.count { it.priceBdt != null } >= 8)
     }
 
     @Test

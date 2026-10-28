@@ -36,11 +36,12 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -52,6 +53,7 @@ import com.buffetbogo.hunter.data.facebookSearchUrl
 import com.buffetbogo.hunter.data.hasExactAdLink
 import com.buffetbogo.hunter.data.priceIsEstimate
 import com.buffetbogo.hunter.ui.theme.BuffetColors
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,7 +65,8 @@ fun OfferDetailScreen(
     onHide: () -> Unit,
 ) {
     val offer = item.offer
-    val uriHandler = LocalUriHandler.current
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
     val adLink = offer.adToOpen()
     val exactAd = offer.hasExactAdLink()
     val adTarget = adLink ?: offer.facebookSearchUrl()
@@ -231,7 +234,18 @@ fun OfferDetailScreen(
 
                     Spacer(Modifier.height(18.dp))
                     Button(
-                        onClick = { uriHandler.openUri(adTarget) },
+                        onClick = {
+                            val message = when (LinkOpener.open(context, adTarget)) {
+                                LinkOpener.Result.OPENED -> null
+                                LinkOpener.Result.COPIED ->
+                                    "No app could open that link, so the address is on your clipboard."
+                                LinkOpener.Result.UNUSABLE ->
+                                    "This offer's ad link is broken. Try again after the next refresh."
+                            }
+                            message?.let { text ->
+                                scope.launch { snackbarHostState.showSnackbar(text) }
+                            }
+                        },
                         shape = RoundedCornerShape(12.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = BuffetColors.Accent,

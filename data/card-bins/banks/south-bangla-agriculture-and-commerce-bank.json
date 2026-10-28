@@ -1,0 +1,45 @@
+{
+  "bank": "South Bangla Agriculture and Commerce Bank",
+  "cards": [
+    {
+      "name": "South Bangla Agriculture and Commerce Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["410770"]
+    },
+    {
+      "name": "South Bangla Agriculture and Commerce Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["410772"]
+    },
+    {
+      "name": "South Bangla Agriculture and Commerce Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["410787"]
+    },
+    {
+      "name": "South Bangla Agriculture and Commerce Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["410803"]
+    },
+    {
+      "name": "South Bangla Agriculture and Commerce Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["458735"]
+    }
+  ]
+}

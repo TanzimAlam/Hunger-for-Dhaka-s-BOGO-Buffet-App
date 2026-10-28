@@ -1,0 +1,45 @@
+{
+  "bank": "EXIM Bank",
+  "cards": [
+    {
+      "name": "EXIM Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["464587"]
+    },
+    {
+      "name": "EXIM Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["464589", "464590"]
+    },
+    {
+      "name": "EXIM Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["480372"]
+    },
+    {
+      "name": "EXIM Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["464588"]
+    },
+    {
+      "name": "EXIM Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["459891"]
+    }
+  ]
+}

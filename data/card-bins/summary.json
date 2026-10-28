@@ -1,0 +1,20 @@
+{
+  "bins": 630,
+  "banks": 50,
+  "countries": ["BD"],
+  "byBrand": {
+    "American Express": 6,
+    "Diners Club": 12,
+    "Discover": 11,
+    "Local brand": 36,
+    "Maestro": 7,
+    "Mastercard": 123,
+    "Private label": 23,
+    "UnionPay": 2,
+    "VISA": 410
+  },
+  "byType": {
+    "Credit": 335,
+    "Debit": 295
+  }
+}

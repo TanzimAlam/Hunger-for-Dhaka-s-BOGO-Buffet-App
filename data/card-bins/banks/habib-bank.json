@@ -1,0 +1,13 @@
+{
+  "bank": "Habib Bank",
+  "cards": [
+    {
+      "name": "Habib Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["483758"]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "bank": "Mercantile Bank",
+  "cards": [
+    {
+      "name": "Mercantile Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["422089", "422090", "428645"]
+    },
+    {
+      "name": "Mercantile Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["417263", "422091", "422092", "428646"]
+    },
+    {
+      "name": "Mercantile Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["409379", "459874", "483019"]
+    },
+    {
+      "name": "Mercantile Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["422088", "458731"]
+    },
+    {
+      "name": "Mercantile Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["418153"]
+    }
+  ]
+}

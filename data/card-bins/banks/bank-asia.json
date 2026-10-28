@@ -1,0 +1,133 @@
+{
+  "bank": "Bank Asia",
+  "cards": [
+    {
+      "name": "Bank Asia Prepaid Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["907002"]
+    },
+    {
+      "name": "Bank Asia Q-Cash Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Q-Cash",
+      "bestFor": "debit-card dining offers",
+      "bins": ["907001"]
+    },
+    {
+      "name": "Bank Asia Maestro Q-Cash Debit Card",
+      "brand": "Maestro",
+      "type": "Debit",
+      "tier": "Q-Cash",
+      "bestFor": "debit-card dining offers",
+      "bins": ["603788"]
+    },
+    {
+      "name": "Bank Asia Mastercard Gold Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["222704"]
+    },
+    {
+      "name": "Bank Asia Mastercard Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["222705"]
+    },
+    {
+      "name": "Bank Asia Mastercard Titanium Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Titanium",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["515780"]
+    },
+    {
+      "name": "Bank Asia Mastercard World Elite Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "World Elite",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["514073"]
+    },
+    {
+      "name": "Bank Asia Mastercard Platinum Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["517253"]
+    },
+    {
+      "name": "Bank Asia Mastercard Prepaid Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["222706", "541173"]
+    },
+    {
+      "name": "Bank Asia Prepaid Debit Card",
+      "brand": "Private label",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["706890"]
+    },
+    {
+      "name": "Bank Asia VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["463763", "463764"]
+    },
+    {
+      "name": "Bank Asia VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["463765", "463766"]
+    },
+    {
+      "name": "Bank Asia VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["419930", "469343"]
+    },
+    {
+      "name": "Bank Asia VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["403993"]
+    },
+    {
+      "name": "Bank Asia VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["455377", "463767"]
+    },
+    {
+      "name": "Bank Asia VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["476629"]
+    }
+  ]
+}

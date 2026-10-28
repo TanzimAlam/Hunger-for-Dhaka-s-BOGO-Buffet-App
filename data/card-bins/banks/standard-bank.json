@@ -1,0 +1,37 @@
+{
+  "bank": "Standard Bank",
+  "cards": [
+    {
+      "name": "Standard Bank Maestro Proprietary Debit Card",
+      "brand": "Maestro",
+      "type": "Debit",
+      "tier": "Proprietary",
+      "bestFor": "debit-card dining offers",
+      "bins": ["502915"]
+    },
+    {
+      "name": "Standard Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["436474"]
+    },
+    {
+      "name": "Standard Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["455379"]
+    },
+    {
+      "name": "Standard Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["477039"]
+    }
+  ]
+}

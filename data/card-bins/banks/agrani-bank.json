@@ -1,0 +1,21 @@
+{
+  "bank": "Agrani Bank",
+  "cards": [
+    {
+      "name": "Agrani Bank ATM Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "ATM",
+      "bestFor": "debit-card dining offers",
+      "bins": ["901001"]
+    },
+    {
+      "name": "Agrani Bank Maestro ATM Debit Card",
+      "brand": "Maestro",
+      "type": "Debit",
+      "tier": "ATM",
+      "bestFor": "debit-card dining offers",
+      "bins": ["627278"]
+    }
+  ]
+}

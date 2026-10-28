@@ -1,0 +1,109 @@
+{
+  "bank": "Standard Chartered Bank",
+  "cards": [
+    {
+      "name": "Standard Chartered Bank Mastercard Gold Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["512760"]
+    },
+    {
+      "name": "Standard Chartered Bank Mastercard Platinum Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["524360"]
+    },
+    {
+      "name": "Standard Chartered Bank Mastercard Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["512815", "545091"]
+    },
+    {
+      "name": "Standard Chartered Bank Mastercard Titanium Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Titanium",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["520234"]
+    },
+    {
+      "name": "Standard Chartered Bank Mastercard Private Label Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Private Label",
+      "bestFor": "debit-card dining offers",
+      "bins": ["223587"]
+    },
+    {
+      "name": "Standard Chartered Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["426376", "432155", "434923"]
+    },
+    {
+      "name": "Standard Chartered Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["426378", "434924", "455445", "470925", "470926"]
+    },
+    {
+      "name": "Standard Chartered Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["470691", "470692", "470927", "470928", "470947", "486294"]
+    },
+    {
+      "name": "Standard Chartered Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["457204", "457205"]
+    },
+    {
+      "name": "Standard Chartered Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["411144", "421474", "421481"]
+    },
+    {
+      "name": "Standard Chartered Bank VISA Gold Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["484757"]
+    },
+    {
+      "name": "Standard Chartered Bank VISA Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["410541", "436462", "450536", "453142", "469185", "469626", "469627", "470661", "472208"]
+    },
+    {
+      "name": "Standard Chartered Bank VISA Prepaid Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["421451", "452051"]
+    }
+  ]
+}

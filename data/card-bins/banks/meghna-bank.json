@@ -1,0 +1,45 @@
+{
+  "bank": "Meghna Bank",
+  "cards": [
+    {
+      "name": "Meghna Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["438632", "438642"]
+    },
+    {
+      "name": "Meghna Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["438561", "438575"]
+    },
+    {
+      "name": "Meghna Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["452989"]
+    },
+    {
+      "name": "Meghna Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["438594"]
+    },
+    {
+      "name": "Meghna Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["407275"]
+    }
+  ]
+}

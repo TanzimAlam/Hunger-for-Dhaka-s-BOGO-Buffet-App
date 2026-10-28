@@ -20,7 +20,7 @@ import java.time.ZoneId
 object SeedLoader {
 
     /** Bump whenever seed_offers.json or venue_ratings.json changes. */
-    const val VERSION = 5
+    const val VERSION = 6
 
     suspend fun load(context: Context, now: Long = System.currentTimeMillis()): List<Offer> =
         withContext(Dispatchers.IO) {

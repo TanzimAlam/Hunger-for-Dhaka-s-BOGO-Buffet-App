@@ -1,0 +1,37 @@
+{
+  "bank": "Janata Bank",
+  "cards": [
+    {
+      "name": "Janata Bank Q-Cash Credit Card",
+      "brand": "Local brand",
+      "type": "Credit",
+      "tier": "Q-Cash",
+      "bestFor": "entry-level dining offers",
+      "bins": ["913502"]
+    },
+    {
+      "name": "Janata Bank Q-Cash Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Q-Cash",
+      "bestFor": "debit-card dining offers",
+      "bins": ["913501"]
+    },
+    {
+      "name": "Janata Bank Q-Cash Credit Card",
+      "brand": "Private label",
+      "type": "Credit",
+      "tier": "Q-Cash",
+      "bestFor": "entry-level dining offers",
+      "bins": ["701292"]
+    },
+    {
+      "name": "Janata Bank Q-Cash Debit Card",
+      "brand": "Private label",
+      "type": "Debit",
+      "tier": "Q-Cash",
+      "bestFor": "debit-card dining offers",
+      "bins": ["701220"]
+    }
+  ]
+}

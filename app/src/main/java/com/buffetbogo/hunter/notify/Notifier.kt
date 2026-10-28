@@ -14,6 +14,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.buffetbogo.hunter.MainActivity
 import com.buffetbogo.hunter.R
+import com.buffetbogo.hunter.data.LinkTargets
 import com.buffetbogo.hunter.data.Offer
 import com.buffetbogo.hunter.data.adToOpen
 import com.buffetbogo.hunter.data.facebookSearchUrl
@@ -93,7 +94,8 @@ object Notifier {
             .setContentIntent(contentIntent)
 
         // Second action: straight to the venue's ad, for people who already know they want it.
-        val adUri = offer.adToOpen() ?: offer.facebookSearchUrl()
+        // Same repair as the detail screen: a link nothing can open would make a dead action.
+        val adUri = LinkTargets.clean(offer.adToOpen()) ?: offer.facebookSearchUrl()
         val adIntent = Intent(Intent.ACTION_VIEW, Uri.parse(adUri))
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         val adPending = PendingIntent.getActivity(

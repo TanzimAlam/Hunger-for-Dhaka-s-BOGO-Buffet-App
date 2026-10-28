@@ -1,0 +1,125 @@
+{
+  "bank": "Southeast Bank",
+  "cards": [
+    {
+      "name": "Southeast Bank ATM Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "ATM",
+      "bestFor": "debit-card dining offers",
+      "bins": ["920501"]
+    },
+    {
+      "name": "Southeast Bank Maestro ATM Debit Card",
+      "brand": "Maestro",
+      "type": "Debit",
+      "tier": "ATM",
+      "bestFor": "debit-card dining offers",
+      "bins": ["603591"]
+    },
+    {
+      "name": "Southeast Bank Mastercard Gold Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["537647"]
+    },
+    {
+      "name": "Southeast Bank Mastercard Platinum Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["521623"]
+    },
+    {
+      "name": "Southeast Bank Mastercard Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["537682"]
+    },
+    {
+      "name": "Southeast Bank Mastercard Titanium Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Titanium",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["537650"]
+    },
+    {
+      "name": "Southeast Bank Mastercard World Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "World",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["552421"]
+    },
+    {
+      "name": "Southeast Bank Mastercard Prepaid Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["543983"]
+    },
+    {
+      "name": "Southeast Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["477881", "477886", "486143", "486144"]
+    },
+    {
+      "name": "Southeast Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["477890", "486145", "486146"]
+    },
+    {
+      "name": "Southeast Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["466552", "466553", "477860"]
+    },
+    {
+      "name": "Southeast Bank VISA Purchasing Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Purchasing",
+      "bestFor": "entry-level dining offers",
+      "bins": ["463729"]
+    },
+    {
+      "name": "Southeast Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["421475"]
+    },
+    {
+      "name": "Southeast Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["413636"]
+    },
+    {
+      "name": "Southeast Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["409056"]
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "bank": "Prime Bank",
+  "cards": [
+    {
+      "name": "Prime Bank Prepaid Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["101018", "917002"]
+    },
+    {
+      "name": "Prime Bank Proprietary Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Proprietary",
+      "bestFor": "debit-card dining offers",
+      "bins": ["101017", "917001", "917003"]
+    },
+    {
+      "name": "Prime Bank Maestro Proprietary Debit Card",
+      "brand": "Maestro",
+      "type": "Debit",
+      "tier": "Proprietary",
+      "bestFor": "debit-card dining offers",
+      "bins": ["606018"]
+    },
+    {
+      "name": "Prime Bank Mastercard Gold Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["554793", "554867"]
+    },
+    {
+      "name": "Prime Bank Mastercard Platinum Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["550586"]
+    },
+    {
+      "name": "Prime Bank Mastercard Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["554777", "554957"]
+    },
+    {
+      "name": "Prime Bank Mastercard World Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "World",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["559573"]
+    },
+    {
+      "name": "Prime Bank Mastercard World Business Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "World Business",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["512929"]
+    },
+    {
+      "name": "Prime Bank Mastercard Platinum Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["515585"]
+    },
+    {
+      "name": "Prime Bank Mastercard Prepaid Business Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid Business",
+      "bestFor": "debit-card dining offers",
+      "bins": ["521526"]
+    },
+    {
+      "name": "Prime Bank Mastercard Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["557660"]
+    },
+    {
+      "name": "Prime Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["406751", "406753"]
+    },
+    {
+      "name": "Prime Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["406752", "406754", "463209"]
+    },
+    {
+      "name": "Prime Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["457354", "463210"]
+    },
+    {
+      "name": "Prime Bank VISA Prepaid Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["473193"]
+    },
+    {
+      "name": "Prime Bank VISA Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["428405"]
+    }
+  ]
+}

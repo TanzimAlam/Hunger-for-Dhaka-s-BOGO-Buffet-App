@@ -1,0 +1,101 @@
+{
+  "bank": "Dhaka Bank",
+  "cards": [
+    {
+      "name": "Dhaka Bank Maestro Debit Card",
+      "brand": "Maestro",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["603590"]
+    },
+    {
+      "name": "Dhaka Bank Mastercard World Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "World",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["513466"]
+    },
+    {
+      "name": "Dhaka Bank Mastercard Platinum Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["517787"]
+    },
+    {
+      "name": "Dhaka Bank Mastercard Prepaid Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["532009"]
+    },
+    {
+      "name": "Dhaka Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["424938"]
+    },
+    {
+      "name": "Dhaka Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["424941"]
+    },
+    {
+      "name": "Dhaka Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["479941"]
+    },
+    {
+      "name": "Dhaka Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["407923"]
+    },
+    {
+      "name": "Dhaka Bank VISA Signature Business Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature Business",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["404552"]
+    },
+    {
+      "name": "Dhaka Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["488911"]
+    },
+    {
+      "name": "Dhaka Bank VISA Prepaid Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["489032"]
+    },
+    {
+      "name": "Dhaka Bank VISA Prepaid Gold Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["438656", "484601"]
+    }
+  ]
+}

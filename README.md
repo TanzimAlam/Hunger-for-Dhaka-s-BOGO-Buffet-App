@@ -12,7 +12,7 @@ meal chips (Any time / Breakfast / Brunch / Lunch / Dinner) sit above the list, 
 order is **by end date**, so whatever is about to run out is at the top. Opening a deal and coming
 back leaves the feed exactly where it was — same card, same search, same chips.
 
-**It works with no API keys and no account.** Nine public pages are read directly, a checked
+**It works with no API keys and no account.** Sixteen public pages are read directly, a checked
 set of Google ratings and buffet prices ships with the app, and missing prices are looked up with
 a keyless search. Keys in Settings only widen coverage and refresh live data.
 
@@ -20,7 +20,7 @@ a keyless search. Keys in Settings only widen coverage and refresh live data.
 
 | Source | Key needed | What it gives |
 | --- | --- | --- |
-| Bank dining pages: Standard Chartered `av.sc.com/bd/edm/b1g1-offers/`, City Bank, Mutual Trust Bank, Prime Bank, Trust Bank, Shimanto Bank, NCC Bank | none | **Discovery only** — which Dhaka venues currently run a buffet deal, the deal wording ("Dine 4 Pay 1", "BOGO Free Buffet") and card eligibility. A bank's link is never shown or opened |
+| Bank dining pages: Standard Chartered `av.sc.com/bd/edm/b1g1-offers/`, City Bank, Mutual Trust Bank, Prime Bank, Trust Bank, Shimanto Bank, NCC Bank, BRAC Bank, UCB, Bank Asia, Dhaka Bank, Premier Bank, Al-Arafah Islami Bank, NRB Bank, ONE Bank, Meghna Bank | none | **Discovery only** — which Dhaka venues currently run a buffet deal, the deal wording ("Dine 4 Pay 1", "BOGO Free Buffet") and card eligibility. A bank's link is never shown or opened |
 | Google News RSS (`news.google.com/rss/search`) | none | Dated press coverage of new campaigns — catches short promotions like "Buy 1 Get 3 free buffet, 18–24 October" |
 | `app/src/main/assets/venue_socials.json` | none | Every venue's **official Facebook page** and its own dining page — the ad link each card opens |
 | Facebook Graph API (optional) | Meta app + Page token | The venues' own posts: the restaurant's price, dates, serving hours and conditions, read through the official API |
@@ -43,8 +43,9 @@ The feed never renders a card without a figure. A price comes from, in order:
    With a Brave key it also queries `site:facebook.com`; without one it uses DuckDuckGo's
    lightweight HTML results. No Facebook account, app token or scraping is involved.
 
-If all three come back empty, the row stays in the database but is filtered out of the feed until a
-price is found — the app would rather show an offer late than show it with no price at all.
+If all three come back empty the offer still appears, with **"Price being checked"** in place of
+the figure. Many hotels publish only "Dine 2 Pay 1" and no rate at all; hiding those rows is what
+made whole restaurants look absent from the feed.
 
 ## The ad behind every card
 
@@ -122,12 +123,12 @@ overrides it. Keys stay on the device or in the local build — never in the APK
 | Storage | Room (`offers`, `restaurant_ratings`) with v1→v2 (price unit/source) and v2→v3 (ad link, ad label, timing, checked date) migrations, DataStore for settings and the chosen sort order |
 | Background work | WorkManager every 30 minutes, plus a refresh on launch when the feed is older than 30 minutes |
 | Notifications | One notification per new offer (never a bundled summary), carrying that offer's id; tapping it opens that offer's own detail screen, and its action button opens the venue's ad directly |
-| Bundled catalogue | 6 real, sourced Dhaka offers in `app/src/main/assets/seed_offers.json`, all priced |
+| Bundled catalogue | 18 real, sourced Dhaka offers in `app/src/main/assets/seed_offers.json` — priced wherever the ad prints a figure, and marked "price being checked" where a bank rate card states none |
 | Price book | 28 venues' checked buffet rates in `app/src/main/assets/venue_prices.json`, used to price bank ads that never state one |
 | Venue directory | 31 venues' official Facebook pages and dining pages in `app/src/main/assets/venue_socials.json` |
 | Grouping | `FeedGrouper` folds the offer list into one card per restaurant, orders venues by their best deal for the chosen sort, and keeps one copy of a deal that several banks list |
 | Branding | Launcher icon, adaptive icon and in-app header logo generated from the supplied emblem by `tools/BrandIcons.java`; the whole round badge is fitted inside each icon, never cropped. The Compose palette is sampled from that emblem (white paper, steel blue, clay, saffron, bottle green) |
-| Parsing | `OfferParser` (English wording, prices, dates, serving windows), `StandardCharteredSource`, `BankPageSource` + `BankHtml` (six more banks), `NewsRssSource`, `FacebookPageSource`, `AdEnricher`, `AdLinkResolver` |
+| Parsing | `OfferParser` (English wording, prices, dates, serving windows), `StandardCharteredSource`, `BankPageSource` + `BankHtml` (fifteen more banks), `NewsRssSource`, `FacebookPageSource`, `AdEnricher`, `AdLinkResolver`, `LinkTargets` (repairs every link before it is opened) |
 
 ### Screens
 
@@ -174,8 +175,19 @@ Open the folder in Android Studio and press Run (Android 8.0 / API 26+).
 The rows in `seed_offers.json` are real promotions, each with the page they were verified on:
 Hotel Sarina's standing Buy 1 Get 3 at BDT 9,000 net for four (any payment method), Beyond Buffet's
 15–30 October discount, Teriyaki Boy's Buy 1 Get 1 steak buffet, Amari's Pay 1 Eat 3 lunch and
-Eat 5 Pay 1 dinner, and Six Seasons' daily net-price buffet. Every row carries a price and the unit
-that price covers.
+Eat 5 Pay 1 dinner, Six Seasons' daily net-price buffet and its UCB Buy 1 Get 3 lunch.
+
+The occasional, non-bank deals sit alongside them, because those are exactly the ones a bank list
+never carries: Ascott Palace's Buy 1 Get 1 breakfast at BDT 2,499 **payable by card or cash**, and
+Hotel Marco Polo's Buy 1 Get 1 breakfast at BDT 1,499 with no card condition at all.
+
+The rest of the catalogue is the 3–5 star hotel group: Crowne Plaza Dhaka Gulshan (Dine 3 Pay 1
+brunch and dinner, Dine 2 Pay 1 breakfast and lunch), Crowne Plaza Dhaka Airport and Hyatt Place
+Dhaka Uttara (Dine 2 Pay 1 all day), Ascott The Residence (Dine 2 Pay 1 breakfast), Platinum
+Residence (Dine 2 Pay 1 all meals), Doreen Hotel & Resort (Buy 1 Get 2 dinner on UCB) and Café Rio
+(15% off buffet on Premier Bank). A bank rate card prints no price, so those rows say so rather
+than inventing one.
+
 They carry absolute dates, so they disappear like any other offer once a campaign ends; bump
 `SeedLoader.VERSION` when you edit the file and installed apps replace the old rows on next launch.
 
@@ -183,7 +195,7 @@ They carry absolute dates, so they disappear like any other offer once a campaig
 
 - `StandardCharteredSource` splits the bank page on `div class=box`, reads the `<h3>` venue, every
   `offer-info` line, the "Valid till" date and the thumbnail, and turns each Dhaka venue into one offer.
-- `BankPageSource` fetches the six other banks' dining pages concurrently (gzip, browser user agent)
+- `BankPageSource` fetches the fifteen other banks' dining pages concurrently (gzip, browser user agent)
   and hands each to `BankPageParser`. Because those pages share no markup, it works from the visible
   text: find the deal phrase, walk back for the venue it belongs to and forward for the card
   condition, then take the price and campaign date from the same window. Known venues are matched
@@ -258,12 +270,20 @@ References:
   unindexed post is invisible; the card then links to the venue's page instead of the exact post.
 - No device or emulator was available in this environment: the app compiles and its JVM tests pass,
   but the screens have not been inspected on hardware.
-- Bank dining pages are whole web pages (roughly 2 MB uncompressed across the six, ~400 KB over
-  gzip), fetched concurrently once per sync. They also redesign without notice: a changed page
-  contributes nothing rather than half a venue name, and the snapshot tests catch the ones covered.
+- Bank dining pages are whole web pages, fetched concurrently once per sync. They redesign without
+  notice: a changed page contributes nothing rather than half a venue name, and the snapshot tests
+  catch the ones covered. Ten of the sixteen listed pages are server-rendered; EBL, IFIC, Southeast
+  and Shahjalal publish their offers as images or JavaScript panels and are left out.
 - Some venues (The Way Dhaka, Shinepukur Suites, Bengal Inn, Platinum Residence) print no buffet
-  price anywhere readable, so until the keyless price search finds one their bank offers stay out
-  of the feed under the no-price-no-card rule.
+  price anywhere readable, so their cards say "Price being checked" until the keyless search finds
+  one. They are shown rather than hidden.
+
+## Bank cards and BINs (`data/card-bins/`)
+
+A reference dataset for matching an offer's card condition to the card a diner holds: 630
+Bangladeshi BINs across 50 banks, rolled up into 410 card products, plus 169 official product names
+from 21 banks' own card pages. See [`data/card-bins/README.md`](data/card-bins/README.md) for the
+schemas, the join keys and the caveats. It is data only — nothing in that folder ships in the APK.
 
 ## Next steps
 

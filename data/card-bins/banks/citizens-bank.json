@@ -1,0 +1,29 @@
+{
+  "bank": "Citizens Bank",
+  "cards": [
+    {
+      "name": "Citizens Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["424940"]
+    },
+    {
+      "name": "Citizens Bank VISA Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["424939"]
+    },
+    {
+      "name": "Citizens Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["409328"]
+    }
+  ]
+}

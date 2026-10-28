@@ -1,0 +1,77 @@
+{
+  "bank": "Sonali Bank",
+  "cards": [
+    {
+      "name": "Sonali Bank Qc Staff Credit Card",
+      "brand": "Local brand",
+      "type": "Credit",
+      "tier": "Qc Staff",
+      "bestFor": "entry-level dining offers",
+      "bins": ["920005"]
+    },
+    {
+      "name": "Sonali Bank Q-Cash Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Q-Cash",
+      "bestFor": "debit-card dining offers",
+      "bins": ["920001", "920004"]
+    },
+    {
+      "name": "Sonali Bank Q-Cash Credit Card",
+      "brand": "Private label",
+      "type": "Credit",
+      "tier": "Q-Cash",
+      "bestFor": "entry-level dining offers",
+      "bins": ["701570"]
+    },
+    {
+      "name": "Sonali Bank Prepaid Debit Card",
+      "brand": "Private label",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["701590"]
+    },
+    {
+      "name": "Sonali Bank Q-Cash Debit Card",
+      "brand": "Private label",
+      "type": "Debit",
+      "tier": "Q-Cash",
+      "bestFor": "debit-card dining offers",
+      "bins": ["701500", "701501", "701502", "701503"]
+    },
+    {
+      "name": "Sonali Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["468978"]
+    },
+    {
+      "name": "Sonali Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["468979"]
+    },
+    {
+      "name": "Sonali Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["468980"]
+    },
+    {
+      "name": "Sonali Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["434657"]
+    }
+  ]
+}

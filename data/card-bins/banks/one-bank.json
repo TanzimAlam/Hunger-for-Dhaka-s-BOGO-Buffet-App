@@ -1,0 +1,61 @@
+{
+  "bank": "ONE Bank",
+  "cards": [
+    {
+      "name": "ONE Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["476610"]
+    },
+    {
+      "name": "ONE Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["476612", "476613"]
+    },
+    {
+      "name": "ONE Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["419929"]
+    },
+    {
+      "name": "ONE Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["476614"]
+    },
+    {
+      "name": "ONE Bank VISA Gold Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["476685"]
+    },
+    {
+      "name": "ONE Bank VISA Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["461048"]
+    },
+    {
+      "name": "ONE Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["419918", "419950"]
+    }
+  ]
+}

@@ -57,8 +57,10 @@ class OfferRepository(
             val ratingsByKey = ratings.associateBy { it.nameKey }
             val now = System.currentTimeMillis()
             offers.asSequence()
-                // A card is only shown once it has a price; unpriced rows wait in the database.
-                .filter { it.isLive(now) && it.priceBdt != null }
+                // An unpriced offer is still shown: many hotels only print "Dine 2 Pay 1", and
+                // hiding those rows is what made whole restaurants look missing from the feed.
+                // The card says "Price being checked" until a lookup fills the figure in.
+                .filter { it.isLive(now) }
                 .map { offer ->
                     val cached = ratingsByKey[nameKey(offer.restaurant)]
                     OfferUi(
@@ -174,8 +176,8 @@ class OfferRepository(
         settingsStore.markSynced(now)
         runCatching { refreshRatings() }
 
-        // Only offers that ended up with a price are visible, so count and alert on those.
-        val visible = dao.all().filter { it.isLive(now) && it.priceBdt != null }
+        // Every live offer is visible now, priced or not, so the summary counts all of them.
+        val visible = dao.all().filter { it.isLive(now) }
         val newOffers = visible.filter { it.id !in existing }
         val status = when {
             visible.isEmpty() -> "No live buffet offers matched this time."

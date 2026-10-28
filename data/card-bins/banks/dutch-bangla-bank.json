@@ -1,0 +1,125 @@
+{
+  "bank": "Dutch-Bangla Bank",
+  "cards": [
+    {
+      "name": "Dutch-Bangla Bank Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["909001", "909002"]
+    },
+    {
+      "name": "Dutch-Bangla Bank Mastercard Gold Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["542128"]
+    },
+    {
+      "name": "Dutch-Bangla Bank Mastercard Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["530865", "531613"]
+    },
+    {
+      "name": "Dutch-Bangla Bank Mastercard Titanium Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Titanium",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["524526"]
+    },
+    {
+      "name": "Dutch-Bangla Bank Mastercard World Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "World",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["558200"]
+    },
+    {
+      "name": "Dutch-Bangla Bank Mastercard Prepaid Reloadable Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid Reloadable",
+      "bestFor": "debit-card dining offers",
+      "bins": ["530337"]
+    },
+    {
+      "name": "Dutch-Bangla Bank Mastercard Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["557667"]
+    },
+    {
+      "name": "Dutch-Bangla Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["444515", "444516"]
+    },
+    {
+      "name": "Dutch-Bangla Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["444517", "444518"]
+    },
+    {
+      "name": "Dutch-Bangla Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["483145"]
+    },
+    {
+      "name": "Dutch-Bangla Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["490913"]
+    },
+    {
+      "name": "Dutch-Bangla Bank VISA Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["444513", "444514"]
+    },
+    {
+      "name": "Dutch-Bangla Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["484061"]
+    },
+    {
+      "name": "Dutch-Bangla Bank VISA Electron Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Electron",
+      "bestFor": "debit-card dining offers",
+      "bins": ["444519"]
+    },
+    {
+      "name": "Dutch-Bangla Bank VISA Prepaid Gold Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["408256"]
+    }
+  ]
+}

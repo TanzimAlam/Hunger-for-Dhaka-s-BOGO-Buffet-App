@@ -1,0 +1,37 @@
+{
+  "bank": "Modhumoti Bank",
+  "cards": [
+    {
+      "name": "Modhumoti Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["401918"]
+    },
+    {
+      "name": "Modhumoti Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["401960"]
+    },
+    {
+      "name": "Modhumoti Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["401917"]
+    },
+    {
+      "name": "Modhumoti Bank VISA Electron Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Electron",
+      "bestFor": "debit-card dining offers",
+      "bins": ["401961"]
+    }
+  ]
+}

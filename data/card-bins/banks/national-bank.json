@@ -1,0 +1,93 @@
+{
+  "bank": "National Bank",
+  "cards": [
+    {
+      "name": "National Bank Mastercard Gold Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["548867", "548868"]
+    },
+    {
+      "name": "National Bank Mastercard Platinum Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["530216", "530218"]
+    },
+    {
+      "name": "National Bank Mastercard Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["548195", "548196"]
+    },
+    {
+      "name": "National Bank Mastercard Gold Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["531375"]
+    },
+    {
+      "name": "National Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["409362"]
+    },
+    {
+      "name": "National Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["429878"]
+    },
+    {
+      "name": "National Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["417274", "429867"]
+    },
+    {
+      "name": "National Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["420968"]
+    },
+    {
+      "name": "National Bank VISA Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["420971"]
+    },
+    {
+      "name": "National Bank VISA Prepaid Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["409391"]
+    },
+    {
+      "name": "National Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["409390"]
+    }
+  ]
+}

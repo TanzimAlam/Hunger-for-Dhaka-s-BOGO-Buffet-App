@@ -1,0 +1,141 @@
+{
+  "bank": "United Commercial Bank",
+  "cards": [
+    {
+      "name": "United Commercial Bank Mastercard Gold Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["530003"]
+    },
+    {
+      "name": "United Commercial Bank Mastercard Platinum Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["521392"]
+    },
+    {
+      "name": "United Commercial Bank Mastercard Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["548321"]
+    },
+    {
+      "name": "United Commercial Bank Mastercard World Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "World",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["515405", "541515"]
+    },
+    {
+      "name": "United Commercial Bank Mastercard Platinum Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["526238"]
+    },
+    {
+      "name": "United Commercial Bank Mastercard Prepaid Reloadable Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid Reloadable",
+      "bestFor": "debit-card dining offers",
+      "bins": ["516054", "541776"]
+    },
+    {
+      "name": "United Commercial Bank VISA Business Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Business",
+      "bestFor": "entry-level dining offers",
+      "bins": ["437594"]
+    },
+    {
+      "name": "United Commercial Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["439131", "439132", "476611", "490939", "491003"]
+    },
+    {
+      "name": "United Commercial Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["439133", "439134"]
+    },
+    {
+      "name": "United Commercial Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["436526", "477839"]
+    },
+    {
+      "name": "United Commercial Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["408409"]
+    },
+    {
+      "name": "United Commercial Bank VISA Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["462246", "462247", "464574", "464575"]
+    },
+    {
+      "name": "United Commercial Bank VISA Business Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Business",
+      "bestFor": "debit-card dining offers",
+      "bins": ["402780"]
+    },
+    {
+      "name": "United Commercial Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["462870"]
+    },
+    {
+      "name": "United Commercial Bank VISA Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["403342"]
+    },
+    {
+      "name": "United Commercial Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["409401"]
+    },
+    {
+      "name": "United Commercial Bank VISA Prepaid Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["409400"]
+    }
+  ]
+}

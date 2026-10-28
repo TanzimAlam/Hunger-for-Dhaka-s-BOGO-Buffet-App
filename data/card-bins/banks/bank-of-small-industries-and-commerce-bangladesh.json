@@ -1,0 +1,45 @@
+{
+  "bank": "Bank of Small Industries and Commerce Bangladesh",
+  "cards": [
+    {
+      "name": "Bank of Small Industries and Commerce Bangladesh Q-Cash Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Q-Cash",
+      "bestFor": "debit-card dining offers",
+      "bins": ["905501"]
+    },
+    {
+      "name": "Bank of Small Industries and Commerce Bangladesh Q-Cash Debit Card",
+      "brand": "Private label",
+      "type": "Debit",
+      "tier": "Q-Cash",
+      "bestFor": "debit-card dining offers",
+      "bins": ["703500"]
+    },
+    {
+      "name": "Bank of Small Industries and Commerce Bangladesh VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["470966"]
+    },
+    {
+      "name": "Bank of Small Industries and Commerce Bangladesh VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["470967"]
+    },
+    {
+      "name": "Bank of Small Industries and Commerce Bangladesh VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["470969"]
+    }
+  ]
+}

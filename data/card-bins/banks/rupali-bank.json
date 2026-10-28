@@ -1,0 +1,13 @@
+{
+  "bank": "Rupali Bank",
+  "cards": [
+    {
+      "name": "Rupali Bank Proprietary Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Proprietary",
+      "bestFor": "debit-card dining offers",
+      "bins": ["140000", "918501"]
+    }
+  ]
+}

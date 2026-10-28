@@ -1,0 +1,21 @@
+{
+  "bank": "Union Bank",
+  "cards": [
+    {
+      "name": "Union Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["423375"]
+    },
+    {
+      "name": "Union Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["441367"]
+    }
+  ]
+}

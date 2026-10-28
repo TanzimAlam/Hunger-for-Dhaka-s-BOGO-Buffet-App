@@ -1,0 +1,109 @@
+{
+  "bank": "Pubali Bank",
+  "cards": [
+    {
+      "name": "Pubali Bank Q-cash General Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Q-cash General",
+      "bestFor": "debit-card dining offers",
+      "bins": ["917501"]
+    },
+    {
+      "name": "Pubali Bank Mastercard Corporate Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Corporate",
+      "bestFor": "entry-level dining offers",
+      "bins": ["540670"]
+    },
+    {
+      "name": "Pubali Bank Mastercard Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["548044"]
+    },
+    {
+      "name": "Pubali Bank Mastercard Prepaid Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["534214"]
+    },
+    {
+      "name": "Pubali Bank Mastercard Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["539949"]
+    },
+    {
+      "name": "Pubali Bank Debit Card",
+      "brand": "Private label",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["704700"]
+    },
+    {
+      "name": "Pubali Bank VISA Business Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Business",
+      "bestFor": "entry-level dining offers",
+      "bins": ["400465"]
+    },
+    {
+      "name": "Pubali Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["409416"]
+    },
+    {
+      "name": "Pubali Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["409380", "431764"]
+    },
+    {
+      "name": "Pubali Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["400462", "430861", "432368", "477980"]
+    },
+    {
+      "name": "Pubali Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["400468", "409384"]
+    },
+    {
+      "name": "Pubali Bank VISA Gold Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["400469"]
+    },
+    {
+      "name": "Pubali Bank VISA Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["400470"]
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "bank": "Mutual Trust Bank",
+  "cards": [
+    {
+      "name": "Mutual Trust Bank Mastercard Business Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Business",
+      "bestFor": "entry-level dining offers",
+      "bins": ["531482"]
+    },
+    {
+      "name": "Mutual Trust Bank Mastercard Gold Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["541487"]
+    },
+    {
+      "name": "Mutual Trust Bank Mastercard Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["541532"]
+    },
+    {
+      "name": "Mutual Trust Bank Mastercard Titanium Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Titanium",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["512778"]
+    },
+    {
+      "name": "Mutual Trust Bank Mastercard World Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "World",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["536310"]
+    },
+    {
+      "name": "Mutual Trust Bank Mastercard Gold Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["549601"]
+    },
+    {
+      "name": "Mutual Trust Bank Mastercard Platinum Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["536798"]
+    },
+    {
+      "name": "Mutual Trust Bank Mastercard Prepaid Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["550843"]
+    },
+    {
+      "name": "Mutual Trust Bank Mastercard Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["270516", "270582", "271377", "511629"]
+    },
+    {
+      "name": "Mutual Trust Bank Mastercard World Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "World",
+      "bestFor": "debit-card dining offers",
+      "bins": ["559878"]
+    },
+    {
+      "name": "Mutual Trust Bank UnionPay Other Debit Card",
+      "brand": "UnionPay",
+      "type": "Debit",
+      "tier": "Other",
+      "bestFor": "debit-card dining offers",
+      "bins": ["629215", "629217"]
+    },
+    {
+      "name": "Mutual Trust Bank VISA Business Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Business",
+      "bestFor": "entry-level dining offers",
+      "bins": ["402509", "453507", "485047"]
+    },
+    {
+      "name": "Mutual Trust Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["489704"]
+    },
+    {
+      "name": "Mutual Trust Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["401306", "462241", "489705"]
+    },
+    {
+      "name": "Mutual Trust Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["401316", "468538", "498850"]
+    },
+    {
+      "name": "Mutual Trust Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["401108", "456378", "498851"]
+    },
+    {
+      "name": "Mutual Trust Bank VISA Business Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Business",
+      "bestFor": "debit-card dining offers",
+      "bins": ["485094"]
+    },
+    {
+      "name": "Mutual Trust Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["436482", "436483", "472682", "473870"]
+    },
+    {
+      "name": "Mutual Trust Bank VISA Electron Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Electron",
+      "bestFor": "debit-card dining offers",
+      "bins": ["462965"]
+    },
+    {
+      "name": "Mutual Trust Bank VISA Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["406954", "498875"]
+    },
+    {
+      "name": "Mutual Trust Bank VISA Prepaid Business Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Business",
+      "bestFor": "debit-card dining offers",
+      "bins": ["458167"]
+    },
+    {
+      "name": "Mutual Trust Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["489702"]
+    },
+    {
+      "name": "Mutual Trust Bank VISA Prepaid Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["489703"]
+    },
+    {
+      "name": "Mutual Trust Bank VISA Signature Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Signature",
+      "bestFor": "debit-card dining offers",
+      "bins": ["498876"]
+    }
+  ]
+}

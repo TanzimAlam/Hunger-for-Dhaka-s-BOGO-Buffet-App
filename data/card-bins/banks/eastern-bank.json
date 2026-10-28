@@ -1,0 +1,277 @@
+{
+  "bank": "Eastern Bank",
+  "cards": [
+    {
+      "name": "Eastern Bank Diners Club Personal Credit Card",
+      "brand": "Diners Club",
+      "type": "Credit",
+      "tier": "Personal",
+      "bestFor": "entry-level dining offers",
+      "bins": ["360900", "360901", "360902", "360907", "360908"]
+    },
+    {
+      "name": "Eastern Bank Diners Club Credit Card",
+      "brand": "Diners Club",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["361017"]
+    },
+    {
+      "name": "Eastern Bank Diners Club Other Debit Card",
+      "brand": "Diners Club",
+      "type": "Debit",
+      "tier": "Other",
+      "bestFor": "debit-card dining offers",
+      "bins": ["360903", "360904", "360905", "360906"]
+    },
+    {
+      "name": "Eastern Bank Diners Club Prepaid Debit Card",
+      "brand": "Diners Club",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["361119", "361120"]
+    },
+    {
+      "name": "Eastern Bank Discover Business Credit Card",
+      "brand": "Discover",
+      "type": "Credit",
+      "tier": "Business",
+      "bestFor": "entry-level dining offers",
+      "bins": ["650986"]
+    },
+    {
+      "name": "Eastern Bank Discover Personal Credit Card",
+      "brand": "Discover",
+      "type": "Credit",
+      "tier": "Personal",
+      "bestFor": "entry-level dining offers",
+      "bins": ["654105"]
+    },
+    {
+      "name": "Eastern Bank Discover Credit Card",
+      "brand": "Discover",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["658002"]
+    },
+    {
+      "name": "Eastern Bank Discover Prepaid Debit Card",
+      "brand": "Discover",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["650454", "650455"]
+    },
+    {
+      "name": "Eastern Bank Mastercard Corporate Purchasing Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Corporate Purchasing",
+      "bestFor": "entry-level dining offers",
+      "bins": ["555332", "555333"]
+    },
+    {
+      "name": "Eastern Bank Mastercard Gold Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["553611"]
+    },
+    {
+      "name": "Eastern Bank Mastercard Mixed Product Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Mixed Product",
+      "bestFor": "entry-level dining offers",
+      "bins": ["559773", "559887"]
+    },
+    {
+      "name": "Eastern Bank Mastercard Titanium Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Titanium",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["537683"]
+    },
+    {
+      "name": "Eastern Bank Mastercard World Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "World",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["532951", "559581"]
+    },
+    {
+      "name": "Eastern Bank Mastercard Platinum Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["539280"]
+    },
+    {
+      "name": "Eastern Bank Mastercard Prepaid Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["536022", "546008"]
+    },
+    {
+      "name": "Eastern Bank Mastercard Prepaid Business Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid Business",
+      "bestFor": "debit-card dining offers",
+      "bins": ["531138", "540715"]
+    },
+    {
+      "name": "Eastern Bank Mastercard World Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "World",
+      "bestFor": "debit-card dining offers",
+      "bins": ["526869", "554028"]
+    },
+    {
+      "name": "Eastern Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["409740", "423858", "434977", "434978", "477827"]
+    },
+    {
+      "name": "Eastern Bank VISA Corporate T&e Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Corporate T&e",
+      "bestFor": "entry-level dining offers",
+      "bins": ["418708", "469821"]
+    },
+    {
+      "name": "Eastern Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["423717", "434979", "434980", "477835"]
+    },
+    {
+      "name": "Eastern Bank VISA Infinite Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Infinite",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["484071"]
+    },
+    {
+      "name": "Eastern Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["409363", "413401", "436877", "467922", "477821", "477845", "477863"]
+    },
+    {
+      "name": "Eastern Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["423800", "436878", "437848", "477851"]
+    },
+    {
+      "name": "Eastern Bank VISA Business Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Business",
+      "bestFor": "debit-card dining offers",
+      "bins": ["470681", "477879"]
+    },
+    {
+      "name": "Eastern Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["402004", "452017", "477854"]
+    },
+    {
+      "name": "Eastern Bank VISA Electron Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Electron",
+      "bestFor": "debit-card dining offers",
+      "bins": ["437740", "484840"]
+    },
+    {
+      "name": "Eastern Bank VISA Infinite Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Infinite",
+      "bestFor": "debit-card dining offers",
+      "bins": ["435010"]
+    },
+    {
+      "name": "Eastern Bank VISA Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["436131", "470499", "477878"]
+    },
+    {
+      "name": "Eastern Bank VISA Prepaid Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["428407"]
+    },
+    {
+      "name": "Eastern Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["403740", "455440", "477898", "489339", "489340"]
+    },
+    {
+      "name": "Eastern Bank VISA Prepaid Corporate T&e Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Corporate T&e",
+      "bestFor": "debit-card dining offers",
+      "bins": ["443549"]
+    },
+    {
+      "name": "Eastern Bank VISA Prepaid Electron Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Electron",
+      "bestFor": "debit-card dining offers",
+      "bins": ["450088", "477853"]
+    },
+    {
+      "name": "Eastern Bank VISA Prepaid Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["409329"]
+    },
+    {
+      "name": "Eastern Bank VISA Signature Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Signature",
+      "bestFor": "debit-card dining offers",
+      "bins": ["468537", "477870"]
+    }
+  ]
+}

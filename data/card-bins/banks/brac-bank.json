@@ -1,0 +1,173 @@
+{
+  "bank": "BRAC Bank",
+  "cards": [
+    {
+      "name": "BRAC Bank Discover Personal Credit Card",
+      "brand": "Discover",
+      "type": "Credit",
+      "tier": "Personal",
+      "bestFor": "entry-level dining offers",
+      "bins": ["650839", "650840", "650851"]
+    },
+    {
+      "name": "BRAC Bank Discover Credit Card",
+      "brand": "Discover",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["658012", "658013", "658014"]
+    },
+    {
+      "name": "BRAC Bank Proprietary Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Proprietary",
+      "bestFor": "debit-card dining offers",
+      "bins": ["906001"]
+    },
+    {
+      "name": "BRAC Bank Mastercard Gold Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["545610"]
+    },
+    {
+      "name": "BRAC Bank Mastercard Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["545538"]
+    },
+    {
+      "name": "BRAC Bank Mastercard World Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "World",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["528652", "548895"]
+    },
+    {
+      "name": "BRAC Bank Mastercard Prepaid Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["536141"]
+    },
+    {
+      "name": "BRAC Bank Mastercard Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["223518", "270220", "539932"]
+    },
+    {
+      "name": "BRAC Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["432145", "432146"]
+    },
+    {
+      "name": "BRAC Bank VISA Corporate T&e Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Corporate T&e",
+      "bestFor": "entry-level dining offers",
+      "bins": ["415771", "489035"]
+    },
+    {
+      "name": "BRAC Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["432147", "432148"]
+    },
+    {
+      "name": "BRAC Bank VISA Infinite Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Infinite",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["416986", "448760"]
+    },
+    {
+      "name": "BRAC Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["408889", "458763", "477859"]
+    },
+    {
+      "name": "BRAC Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["408860", "477820"]
+    },
+    {
+      "name": "BRAC Bank VISA Business Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Business",
+      "bestFor": "debit-card dining offers",
+      "bins": ["402501", "458169", "464573"]
+    },
+    {
+      "name": "BRAC Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["405906", "432149", "442713", "461123", "484096"]
+    },
+    {
+      "name": "BRAC Bank VISA Gold Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["484097"]
+    },
+    {
+      "name": "BRAC Bank VISA Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["436475", "477792"]
+    },
+    {
+      "name": "BRAC Bank VISA Prepaid Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["458737"]
+    },
+    {
+      "name": "BRAC Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["458736", "462245"]
+    },
+    {
+      "name": "BRAC Bank VISA Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["418160", "436597"]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "bank": "Jamuna Bank",
+  "cards": [
+    {
+      "name": "Jamuna Bank Q-Cash Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Q-Cash",
+      "bestFor": "debit-card dining offers",
+      "bins": ["913001"]
+    },
+    {
+      "name": "Jamuna Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["461987"]
+    },
+    {
+      "name": "Jamuna Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["436374", "461988"]
+    },
+    {
+      "name": "Jamuna Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["493159"]
+    },
+    {
+      "name": "Jamuna Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["412788"]
+    },
+    {
+      "name": "Jamuna Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["461989"]
+    },
+    {
+      "name": "Jamuna Bank VISA Gold Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["493401"]
+    },
+    {
+      "name": "Jamuna Bank VISA Prepaid Gold Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["485603"]
+    }
+  ]
+}

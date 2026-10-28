@@ -1,0 +1,29 @@
+{
+  "bank": "Bangladesh Post Office",
+  "cards": [
+    {
+      "name": "Bangladesh Post Office Prepaid Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["900901", "900902"]
+    },
+    {
+      "name": "Bangladesh Post Office Cash Debit Card",
+      "brand": "Private label",
+      "type": "Debit",
+      "tier": "Cash",
+      "bestFor": "debit-card dining offers",
+      "bins": ["700901"]
+    },
+    {
+      "name": "Bangladesh Post Office Prepaid Debit Card",
+      "brand": "Private label",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["700902", "700903"]
+    }
+  ]
+}

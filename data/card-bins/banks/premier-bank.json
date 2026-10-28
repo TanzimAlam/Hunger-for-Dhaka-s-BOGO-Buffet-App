@@ -1,0 +1,149 @@
+{
+  "bank": "Premier Bank",
+  "cards": [
+    {
+      "name": "Premier Bank Mastercard Corporate Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Corporate",
+      "bestFor": "entry-level dining offers",
+      "bins": ["528173"]
+    },
+    {
+      "name": "Premier Bank Mastercard Gold Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["512740", "534273", "546592"]
+    },
+    {
+      "name": "Premier Bank Mastercard Platinum Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["530342"]
+    },
+    {
+      "name": "Premier Bank Mastercard Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["512772", "525680"]
+    },
+    {
+      "name": "Premier Bank Mastercard Titanium Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Titanium",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["530505"]
+    },
+    {
+      "name": "Premier Bank Mastercard World Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "World",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["557077"]
+    },
+    {
+      "name": "Premier Bank Mastercard Platinum Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["538112"]
+    },
+    {
+      "name": "Premier Bank Mastercard Prepaid Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["521948"]
+    },
+    {
+      "name": "Premier Bank Mastercard Prepaid Small Business Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid Small Business",
+      "bestFor": "debit-card dining offers",
+      "bins": ["223519"]
+    },
+    {
+      "name": "Premier Bank Mastercard Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["537025"]
+    },
+    {
+      "name": "Premier Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["406761", "406762"]
+    },
+    {
+      "name": "Premier Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["406763", "406764"]
+    },
+    {
+      "name": "Premier Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["418650"]
+    },
+    {
+      "name": "Premier Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["418654"]
+    },
+    {
+      "name": "Premier Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["481676", "491018"]
+    },
+    {
+      "name": "Premier Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["436449"]
+    },
+    {
+      "name": "Premier Bank VISA Prepaid Gold Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["403764", "418679"]
+    },
+    {
+      "name": "Premier Bank VISA Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["481679"]
+    }
+  ]
+}

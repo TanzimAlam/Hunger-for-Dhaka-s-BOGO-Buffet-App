@@ -1,0 +1,21 @@
+{
+  "bank": "HSBC",
+  "cards": [
+    {
+      "name": "HSBC ATM Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "ATM",
+      "bestFor": "debit-card dining offers",
+      "bins": ["911501"]
+    },
+    {
+      "name": "HSBC Maestro ATM Debit Card",
+      "brand": "Maestro",
+      "type": "Debit",
+      "tier": "ATM",
+      "bestFor": "debit-card dining offers",
+      "bins": ["603325"]
+    }
+  ]
+}

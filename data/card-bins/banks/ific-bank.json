@@ -1,0 +1,61 @@
+{
+  "bank": "IFIC Bank",
+  "cards": [
+    {
+      "name": "IFIC Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["490259", "490260"]
+    },
+    {
+      "name": "IFIC Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["490263", "490264"]
+    },
+    {
+      "name": "IFIC Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["426377"]
+    },
+    {
+      "name": "IFIC Bank VISA Business Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Business",
+      "bestFor": "debit-card dining offers",
+      "bins": ["447780"]
+    },
+    {
+      "name": "IFIC Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["490262"]
+    },
+    {
+      "name": "IFIC Bank VISA Gold Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Gold",
+      "bestFor": "debit-card dining offers",
+      "bins": ["458790"]
+    },
+    {
+      "name": "IFIC Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["490258", "491020"]
+    }
+  ]
+}

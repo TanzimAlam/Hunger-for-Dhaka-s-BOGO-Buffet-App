@@ -1,0 +1,93 @@
+{
+  "bank": "Trust Bank",
+  "cards": [
+    {
+      "name": "Trust Bank Q-Cash Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Q-Cash",
+      "bestFor": "debit-card dining offers",
+      "bins": ["924001"]
+    },
+    {
+      "name": "Trust Bank Debit Card",
+      "brand": "Private label",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["706937"]
+    },
+    {
+      "name": "Trust Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["418115", "418116"]
+    },
+    {
+      "name": "Trust Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["418112", "418114"]
+    },
+    {
+      "name": "Trust Bank VISA Platinum Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["468963", "491017"]
+    },
+    {
+      "name": "Trust Bank VISA Signature Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Signature",
+      "bestFor": "premium dining and BOGO buffet offers",
+      "bins": ["483202"]
+    },
+    {
+      "name": "Trust Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["418117"]
+    },
+    {
+      "name": "Trust Bank VISA Electron Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Electron",
+      "bestFor": "debit-card dining offers",
+      "bins": ["490948"]
+    },
+    {
+      "name": "Trust Bank VISA Platinum Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Platinum",
+      "bestFor": "debit-card dining offers",
+      "bins": ["413730", "432331"]
+    },
+    {
+      "name": "Trust Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["425254", "484828"]
+    },
+    {
+      "name": "Trust Bank VISA Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["418113"]
+    }
+  ]
+}

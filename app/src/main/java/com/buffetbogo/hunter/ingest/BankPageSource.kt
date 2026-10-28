@@ -57,6 +57,51 @@ object BankDirectory {
             shortName = "NCC Bank",
             url = "https://www.nccbank.com.bd/NccbCards/cardOffers",
         ),
+        BankPage(
+            bank = "BRAC Bank",
+            shortName = "BRAC Bank",
+            url = "https://www.bracbank.com/en/page/buy-1-get-12-free-buffet-at-the-finest-restaurants-around-the-year",
+        ),
+        BankPage(
+            bank = "United Commercial Bank",
+            shortName = "UCB",
+            url = "https://www.ucb.com.bd/cards/important-information?page=1",
+        ),
+        BankPage(
+            bank = "Bank Asia",
+            shortName = "Bank Asia",
+            url = "https://www.bankasia-bd.com/Ramadan-26/",
+        ),
+        BankPage(
+            bank = "Dhaka Bank",
+            shortName = "Dhaka Bank",
+            url = "https://dhakabank.com.bd/dining-offer/",
+        ),
+        BankPage(
+            bank = "Premier Bank",
+            shortName = "Premier Bank",
+            url = "https://thepremierbankplc.com/discount-partners/",
+        ),
+        BankPage(
+            bank = "Al-Arafah Islami Bank",
+            shortName = "Al-Arafah",
+            url = "https://www.aibl.com.bd/cardoffers/",
+        ),
+        BankPage(
+            bank = "NRB Bank",
+            shortName = "NRB Bank",
+            url = "https://www.nrbbankbd.com/anniversary-bogo-offer/",
+        ),
+        BankPage(
+            bank = "ONE Bank",
+            shortName = "ONE Bank",
+            url = "https://card.onebank.com.bd/bogo/",
+        ),
+        BankPage(
+            bank = "Meghna Bank",
+            shortName = "Meghna Bank",
+            url = "https://www.meghnabank.com.bd/meghna-cards/BOGO",
+        ),
     )
 }
 

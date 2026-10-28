@@ -1,0 +1,45 @@
+{
+  "bank": "Al-Arafah Islami Bank",
+  "cards": [
+    {
+      "name": "Al-Arafah Islami Bank Mastercard Gold Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["540644"]
+    },
+    {
+      "name": "Al-Arafah Islami Bank Mastercard Platinum Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Platinum",
+      "bestFor": "mid-tier dining offers",
+      "bins": ["544119"]
+    },
+    {
+      "name": "Al-Arafah Islami Bank Mastercard Credit Card",
+      "brand": "Mastercard",
+      "type": "Credit",
+      "tier": "Standard",
+      "bestFor": "entry-level dining offers",
+      "bins": ["540244"]
+    },
+    {
+      "name": "Al-Arafah Islami Bank Mastercard Prepaid Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Prepaid",
+      "bestFor": "debit-card dining offers",
+      "bins": ["543947"]
+    },
+    {
+      "name": "Al-Arafah Islami Bank Mastercard Debit Card",
+      "brand": "Mastercard",
+      "type": "Debit",
+      "tier": "Standard",
+      "bestFor": "debit-card dining offers",
+      "bins": ["540017", "541250"]
+    }
+  ]
+}

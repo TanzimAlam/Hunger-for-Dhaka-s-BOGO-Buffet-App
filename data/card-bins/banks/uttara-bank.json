@@ -1,0 +1,45 @@
+{
+  "bank": "Uttara Bank",
+  "cards": [
+    {
+      "name": "Uttara Bank Q-Cash Debit Card",
+      "brand": "Local brand",
+      "type": "Debit",
+      "tier": "Q-Cash",
+      "bestFor": "debit-card dining offers",
+      "bins": ["925001", "925002"]
+    },
+    {
+      "name": "Uttara Bank Q-Cash Debit Card",
+      "brand": "Private label",
+      "type": "Debit",
+      "tier": "Q-Cash",
+      "bestFor": "debit-card dining offers",
+      "bins": ["704810", "704811"]
+    },
+    {
+      "name": "Uttara Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["415438"]
+    },
+    {
+      "name": "Uttara Bank VISA Electron Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Electron",
+      "bestFor": "debit-card dining offers",
+      "bins": ["480177"]
+    },
+    {
+      "name": "Uttara Bank VISA Prepaid Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Prepaid Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["408239"]
+    }
+  ]
+}

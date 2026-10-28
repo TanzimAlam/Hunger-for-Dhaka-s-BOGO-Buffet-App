@@ -1,0 +1,29 @@
+{
+  "bank": "Shimanto Bank",
+  "cards": [
+    {
+      "name": "Shimanto Bank VISA Classic Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Classic",
+      "bestFor": "entry-level dining offers",
+      "bins": ["428578"]
+    },
+    {
+      "name": "Shimanto Bank VISA Gold Credit Card",
+      "brand": "VISA",
+      "type": "Credit",
+      "tier": "Gold",
+      "bestFor": "entry-level dining offers",
+      "bins": ["428580"]
+    },
+    {
+      "name": "Shimanto Bank VISA Classic Debit Card",
+      "brand": "VISA",
+      "type": "Debit",
+      "tier": "Classic",
+      "bestFor": "debit-card dining offers",
+      "bins": ["428614"]
+    }
+  ]
+}
