@@ -16,7 +16,6 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.buffetbogo.hunter.BuffetApp
-import com.buffetbogo.hunter.data.MealTime
 import com.buffetbogo.hunter.notify.DeepLinks
 import kotlinx.coroutines.delay
 
@@ -45,7 +44,6 @@ fun AppRoot() {
     val feedState = rememberLazyListState()
     var feedQuery by rememberSaveable { mutableStateOf("") }
     var feedFilter by rememberSaveable { mutableStateOf(FeedFilter.ALL.name) }
-    var feedMeal by rememberSaveable { mutableStateOf(MealTime.ALL_DAY.name) }
 
     // Every time the list comes back to the foreground, a feed older than half an hour refreshes.
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { viewModel.refreshOnOpen() }
@@ -86,10 +84,8 @@ fun AppRoot() {
             listState = feedState,
             query = feedQuery,
             filterName = feedFilter,
-            mealName = feedMeal,
             onQueryChange = { feedQuery = it },
             onFilterChange = { feedFilter = it.name },
-            onMealChange = { feedMeal = it.name },
             onRefresh = viewModel::refresh,
             onSortChange = viewModel::setSortOrder,
             onOpenSettings = { screenName = Screen.SETTINGS.name },

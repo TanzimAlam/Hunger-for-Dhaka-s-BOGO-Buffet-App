@@ -26,14 +26,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.BrunchDining
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.DinnerDining
-import androidx.compose.material.icons.rounded.FreeBreakfast
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
-import androidx.compose.material.icons.rounded.LunchDining
 import androidx.compose.material.icons.rounded.NotificationsNone
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Restaurant
@@ -67,21 +63,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.buffetbogo.hunter.data.FeedGrouper
-import com.buffetbogo.hunter.data.MealTime
 import com.buffetbogo.hunter.data.OfferUi
 import com.buffetbogo.hunter.data.RestaurantGroup
 import com.buffetbogo.hunter.data.SortOrder
 import com.buffetbogo.hunter.data.isFiveStar
 import com.buffetbogo.hunter.data.nameKey
 import com.buffetbogo.hunter.data.priceIsEstimate
-import com.buffetbogo.hunter.data.serves
 import com.buffetbogo.hunter.ui.theme.BuffetColors
 import java.util.Locale
 import java.util.concurrent.TimeUnit
@@ -111,10 +104,8 @@ fun OfferListScreen(
     listState: LazyListState,
     query: String,
     filterName: String,
-    mealName: String,
     onQueryChange: (String) -> Unit,
     onFilterChange: (FeedFilter) -> Unit,
-    onMealChange: (MealTime) -> Unit,
     onRefresh: () -> Unit,
     onSortChange: (SortOrder) -> Unit,
     onOpenSettings: () -> Unit,
@@ -122,16 +113,12 @@ fun OfferListScreen(
 ) {
     var showAlerts by rememberSaveable { mutableStateOf(false) }
     val filter = FeedFilter.valueOf(filterName)
-    val meal = MealTime.fromKey(mealName)
 
-    // One card per restaurant: the chips pick the deals and the serving window, the grouping
-    // collapses the venues.
-    val groups = remember(offers, query, filter, meal, sortOrder) {
+    // One card per restaurant: the deal chips pick the deals, the grouping collapses the venues.
+    val groups = remember(offers, query, filter, sortOrder) {
         val needle = query.trim()
         val matching = offers.filter { item ->
-            filter.matches(item) &&
-                item.offer.serves(meal) &&
-                (needle.isBlank() || item.matches(needle))
+            filter.matches(item) && (needle.isBlank() || item.matches(needle))
         }
         FeedGrouper.group(matching, sortOrder)
     }
@@ -165,8 +152,6 @@ fun OfferListScreen(
             SearchField(query = query, onQueryChange = onQueryChange)
             Spacer(Modifier.height(14.dp))
             FilterRow(selected = filter, onSelect = onFilterChange)
-            Spacer(Modifier.height(9.dp))
-            MealRow(selected = meal, onSelect = onMealChange)
             MetaRow(
                 restaurants = groups.size,
                 deals = dealCount,
@@ -179,9 +164,7 @@ fun OfferListScreen(
             if (groups.isEmpty()) {
                 EmptyState(
                     modifier = Modifier.weight(1f),
-                    filtered = filter != FeedFilter.ALL ||
-                        meal != MealTime.ALL_DAY ||
-                        query.isNotBlank(),
+                    filtered = filter != FeedFilter.ALL || query.isNotBlank(),
                     onRefresh = onRefresh,
                     onOpenSettings = onOpenSettings,
                 )
@@ -394,65 +377,6 @@ private fun FilterChipView(label: String, selected: Boolean, onClick: () -> Unit
         )
     }
 }
-
-/**
- * The serving-window chips. They sit directly under the deal filters and stay separate from the
- * sort menu, so "Lunch" never disturbs the chosen order of the feed.
- */
-@Composable
-private fun MealRow(selected: MealTime, onSelect: (MealTime) -> Unit) {
-    LazyRow(
-        modifier = Modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(horizontal = 18.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        items(MealTime.entries) { meal ->
-            MealChipView(
-                meal = meal,
-                selected = meal == selected,
-                onClick = { onSelect(meal) },
-            )
-        }
-    }
-}
-
-@Composable
-private fun MealChipView(meal: MealTime, selected: Boolean, onClick: () -> Unit) {
-    Surface(
-        onClick = onClick,
-        shape = RoundedCornerShape(999.dp),
-        color = if (selected) BuffetColors.Clay else BuffetColors.Chip,
-        contentColor = if (selected) BuffetColors.OnClay else BuffetColors.TextSecondary,
-        border = if (selected) null else BorderStroke(1.dp, BuffetColors.Border),
-    ) {
-        Row(
-            modifier = Modifier.padding(start = 10.dp, end = 12.dp, top = 7.dp, bottom = 7.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Icon(
-                imageVector = meal.icon,
-                contentDescription = null,
-                modifier = Modifier.size(13.dp),
-            )
-            Spacer(Modifier.width(5.dp))
-            Text(
-                text = meal.label,
-                fontSize = 12.sp,
-                fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
-                maxLines = 1,
-            )
-        }
-    }
-}
-
-private val MealTime.icon: ImageVector
-    get() = when (this) {
-        MealTime.ALL_DAY -> Icons.Rounded.Restaurant
-        MealTime.BREAKFAST -> Icons.Rounded.FreeBreakfast
-        MealTime.BRUNCH -> Icons.Rounded.BrunchDining
-        MealTime.LUNCH -> Icons.Rounded.LunchDining
-        MealTime.DINNER -> Icons.Rounded.DinnerDining
-    }
 
 @Composable
 private fun MetaRow(
@@ -827,7 +751,7 @@ private fun EmptyState(
         Spacer(Modifier.height(6.dp))
         Text(
             text = if (filtered) {
-                "Try clearing the search, or picking another meal or category."
+                "Try clearing the search, or picking another category."
             } else {
                 "Offers disappear on their own once they expire, and new ones are picked up " +
                     "automatically every 30 minutes."

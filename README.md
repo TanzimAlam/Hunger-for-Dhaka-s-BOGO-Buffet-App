@@ -7,9 +7,9 @@ The home screen is a light, white-forward feed: cream paper, white cards and the
 and saffron of the app's own emblem, with bottle green marking what is live. **One card per
 restaurant**: a venue running three deals is still one card, every deal's short badge (B1G1, B1G3,
 Eat 3 Pay 1) sits side by side on the top-left of the thumbnail, and each deal is listed inside the
-card with its own **price**, Google star rating and remaining days. Search, category chips and the
-meal chips (Any time / Breakfast / Brunch / Lunch / Dinner) sit above the list, and the default
-order is **by end date**, so whatever is about to run out is at the top. Opening a deal and coming
+card with its own **price**, Google star rating and remaining days. Search and the category chips
+sit above the list, and the default order is **by end date**, so whatever is about to run out is at
+the top. Opening a deal and coming
 back leaves the feed exactly where it was — same card, same search, same chips.
 
 **It works with no API keys and no account.** Sixteen public pages are read directly, a checked
@@ -133,11 +133,9 @@ overrides it. Keys stay on the device or in the local build — never in the APK
 ### Screens
 
 1. **Feed** — the emblem in the header with the app name, LIVE chip and an alerts bell (counts
-   offers ending within three days), search field, category chips (All / Buy 1 Get 1+ / Eat 3-4-5
-   Pay 1 / 5★ Hotels) and, directly beneath them, the meal chips (Any time / Breakfast / Brunch /
-   Lunch / Dinner). The meal chips filter by the serving window named in each ad and are separate
-   from the sort menu (default **Ends soonest**, plus Newest, Price low→high, Top rated), so the
-   order is kept while the day part changes. One card per restaurant: deal badges on the
+   offers ending within three days), search field and category chips (All / Buy 1 Get 1+ / Eat 3-4-5
+   Pay 1 / 5★ Hotels). The sort menu sits above the list (default **Ends soonest**, plus Newest,
+   Price low→high, Top rated). One card per restaurant: deal badges on the
    thumbnail's top-left, the Google rating on its top-right, then a row per deal with its price and
    unit, payment condition and countdown. Tapping a row opens that deal. A price filled in from the
    book or a search carries a small **typical** tag.
