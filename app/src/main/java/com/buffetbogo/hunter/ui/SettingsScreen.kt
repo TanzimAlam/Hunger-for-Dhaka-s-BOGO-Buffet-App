@@ -114,6 +114,7 @@ fun SettingsScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
+                .foodBackdrop()
                 .padding(top = padding.calculateTopPadding()),
             contentPadding = PaddingValues(start = 18.dp, end = 18.dp, top = 4.dp, bottom = 36.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp),

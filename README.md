@@ -10,8 +10,16 @@ Eat 3 Pay 1) sits side by side on the top-left of the thumbnail, and each deal i
 card with its own **price**, Google star rating and remaining days. Search, the category chips and
 the serving-window toggles (Breakfast / Brunch / Lunch / Dinner, any number on at once) sit above
 the list, and the default order is **by end date**, so whatever is about to run out is at the top.
-Opening a deal and coming back leaves the feed exactly where it was — same card, same search, same
-chips.
+Choosing another order (Newest, Price low→high, Top rated) **jumps the list back to the top**, so
+the rearrangement is immediately visible instead of leaving you halfway down a silently reordered
+feed. Opening a deal and coming back still leaves the feed exactly where it was — same card, same
+search, same chips.
+
+For now the feed and Settings also sit on a **playful food backdrop**: a scatter of food emoji over
+soft saffron, mint and tomato washes, with every card, chip and field still opaque white so nothing
+is read through it. It is temporary decoration by request and is controlled by one constant,
+`PlayfulFoodBackdrop` in `ui/theme/Theme.kt`; set it to `false` for the plain cream page. The offer
+detail screen deliberately stays plain, because its long text sits directly on the background.
 
 **It works with no API keys and no account.** Sixteen public pages are read directly, a checked
 set of Google ratings and buffet prices ships with the app, and missing prices are looked up with
@@ -65,6 +73,40 @@ the restaurant's own side, in this order:
 
 A Standard Chartered, news or any other discovery URL is never used as the ad link. The detail
 screen says where the listing was found, but the link always goes to the restaurant.
+
+### When there is no verified ad
+
+Not every deal can be traced back to the restaurant, so the detail screen now says so instead of
+pretending. A clay notice above the button reads **"No verified ad for this offer"** when nothing
+from the venue was found — the button then opens a Facebook search for the restaurant — or **"The
+restaurant's page, not the deal's own post"** when only the official page is known, which may carry
+the deal further down its feed.
+
+Why the gap exists:
+
+1. **The bank is the only publisher.** The venue announced the deal at the card counter or in a
+   bank's own campaign, and never posted it itself. **Café Rio** (15% off, Premier Bank) and
+   **Doreen Hotel & Resort** (Buy 1 Get 2, UCB) are the two bundled examples: neither is in
+   `venue_socials.json`, and their bank pages name the venue but link nowhere near it. They stay in
+   the feed because the bank page still proves the offer is real.
+2. **Facebook posts are not indexable like web pages.** Dhaka's restaurants publish on Facebook,
+   but Meta only allows an app to read a page's posts through the Graph API with the approved
+   **Page Public Content Access** feature. Without that token the app cannot read the venue's feed,
+   and a post that search engines never indexed cannot be found. That is why the resolver falls
+   back to the page (or a search) instead of guessing a post URL.
+3. **The offer lives in an image, reel, story or PDF.** Many campaigns are a poster with the price
+   drawn on it. There is no text to match, so a search returns the venue's page — not that poster.
+4. **Link rot.** A post is deleted after the campaign, a page handle is renamed, or a promotion page
+   is taken down when the promotion ends. A stored link can then land on a 404 or the page's
+   timeline instead of the deal.
+5. **The venue website has no per-offer page.** Several hotels only run a homepage or a PDF menu,
+   so the deepest honest link is the dining page — not a page describing this campaign.
+6. **The app refuses to dress a bank page up as the ad.** A bank page does not carry the restaurant's
+   own timings or conditions, so it is never offered as "the original ad"; a Facebook search is the
+   honest last resort.
+
+The bundled catalogue is checked on 27 October 2026. A later sync can fill a gap when the venue
+posts the deal, you add it to `venue_socials.json`, or the optional Graph API is connected.
 
 ## Facebook (optional, real Graph API)
 
@@ -139,12 +181,13 @@ overrides it. Keys stay on the device or in the local build — never in the APK
    Lunch / Dinner). The categories are single-select; the meal chips are independent switches, so
    Breakfast and Dinner can both be on, and tapping one again clears it — with none on, every
    serving window shows. The sort menu sits above the list (default **Ends soonest**, plus Newest,
-   Price low→high, Top rated). One card per restaurant: deal badges on the
-   thumbnail's top-left, the Google rating on its top-right, then a row per deal with its price and
-   unit, payment condition and countdown. Tapping a row opens that deal. A price filled in from the
-   book or a search carries a small **typical** tag.
+   Price low→high, Top rated), and choosing an order returns the list to the top. One card per
+   restaurant: deal badges on the thumbnail's top-left, the Google rating on its top-right, then a
+   row per deal with its price and unit, payment condition and countdown. Tapping a row opens that
+   deal. A price filled in from the book or a search carries a small **typical** tag.
 2. **Offer detail** — hero photo, offer text, price, rating with review count, validity and the
-   serving window, payment conditions, an **ad reference card** naming the restaurant's page, the
+   serving window, payment conditions, an **ad reference card** naming the restaurant's page, a
+   notice when no verified ad could be found (or only the venue's page, not the deal's post), the
    "Open the original ad" button (or "Search Facebook for this offer"), and "Hide this offer".
 3. **Settings** — Google ratings status and key, the optional Facebook Page token with its status,
    alerts toggle, sources, manual check, reload listings, and the optional Brave key.
@@ -265,7 +308,9 @@ References:
 - The parser understands English wording. Bangla ("১টি কিনুন ১টি ফ্রি") is not parsed yet.
 - Prices filled from the book or a search are marked **typical**; they are the restaurant's
   standing rate, not necessarily the exact campaign price. Some venues publish no buffet price at
-  all, so their offers stay hidden until a lookup succeeds.
+  all; their cards say **"Price being checked"** and stay in the feed rather than disappearing.
+- A few offers have no verifiable ad on the restaurant's side (see **When there is no verified
+  ad**); the detail screen says so and the button falls back to a Facebook search.
 - The keyless price fallback reads DuckDuckGo's HTML results. It is fine for personal use but can
   rate-limit or change markup; with a Brave key the app uses the official API instead.
 - Without the approved Facebook permission, posts can only be found through a search index, so an

@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Public
 import androidx.compose.material.icons.rounded.Restaurant
 import androidx.compose.material.icons.rounded.Schedule
@@ -46,8 +47,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.buffetbogo.hunter.data.AdLinkState
 import com.buffetbogo.hunter.data.OfferUi
 import com.buffetbogo.hunter.data.Sources
+import com.buffetbogo.hunter.data.adLinkState
 import com.buffetbogo.hunter.data.adToOpen
 import com.buffetbogo.hunter.data.facebookSearchUrl
 import com.buffetbogo.hunter.data.hasExactAdLink
@@ -69,6 +72,7 @@ fun OfferDetailScreen(
     val scope = rememberCoroutineScope()
     val adLink = offer.adToOpen()
     val exactAd = offer.hasExactAdLink()
+    val adState = offer.adLinkState()
     val adTarget = adLink ?: offer.facebookSearchUrl()
 
     Scaffold(
@@ -220,8 +224,16 @@ fun OfferDetailScreen(
 
                     Spacer(Modifier.height(20.dp))
                     SectionTitle("The ad")
+                    if (adState != AdLinkState.DIRECT) {
+                        AdLinkNotice(
+                            state = adState,
+                            restaurant = offer.restaurant,
+                            modifier = Modifier.padding(bottom = 8.dp),
+                        )
+                    }
                     AdReference(
-                        label = offer.adLabel ?: if (adLink != null) "Restaurant page" else "Not linked yet",
+                        label = adLink?.let { offer.adLabel ?: "Restaurant page" }
+                            ?: "Facebook search",
                         url = adLink ?: offer.facebookSearchUrl(),
                         restaurant = offer.restaurant,
                         note = discoveryNote(
@@ -230,6 +242,7 @@ fun OfferDetailScreen(
                             posted = offer.postedAt,
                             linked = adLink != null,
                         ),
+                        isSearch = adLink == null,
                     )
 
                     Spacer(Modifier.height(18.dp))
@@ -367,6 +380,76 @@ private fun Timeline(start: Long?, end: Long?, timing: String? = null) {
 }
 
 /**
+ * Says plainly when the button below cannot open the deal itself.
+ *
+ * Some venues publish a deal only through a bank (Café Rio and Doreen are the bundled
+ * examples). Their own page may never mention it, or cannot be found at all. Rather than
+ * dressing a bank page or a bare Facebook search up as "the original ad", the card admits the
+ * gap and tells the user what the button will actually do.
+ */
+@Composable
+private fun AdLinkNotice(
+    state: AdLinkState,
+    restaurant: String,
+    modifier: Modifier = Modifier,
+) {
+    val title: String
+    val body: String
+    when (state) {
+        AdLinkState.NONE -> {
+            title = "No verified ad for this offer"
+            body = "We could not find a post or page from $restaurant that carries this deal, " +
+                "so the button below opens a Facebook search instead. Treat the price and " +
+                "conditions here as unconfirmed and check them with the restaurant."
+        }
+        AdLinkState.GENERIC_PAGE -> {
+            title = "The restaurant's page, not the deal's own post"
+            body = "We found $restaurant's official page, but not the post for this offer. " +
+                "Its latest promotions sit on that page — look there before relying on the " +
+                "details above."
+        }
+        AdLinkState.DIRECT -> return
+    }
+
+    Surface(
+        color = BuffetColors.ClaySoft,
+        shape = RoundedCornerShape(14.dp),
+        border = BorderStroke(1.dp, BuffetColors.Clay.copy(alpha = 0.30f)),
+        modifier = modifier.fillMaxWidth(),
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.Top,
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.Info,
+                contentDescription = null,
+                tint = BuffetColors.Clay,
+                modifier = Modifier
+                    .padding(top = 1.dp)
+                    .size(16.dp),
+            )
+            Spacer(Modifier.width(9.dp))
+            Column(Modifier.weight(1f)) {
+                Text(
+                    text = title,
+                    fontSize = 12.5.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = BuffetColors.Clay,
+                )
+                Spacer(Modifier.height(3.dp))
+                Text(
+                    text = body,
+                    fontSize = 11.sp,
+                    color = BuffetColors.TextPrimary.copy(alpha = 0.78f),
+                    lineHeight = 16.sp,
+                )
+            }
+        }
+    }
+}
+
+/**
  * The link card above the "Open the original ad" button: where the link goes and why it is the
  * right place to check price, timings and conditions.
  */
@@ -376,6 +459,7 @@ private fun AdReference(
     url: String,
     restaurant: String,
     note: String,
+    isSearch: Boolean = false,
 ) {
     Surface(
         color = BuffetColors.Surface,
@@ -413,8 +497,14 @@ private fun AdReference(
                 )
                 Spacer(Modifier.height(6.dp))
                 Text(
-                    text = "$restaurant publishes the price, dates, timings and conditions here." +
-                        if (note.isNotBlank()) " $note" else "",
+                    text = if (isSearch) {
+                        "No restaurant link is confirmed for this deal, so this opens a Facebook " +
+                            "search instead of pretending to be the ad." +
+                            if (note.isNotBlank()) " $note" else ""
+                    } else {
+                        "$restaurant publishes the price, dates, timings and conditions here." +
+                            if (note.isNotBlank()) " $note" else ""
+                    },
                     fontSize = 11.sp,
                     color = BuffetColors.TextSecondary,
                     lineHeight = 16.sp,
@@ -432,13 +522,13 @@ private fun discoveryNote(
     linked: Boolean,
 ): String {
     return when {
+        !linked -> "No post or page has been matched yet, so the button opens a Facebook search."
         source == Sources.BANK ->
             "Listed on a bank card-offer page on ${postedLongLabel(posted)}; the link above is " +
                 "$restaurant's own."
         source == Sources.NEWS ->
             "Reported in the press on ${postedLongLabel(posted)}; the link above is " +
                 "$restaurant's own."
-        !linked -> "No post has been matched yet, so the button opens a Facebook search."
         else -> ""
     }.trim()
 }

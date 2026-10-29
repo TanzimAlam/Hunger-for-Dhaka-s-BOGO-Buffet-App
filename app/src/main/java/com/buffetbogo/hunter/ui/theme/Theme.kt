@@ -50,6 +50,12 @@ object BuffetColors {
     val Scrim = Color(0xFF111A24)
 }
 
+/**
+ * Temporary eye-catcher: a scatter of colourful food doodles behind the feed and Settings.
+ * Flip to false for the plain cream page again — nothing else in the app depends on it.
+ */
+const val PlayfulFoodBackdrop = true
+
 private val BuffetScheme = lightColorScheme(
     primary = BuffetColors.Accent,
     onPrimary = BuffetColors.OnAccent,

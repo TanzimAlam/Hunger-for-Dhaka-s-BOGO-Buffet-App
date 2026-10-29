@@ -51,6 +51,16 @@ fun AppRoot() {
     // Every time the list comes back to the foreground, a feed older than half an hour refreshes.
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { viewModel.refreshOnOpen() }
 
+    // A new sort order silently rearranges the list, so jump back to the top: leaving the user
+    // halfway down a reordered feed looks as if nothing happened. This only fires on an actual
+    // change — coming back from a detail screen keeps the exact card they left.
+    var previousSort by remember { mutableStateOf<String?>(null) }
+    LaunchedEffect(sortOrder.name) {
+        val last = previousSort
+        previousSort = sortOrder.name
+        if (last != null && last != sortOrder.name) feedState.animateScrollToItem(0)
+    }
+
     // A tapped alert opens that exact offer, once the feed has the row to show.
     LaunchedEffect(pendingOfferId, offers) {
         val id = pendingOfferId ?: return@LaunchedEffect

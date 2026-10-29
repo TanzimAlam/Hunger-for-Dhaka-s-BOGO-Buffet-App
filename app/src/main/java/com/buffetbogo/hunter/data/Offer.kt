@@ -131,6 +131,29 @@ fun Offer.adToOpen(): String? = adUrl?.takeIf { it.isNotBlank() }
  */
 fun Offer.facebookSearchUrl(): String = VenueSocials.facebookSearchUrl(restaurant)
 
+/** How directly a card's link points at the deal itself. */
+enum class AdLinkState {
+    /** The restaurant's own post, or its own dining/offer page: the best link the app can give. */
+    DIRECT,
+    /** Only the restaurant's Facebook page is known, not the post that carries this deal. */
+    GENERIC_PAGE,
+    /** Nothing from the restaurant at all; the button falls back to a Facebook search. */
+    NONE,
+}
+
+/**
+ * What the "Open the original ad" button can honestly promise.
+ *
+ * A bank page is never counted here: it proves the deal exists but is not the ad. A restaurant
+ * website counts as direct because it is the venue's own page; a bare Facebook page does not,
+ * because the deal may be buried anywhere in its feed.
+ */
+fun Offer.adLinkState(): AdLinkState = when {
+    adUrl.isNullOrBlank() -> AdLinkState.NONE
+    hasExactAdLink() || adLabel == AdKind.WEBSITE.label -> AdLinkState.DIRECT
+    else -> AdLinkState.GENERIC_PAGE
+}
+
 /** True when the link is the restaurant's own post, not just its page or a search. */
 fun Offer.hasExactAdLink(): Boolean {
     val url = adUrl ?: return false

@@ -154,6 +154,7 @@ fun OfferListScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .foodBackdrop()
                 .padding(
                     top = padding.calculateTopPadding(),
                     bottom = padding.calculateBottomPadding(),
