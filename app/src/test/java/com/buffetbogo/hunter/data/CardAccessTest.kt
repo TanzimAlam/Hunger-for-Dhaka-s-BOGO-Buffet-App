@@ -119,6 +119,17 @@ class CardAccessTest {
     }
 
     @Test
+    fun `an explicitly card-free deal stays open even when a bank is named`() {
+        val openDeal = offer(
+            paymentNote = "Card or cash - no bank card required",
+            terms = "No bank card condition. The deal is also listed on UCB's card-offer page.",
+            details = "Royal Treat's breakfast buffet is open to everyone; UCB lists it too.",
+        )
+        assertEquals(CardRule.AnyPayment, openDeal.cardRule())
+        assertTrue(openDeal.acceptsCard(bracPlatinumCredit))
+    }
+
+    @Test
     fun `a UCB platinum credit deal is narrowed to platinum credit cards`() {
         val ucbOnly = offer(
             paymentNote = "UCB Platinum credit cardholder",
@@ -241,6 +252,32 @@ class CardAccessTest {
 
         // "Selected bank cards" without a bank stays out of the card filter.
         assertEquals(CardRule.Unresolved, rules["Beyond Buffet|DISCOUNT"])
+    }
+
+    @Test
+    fun `card-free restaurants are shown for any wallet`() {
+        val zone = ZoneId.of("Asia/Dhaka")
+        val now = LocalDate.of(2026, 10, 29).atStartOfDay(zone).toInstant().toEpochMilli()
+        val showsForBrac = SeedLoader.parse(
+            File("src/main/assets/seed_offers.json").readText(),
+            now,
+            zone,
+        ).filter { it.acceptsCard(bracPlatinumCredit) }
+            .map { it.restaurant }
+            .toSet()
+
+        // These restaurants ask for no bank card at all, so they stay valid whatever card the
+        // diner holds: the wallet must never hide them.
+        assertTrue("Hotel Sarina Dhaka" in showsForBrac)
+        assertTrue("Ascott Palace Dhaka" in showsForBrac)
+        assertTrue("Hotel Marco Polo Dhaka" in showsForBrac)
+        assertTrue("Teriyaki Boy & Sizzlin' Steak" in showsForBrac)
+        assertTrue("Amari Dhaka" in showsForBrac)
+        assertTrue("Six Seasons Hotel" in showsForBrac)
+
+        // Deals tied to another bank's card stay out for a BRAC wallet.
+        assertFalse("Doreen Hotel & Resort" in showsForBrac)
+        assertFalse("Café Rio" in showsForBrac)
     }
 
     @Test

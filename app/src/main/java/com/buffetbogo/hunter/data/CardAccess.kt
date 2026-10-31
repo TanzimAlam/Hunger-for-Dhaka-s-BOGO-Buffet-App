@@ -30,8 +30,8 @@ sealed interface CardRule {
 }
 
 private val ANY_PAYMENT = Regex(
-    "(?i)(any payment|no card|card or cash|cash or any|any card|no bank card|" +
-        "no payment condition|irrespective of (the )?card)",
+    "(?i)(any payment|no card or payment condition|no card condition|card or cash|" +
+        "cash or any|any card|no bank card|no payment condition|irrespective of (the )?card)",
 )
 
 private val CARD_CONDITION = Regex(
@@ -82,7 +82,12 @@ private val TIER_WORDS: List<Pair<String, Regex>> = listOf(
  */
 fun Offer.cardRule(): CardRule {
     val allText = listOf(paymentNote, terms, details, title, headline).joinToString(" ")
-    val scope = BankNames.strip(listOf(paymentNote, terms).joinToString(" "))
+    val condition = listOf(paymentNote, terms).joinToString(" ")
+    // An ad that says no card is needed wins even when a bank is mentioned elsewhere, for
+    // example as the page that listed the deal. The diner can claim it with any card or cash.
+    if (ANY_PAYMENT.containsMatchIn(condition)) return CardRule.AnyPayment
+
+    val scope = BankNames.strip(condition)
     val bank = BankNames.detect(allText)
     if (bank != null) {
         return CardRule.BankRestricted(

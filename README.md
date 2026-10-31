@@ -374,7 +374,9 @@ classifies it:
 Matching joins on **bank + brand + credit/debit + tier**, the same keys the BIN reference uses. A
 restaurant keeps only its matching deals in this mode: Ascott Palace appears for a Standard
 Chartered wallet with both its card-free breakfast deal and its SCB breakfast deal, and for a BRAC
-wallet with the card-free one only.
+wallet with the card-free one only. An explicit "any payment method" or "card or cash" wins over an
+incidental bank mention, so a card-free deal never disappears just because the bank that listed it
+is named in its text.
 
 **When nothing matches.** The app shows *"Sorry — I couldn't find any offer for your saved cards.
 Showing all offers instead."*, resets the category and meal chips, and returns the order to **Ends
