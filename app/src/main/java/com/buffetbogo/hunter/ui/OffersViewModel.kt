@@ -10,11 +10,13 @@ import com.buffetbogo.hunter.data.OfferRepository
 import com.buffetbogo.hunter.data.OfferUi
 import com.buffetbogo.hunter.data.SettingsStore
 import com.buffetbogo.hunter.data.SortOrder
+import com.buffetbogo.hunter.data.UserCard
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -113,6 +115,23 @@ class OffersViewModel(
 
     fun setSortOrder(order: SortOrder) {
         viewModelScope.launch { settingsStore.setSortOrder(order) }
+    }
+
+    /** Adds a card picked from the bundled bank/card list; adding the same card twice is a no-op. */
+    fun addCard(card: UserCard) {
+        viewModelScope.launch {
+            val current = settingsStore.settings.first().cards
+            if (current.none { it.key == card.key }) {
+                settingsStore.setCards(current + card)
+            }
+        }
+    }
+
+    fun removeCard(card: UserCard) {
+        viewModelScope.launch {
+            val current = settingsStore.settings.first().cards
+            settingsStore.setCards(current.filterNot { it.key == card.key })
+        }
     }
 
     fun syncNow() {

@@ -56,8 +56,9 @@ object FeedGrouper {
 
     private fun comparatorFor(order: SortOrder): Comparator<RestaurantGroup> = when (order) {
         // A restaurant sits where its first deal to end sits, so expiring offers stay on top.
-        SortOrder.ENDS_SOONEST -> compareBy<RestaurantGroup> { it.soonestEnd ?: Long.MAX_VALUE }
-            .thenByDescending { it.newest }
+        SortOrder.ENDS_SOONEST, SortOrder.MY_CARDS ->
+            compareBy<RestaurantGroup> { it.soonestEnd ?: Long.MAX_VALUE }
+                .thenByDescending { it.newest }
 
         SortOrder.NEWEST -> compareByDescending { it.newest }
 

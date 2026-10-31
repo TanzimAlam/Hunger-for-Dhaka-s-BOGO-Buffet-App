@@ -1,0 +1,2712 @@
+[
+    {
+        "bank":  "Agrani Bank",
+        "cards":  [
+                      {
+                          "name":  "Agrani Bank ATM Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "ATM"
+                      },
+                      {
+                          "name":  "Agrani Bank Maestro ATM Debit Card",
+                          "brand":  "Maestro",
+                          "type":  "Debit",
+                          "tier":  "ATM"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Al-Arafah Islami Bank",
+        "cards":  [
+                      {
+                          "name":  "Al-Arafah Islami Bank Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Al-Arafah Islami Bank Mastercard Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Al-Arafah Islami Bank Mastercard Gold Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Al-Arafah Islami Bank Mastercard Platinum Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Al-Arafah Islami Bank Mastercard Prepaid Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Bangladesh Commerce Bank",
+        "cards":  [
+                      {
+                          "name":  "Bangladesh Commerce Bank Q-Cash Credit Card",
+                          "brand":  "Local brand",
+                          "type":  "Credit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Bangladesh Commerce Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Bangladesh Commerce Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Bangladesh Commerce Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Bangladesh Post Office",
+        "cards":  [
+                      {
+                          "name":  "Bangladesh Post Office Cash Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Cash"
+                      },
+                      {
+                          "name":  "Bangladesh Post Office Prepaid Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Bangladesh Post Office Prepaid Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Bank Al-Falah",
+        "cards":  [
+                      {
+                          "name":  "Bank Al-Falah VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Bank Al-Falah VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Bank Al-Falah VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Bank Asia",
+        "cards":  [
+                      {
+                          "name":  "Bank Asia Maestro Q-Cash Debit Card",
+                          "brand":  "Maestro",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Bank Asia Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Bank Asia Mastercard Gold Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Bank Asia Mastercard Platinum Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Bank Asia Mastercard Prepaid Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Bank Asia Mastercard Titanium Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Titanium"
+                      },
+                      {
+                          "name":  "Bank Asia Mastercard World Elite Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "World Elite"
+                      },
+                      {
+                          "name":  "Bank Asia Prepaid Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Bank Asia Prepaid Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Bank Asia Q-Cash Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Bank Asia VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Bank Asia VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Bank Asia VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Bank Asia VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Bank Asia VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      },
+                      {
+                          "name":  "Bank Asia VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Bank of Small Industries and Commerce Bangladesh",
+        "cards":  [
+                      {
+                          "name":  "Bank of Small Industries and Commerce Bangladesh Q-Cash Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Bank of Small Industries and Commerce Bangladesh Q-Cash Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Bank of Small Industries and Commerce Bangladesh VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Bank of Small Industries and Commerce Bangladesh VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Bank of Small Industries and Commerce Bangladesh VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Bengal Commercial Bank",
+        "cards":  [
+                      {
+                          "name":  "Bengal Commercial Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Bengal Commercial Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Bengal Commercial Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Bengal Commercial Bank VISA Prepaid Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      }
+                  ]
+    },
+    {
+        "bank":  "BRAC Bank",
+        "cards":  [
+                      {
+                          "name":  "BRAC Bank Discover Credit Card",
+                          "brand":  "Discover",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "BRAC Bank Discover Personal Credit Card",
+                          "brand":  "Discover",
+                          "type":  "Credit",
+                          "tier":  "Personal"
+                      },
+                      {
+                          "name":  "BRAC Bank Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "BRAC Bank Mastercard Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "BRAC Bank Mastercard Gold Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "BRAC Bank Mastercard Prepaid Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "BRAC Bank Mastercard World Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "World"
+                      },
+                      {
+                          "name":  "BRAC Bank Proprietary Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Proprietary"
+                      },
+                      {
+                          "name":  "BRAC Bank VISA Business Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Business"
+                      },
+                      {
+                          "name":  "BRAC Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "BRAC Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "BRAC Bank VISA Corporate T\u0026e Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Corporate T\u0026e"
+                      },
+                      {
+                          "name":  "BRAC Bank VISA Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "BRAC Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "BRAC Bank VISA Gold Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "BRAC Bank VISA Infinite Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Infinite"
+                      },
+                      {
+                          "name":  "BRAC Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "BRAC Bank VISA Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "BRAC Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      },
+                      {
+                          "name":  "BRAC Bank VISA Prepaid Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "BRAC Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Citizens Bank",
+        "cards":  [
+                      {
+                          "name":  "Citizens Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Citizens Bank VISA Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Citizens Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "City Bank",
+        "cards":  [
+                      {
+                          "name":  "City Bank American Express Personal Credit Card",
+                          "brand":  "American Express",
+                          "type":  "Credit",
+                          "tier":  "Personal"
+                      },
+                      {
+                          "name":  "City Bank American Express Prepaid Reloadable Debit Card",
+                          "brand":  "American Express",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Reloadable"
+                      },
+                      {
+                          "name":  "City Bank American Express Small Business Credit Card",
+                          "brand":  "American Express",
+                          "type":  "Credit",
+                          "tier":  "Small Business"
+                      },
+                      {
+                          "name":  "City Bank Mastercard Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "City Bank Mastercard Platinum Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "City Bank Mastercard Prepaid Business Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Business"
+                      },
+                      {
+                          "name":  "City Bank Mastercard Prepaid Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "City Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "City Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "City Bank VISA Electron Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Electron"
+                      },
+                      {
+                          "name":  "City Bank VISA Infinite Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Infinite"
+                      },
+                      {
+                          "name":  "City Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "City Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Commercial Bank of Ceylon",
+        "cards":  [
+                      {
+                          "name":  "Commercial Bank of Ceylon VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Commercial Bank of Ceylon VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Commercial Bank of Ceylon VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Commercial Bank of Ceylon VISA Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Dhaka Bank",
+        "cards":  [
+                      {
+                          "name":  "Dhaka Bank Maestro Debit Card",
+                          "brand":  "Maestro",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Dhaka Bank Mastercard Platinum Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Dhaka Bank Mastercard Prepaid Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Dhaka Bank Mastercard World Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "World"
+                      },
+                      {
+                          "name":  "Dhaka Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Dhaka Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Dhaka Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Dhaka Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Dhaka Bank VISA Prepaid Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Dhaka Bank VISA Prepaid Gold Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Gold"
+                      },
+                      {
+                          "name":  "Dhaka Bank VISA Signature Business Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature Business"
+                      },
+                      {
+                          "name":  "Dhaka Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Dutch-Bangla Bank",
+        "cards":  [
+                      {
+                          "name":  "Dutch-Bangla Bank Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank Mastercard Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank Mastercard Gold Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank Mastercard Prepaid Reloadable Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Reloadable"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank Mastercard Titanium Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Titanium"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank Mastercard World Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "World"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank VISA Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank VISA Electron Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Electron"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank VISA Prepaid Gold Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Gold"
+                      },
+                      {
+                          "name":  "Dutch-Bangla Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Eastern Bank",
+        "cards":  [
+                      {
+                          "name":  "Eastern Bank Diners Club Credit Card",
+                          "brand":  "Diners Club",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Eastern Bank Diners Club Other Debit Card",
+                          "brand":  "Diners Club",
+                          "type":  "Debit",
+                          "tier":  "Other"
+                      },
+                      {
+                          "name":  "Eastern Bank Diners Club Personal Credit Card",
+                          "brand":  "Diners Club",
+                          "type":  "Credit",
+                          "tier":  "Personal"
+                      },
+                      {
+                          "name":  "Eastern Bank Diners Club Prepaid Debit Card",
+                          "brand":  "Diners Club",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Eastern Bank Discover Business Credit Card",
+                          "brand":  "Discover",
+                          "type":  "Credit",
+                          "tier":  "Business"
+                      },
+                      {
+                          "name":  "Eastern Bank Discover Credit Card",
+                          "brand":  "Discover",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Eastern Bank Discover Personal Credit Card",
+                          "brand":  "Discover",
+                          "type":  "Credit",
+                          "tier":  "Personal"
+                      },
+                      {
+                          "name":  "Eastern Bank Discover Prepaid Debit Card",
+                          "brand":  "Discover",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Eastern Bank Mastercard Corporate Purchasing Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Corporate Purchasing"
+                      },
+                      {
+                          "name":  "Eastern Bank Mastercard Gold Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Eastern Bank Mastercard Mixed Product Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Mixed Product"
+                      },
+                      {
+                          "name":  "Eastern Bank Mastercard Platinum Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Eastern Bank Mastercard Prepaid Business Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Business"
+                      },
+                      {
+                          "name":  "Eastern Bank Mastercard Prepaid Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Eastern Bank Mastercard Titanium Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Titanium"
+                      },
+                      {
+                          "name":  "Eastern Bank Mastercard World Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "World"
+                      },
+                      {
+                          "name":  "Eastern Bank Mastercard World Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "World"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Business Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Business"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Corporate T\u0026e Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Corporate T\u0026e"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Electron Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Electron"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Infinite Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Infinite"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Infinite Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Infinite"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Prepaid Corporate T\u0026e Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Corporate T\u0026e"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Prepaid Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Prepaid Electron Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Electron"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Prepaid Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Platinum"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      },
+                      {
+                          "name":  "Eastern Bank VISA Signature Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "EXIM Bank",
+        "cards":  [
+                      {
+                          "name":  "EXIM Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "EXIM Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "EXIM Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "EXIM Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      },
+                      {
+                          "name":  "EXIM Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "First Security Islami Bank",
+        "cards":  [
+                      {
+                          "name":  "First Security Islami Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "First Security Islami Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "First Security Islami Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "First Security Islami Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Global Islami Bank",
+        "cards":  [
+                      {
+                          "name":  "Global Islami Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Global Islami Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Global Islami Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Habib Bank",
+        "cards":  [
+                      {
+                          "name":  "Habib Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "HSBC",
+        "cards":  [
+                      {
+                          "name":  "HSBC ATM Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "ATM"
+                      },
+                      {
+                          "name":  "HSBC Maestro ATM Debit Card",
+                          "brand":  "Maestro",
+                          "type":  "Debit",
+                          "tier":  "ATM"
+                      }
+                  ]
+    },
+    {
+        "bank":  "IFIC Bank",
+        "cards":  [
+                      {
+                          "name":  "IFIC Bank VISA Business Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Business"
+                      },
+                      {
+                          "name":  "IFIC Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "IFIC Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "IFIC Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "IFIC Bank VISA Gold Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "IFIC Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "IFIC Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Jamuna Bank",
+        "cards":  [
+                      {
+                          "name":  "Jamuna Bank Q-Cash Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Jamuna Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Jamuna Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Jamuna Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Jamuna Bank VISA Gold Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Jamuna Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Jamuna Bank VISA Prepaid Gold Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Gold"
+                      },
+                      {
+                          "name":  "Jamuna Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Janata Bank",
+        "cards":  [
+                      {
+                          "name":  "Janata Bank Q-Cash Credit Card",
+                          "brand":  "Private label",
+                          "type":  "Credit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Janata Bank Q-Cash Credit Card",
+                          "brand":  "Local brand",
+                          "type":  "Credit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Janata Bank Q-Cash Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Janata Bank Q-Cash Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Meghna Bank",
+        "cards":  [
+                      {
+                          "name":  "Meghna Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Meghna Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Meghna Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Meghna Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Meghna Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Mercantile Bank",
+        "cards":  [
+                      {
+                          "name":  "Mercantile Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Mercantile Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Mercantile Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Mercantile Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Mercantile Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Midland Bank",
+        "cards":  [
+                      {
+                          "name":  "Midland Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Midland Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Midland Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Midland Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Modhumoti Bank",
+        "cards":  [
+                      {
+                          "name":  "Modhumoti Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Modhumoti Bank VISA Electron Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Electron"
+                      },
+                      {
+                          "name":  "Modhumoti Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Modhumoti Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Mutual Trust Bank",
+        "cards":  [
+                      {
+                          "name":  "Mutual Trust Bank Mastercard Business Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Business"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank Mastercard Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank Mastercard Gold Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank Mastercard Gold Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank Mastercard Platinum Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank Mastercard Prepaid Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank Mastercard Titanium Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Titanium"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank Mastercard World Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "World"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank Mastercard World Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "World"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank UnionPay Other Debit Card",
+                          "brand":  "UnionPay",
+                          "type":  "Debit",
+                          "tier":  "Other"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank VISA Business Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Business"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank VISA Business Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Business"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank VISA Electron Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Electron"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank VISA Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank VISA Prepaid Business Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Business"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank VISA Prepaid Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Platinum"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      },
+                      {
+                          "name":  "Mutual Trust Bank VISA Signature Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "National Bank",
+        "cards":  [
+                      {
+                          "name":  "National Bank Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "National Bank Mastercard Gold Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "National Bank Mastercard Gold Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "National Bank Mastercard Platinum Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "National Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "National Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "National Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "National Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "National Bank VISA Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "National Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      },
+                      {
+                          "name":  "National Bank VISA Prepaid Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      }
+                  ]
+    },
+    {
+        "bank":  "NCC Bank",
+        "cards":  [
+                      {
+                          "name":  "NCC Bank Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "NCC Bank Mastercard World Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "World"
+                      },
+                      {
+                          "name":  "NCC Bank Prepaid Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "NCC Bank Prepaid Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "NCC Bank Proprietary Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Proprietary"
+                      },
+                      {
+                          "name":  "NCC Bank Proprietary Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Proprietary"
+                      },
+                      {
+                          "name":  "NCC Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "NCC Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "NCC Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "NCC Bank VISA Gold Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "NCC Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "NCC Bank VISA Prepaid Gold Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Gold"
+                      },
+                      {
+                          "name":  "NCC Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "NRB Bank",
+        "cards":  [
+                      {
+                          "name":  "NRB Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "NRB Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "NRB Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "NRB Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "NRB Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "ONE Bank",
+        "cards":  [
+                      {
+                          "name":  "ONE Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "ONE Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "ONE Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "ONE Bank VISA Gold Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "ONE Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "ONE Bank VISA Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "ONE Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Premier Bank",
+        "cards":  [
+                      {
+                          "name":  "Premier Bank Mastercard Corporate Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Corporate"
+                      },
+                      {
+                          "name":  "Premier Bank Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Premier Bank Mastercard Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Premier Bank Mastercard Gold Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Premier Bank Mastercard Platinum Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Premier Bank Mastercard Platinum Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Premier Bank Mastercard Prepaid Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Premier Bank Mastercard Prepaid Small Business Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Small Business"
+                      },
+                      {
+                          "name":  "Premier Bank Mastercard Titanium Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Titanium"
+                      },
+                      {
+                          "name":  "Premier Bank Mastercard World Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "World"
+                      },
+                      {
+                          "name":  "Premier Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Premier Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Premier Bank VISA Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Premier Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Premier Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Premier Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      },
+                      {
+                          "name":  "Premier Bank VISA Prepaid Gold Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Gold"
+                      },
+                      {
+                          "name":  "Premier Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Prime Bank",
+        "cards":  [
+                      {
+                          "name":  "Prime Bank Maestro Proprietary Debit Card",
+                          "brand":  "Maestro",
+                          "type":  "Debit",
+                          "tier":  "Proprietary"
+                      },
+                      {
+                          "name":  "Prime Bank Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Prime Bank Mastercard Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Prime Bank Mastercard Gold Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Prime Bank Mastercard Platinum Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Prime Bank Mastercard Platinum Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Prime Bank Mastercard Prepaid Business Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Business"
+                      },
+                      {
+                          "name":  "Prime Bank Mastercard World Business Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "World Business"
+                      },
+                      {
+                          "name":  "Prime Bank Mastercard World Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "World"
+                      },
+                      {
+                          "name":  "Prime Bank Prepaid Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Prime Bank Proprietary Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Proprietary"
+                      },
+                      {
+                          "name":  "Prime Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Prime Bank VISA Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Prime Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Prime Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Prime Bank VISA Prepaid Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Platinum"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Pubali Bank",
+        "cards":  [
+                      {
+                          "name":  "Pubali Bank Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Pubali Bank Mastercard Corporate Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Corporate"
+                      },
+                      {
+                          "name":  "Pubali Bank Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Pubali Bank Mastercard Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Pubali Bank Mastercard Prepaid Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Pubali Bank Q-cash General Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Q-cash General"
+                      },
+                      {
+                          "name":  "Pubali Bank VISA Business Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Business"
+                      },
+                      {
+                          "name":  "Pubali Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Pubali Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Pubali Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Pubali Bank VISA Gold Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Pubali Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Pubali Bank VISA Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Rupali Bank",
+        "cards":  [
+                      {
+                          "name":  "Rupali Bank Proprietary Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Proprietary"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Shahjalal Islami Bank",
+        "cards":  [
+                      {
+                          "name":  "Shahjalal Islami Bank Prepaid Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Shahjalal Islami Bank Prepaid Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Shahjalal Islami Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Shahjalal Islami Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Shahjalal Islami Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Shahjalal Islami Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Shahjalal Islami Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Shimanto Bank",
+        "cards":  [
+                      {
+                          "name":  "Shimanto Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Shimanto Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Shimanto Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Social Islami Bank",
+        "cards":  [
+                      {
+                          "name":  "Social Islami Bank Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Social Islami Bank Mastercard Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Social Islami Bank Mastercard Platinum Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Social Islami Bank Q-Cash Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Social Islami Bank Q-Cash Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Social Islami Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Social Islami Bank VISA Electron Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Electron"
+                      },
+                      {
+                          "name":  "Social Islami Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Social Islami Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Social Islami Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      },
+                      {
+                          "name":  "Social Islami Bank VISA Prepaid Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Sonali Bank",
+        "cards":  [
+                      {
+                          "name":  "Sonali Bank Prepaid Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Sonali Bank Qc Staff Credit Card",
+                          "brand":  "Local brand",
+                          "type":  "Credit",
+                          "tier":  "Qc Staff"
+                      },
+                      {
+                          "name":  "Sonali Bank Q-Cash Credit Card",
+                          "brand":  "Private label",
+                          "type":  "Credit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Sonali Bank Q-Cash Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Sonali Bank Q-Cash Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Sonali Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Sonali Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Sonali Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Sonali Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "South Bangla Agriculture and Commerce Bank",
+        "cards":  [
+                      {
+                          "name":  "South Bangla Agriculture and Commerce Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "South Bangla Agriculture and Commerce Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "South Bangla Agriculture and Commerce Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "South Bangla Agriculture and Commerce Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "South Bangla Agriculture and Commerce Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Southeast Bank",
+        "cards":  [
+                      {
+                          "name":  "Southeast Bank ATM Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "ATM"
+                      },
+                      {
+                          "name":  "Southeast Bank Maestro ATM Debit Card",
+                          "brand":  "Maestro",
+                          "type":  "Debit",
+                          "tier":  "ATM"
+                      },
+                      {
+                          "name":  "Southeast Bank Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Southeast Bank Mastercard Gold Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Southeast Bank Mastercard Platinum Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Southeast Bank Mastercard Prepaid Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid"
+                      },
+                      {
+                          "name":  "Southeast Bank Mastercard Titanium Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Titanium"
+                      },
+                      {
+                          "name":  "Southeast Bank Mastercard World Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "World"
+                      },
+                      {
+                          "name":  "Southeast Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Southeast Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Southeast Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Southeast Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Southeast Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      },
+                      {
+                          "name":  "Southeast Bank VISA Purchasing Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Purchasing"
+                      },
+                      {
+                          "name":  "Southeast Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Standard Bank",
+        "cards":  [
+                      {
+                          "name":  "Standard Bank Maestro Proprietary Debit Card",
+                          "brand":  "Maestro",
+                          "type":  "Debit",
+                          "tier":  "Proprietary"
+                      },
+                      {
+                          "name":  "Standard Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Standard Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Standard Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Standard Chartered Bank",
+        "cards":  [
+                      {
+                          "name":  "Standard Chartered Bank Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Standard Chartered Bank Mastercard Gold Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Standard Chartered Bank Mastercard Platinum Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Standard Chartered Bank Mastercard Private Label Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Private Label"
+                      },
+                      {
+                          "name":  "Standard Chartered Bank Mastercard Titanium Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Titanium"
+                      },
+                      {
+                          "name":  "Standard Chartered Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Standard Chartered Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Standard Chartered Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Standard Chartered Bank VISA Gold Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Standard Chartered Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Standard Chartered Bank VISA Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Standard Chartered Bank VISA Prepaid Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Platinum"
+                      },
+                      {
+                          "name":  "Standard Chartered Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "State Bank of India",
+        "cards":  [
+                      {
+                          "name":  "State Bank of India VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "State Bank of India VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Trust Bank",
+        "cards":  [
+                      {
+                          "name":  "Trust Bank Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Trust Bank Q-Cash Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Trust Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Trust Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Trust Bank VISA Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "Trust Bank VISA Electron Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Electron"
+                      },
+                      {
+                          "name":  "Trust Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "Trust Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Trust Bank VISA Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "Trust Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      },
+                      {
+                          "name":  "Trust Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Union Bank",
+        "cards":  [
+                      {
+                          "name":  "Union Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Union Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "United Commercial Bank",
+        "cards":  [
+                      {
+                          "name":  "United Commercial Bank Mastercard Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "United Commercial Bank Mastercard Gold Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "United Commercial Bank Mastercard Platinum Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "United Commercial Bank Mastercard Platinum Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "United Commercial Bank Mastercard Prepaid Reloadable Debit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Reloadable"
+                      },
+                      {
+                          "name":  "United Commercial Bank Mastercard World Credit Card",
+                          "brand":  "Mastercard",
+                          "type":  "Credit",
+                          "tier":  "World"
+                      },
+                      {
+                          "name":  "United Commercial Bank VISA Business Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Business"
+                      },
+                      {
+                          "name":  "United Commercial Bank VISA Business Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Business"
+                      },
+                      {
+                          "name":  "United Commercial Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "United Commercial Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "United Commercial Bank VISA Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Standard"
+                      },
+                      {
+                          "name":  "United Commercial Bank VISA Gold Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Gold"
+                      },
+                      {
+                          "name":  "United Commercial Bank VISA Platinum Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "United Commercial Bank VISA Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Platinum"
+                      },
+                      {
+                          "name":  "United Commercial Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      },
+                      {
+                          "name":  "United Commercial Bank VISA Prepaid Platinum Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Platinum"
+                      },
+                      {
+                          "name":  "United Commercial Bank VISA Signature Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Signature"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Uttara Bank",
+        "cards":  [
+                      {
+                          "name":  "Uttara Bank Q-Cash Debit Card",
+                          "brand":  "Private label",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Uttara Bank Q-Cash Debit Card",
+                          "brand":  "Local brand",
+                          "type":  "Debit",
+                          "tier":  "Q-Cash"
+                      },
+                      {
+                          "name":  "Uttara Bank VISA Classic Credit Card",
+                          "brand":  "VISA",
+                          "type":  "Credit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Uttara Bank VISA Electron Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Electron"
+                      },
+                      {
+                          "name":  "Uttara Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    },
+    {
+        "bank":  "Woori Bank",
+        "cards":  [
+                      {
+                          "name":  "Woori Bank VISA Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Classic"
+                      },
+                      {
+                          "name":  "Woori Bank VISA Prepaid Classic Debit Card",
+                          "brand":  "VISA",
+                          "type":  "Debit",
+                          "tier":  "Prepaid Classic"
+                      }
+                  ]
+    }
+]

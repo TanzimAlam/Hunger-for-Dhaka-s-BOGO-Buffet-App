@@ -19,6 +19,7 @@ routing ranges; they say nothing about any individual cardholder.
 | `banks/<bank-slug>.json` | The same cards grouped under one bank, ready to load per bank | 50 files |
 | `card-products.csv` | Official product names from 21 banks' own card pages, each with the page URL it came from | 169 products |
 | `summary.json` | Counts by brand and by type | — |
+| `app/src/main/assets/bank_cards.json` | The app's picker data: every bank with its product names and network/type/tier, no BINs | 50 banks, 410 cards |
 
 ### Schemas
 
@@ -106,6 +107,20 @@ source spells a bank in a new way.
 6. **Some product names are unverified.** Banks whose card pages were unreachable or
    image-only are omitted from `card-products.json`; their BINs still appear in `bins.json` if
    the BIN source had them.
+
+## Packaged into the Android app
+
+The app's **Add a card** screen needs bank and product names, not BIN ranges. A copy of this
+folder's banks is flattened into `app/src/main/assets/bank_cards.json` (BINs and `bestFor` dropped,
+alphabetical, 50 banks / 410 cards). Regenerate it whenever `banks/` changes:
+
+```bash
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/MakeBankCards.ps1
+```
+
+The app matches an offer's card condition with `CardAccess.kt` on bank + brand + credit/debit +
+tier. It stores only the bank and product name the diner picked, never a card number. The BIN
+column here is for a future backend that identifies a product from the first six digits.
 
 ## Where the offers live
 

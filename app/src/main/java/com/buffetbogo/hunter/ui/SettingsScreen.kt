@@ -76,6 +76,7 @@ fun SettingsScreen(
     onSyncNow: () -> Unit,
     onRestoreSamples: () -> Unit,
     onRefreshRatings: () -> Unit,
+    onOpenCards: () -> Unit,
 ) {
     val context = LocalContext.current
     val uriHandler = LocalUriHandler.current
@@ -134,6 +135,54 @@ fun SettingsScreen(
                         style = MaterialTheme.typography.titleLarge,
                         color = BuffetColors.TextPrimary,
                     )
+                }
+            }
+
+            item {
+                SectionCard(title = "My cards") {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        StatusPill(
+                            text = if (settings.cards.isEmpty()) {
+                                "EMPTY"
+                            } else {
+                                "${settings.cards.size} ADDED"
+                            },
+                            positive = settings.cards.isNotEmpty(),
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            text = if (settings.cards.isEmpty()) {
+                                "No cards yet."
+                            } else {
+                                settings.cards.joinToString(", ") { it.shortName }
+                            },
+                            fontSize = 11.5.sp,
+                            color = BuffetColors.TextSecondary,
+                            maxLines = 2,
+                            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                        )
+                    }
+                    Spacer(Modifier.height(10.dp))
+                    Text(
+                        text = "Add the credit and debit cards you carry. The feed's \"My cards\" " +
+                            "order then shows only the deals those cards unlock. The bank and " +
+                            "card names stay on this phone.",
+                        fontSize = 11.5.sp,
+                        color = BuffetColors.TextSecondary,
+                        lineHeight = 17.sp,
+                    )
+                    Spacer(Modifier.height(10.dp))
+                    OutlinedButton(
+                        onClick = onOpenCards,
+                        shape = RoundedCornerShape(10.dp),
+                        border = BorderStroke(1.dp, BuffetColors.Border),
+                    ) {
+                        Text(
+                            text = if (settings.cards.isEmpty()) "Add a card" else "Manage cards",
+                            fontSize = 12.5.sp,
+                            color = BuffetColors.TextPrimary,
+                        )
+                    }
                 }
             }
 

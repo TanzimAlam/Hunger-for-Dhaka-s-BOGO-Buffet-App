@@ -31,6 +31,8 @@ data class AppSettings(
     val lastSyncAt: Long = 0L,
     val seedVersion: Int = 0,
     val sortOrder: SortOrder = SortOrder.ENDS_SOONEST,
+    /** The diner's own cards, kept on this phone only. Never leaves the device. */
+    val cards: List<UserCard> = emptyList(),
 ) {
     val usesBrave: Boolean get() = braveApiKey.isNotBlank()
     val canFetchRatings: Boolean get() = placesApiKey.isNotBlank()
@@ -47,6 +49,7 @@ class SettingsStore(private val context: Context) {
         val LAST_SYNC_AT = longPreferencesKey("last_sync_at")
         val SEED_VERSION = intPreferencesKey("seed_version")
         val SORT_ORDER = stringPreferencesKey("sort_order")
+        val SAVED_CARDS = stringPreferencesKey("saved_cards")
     }
 
     val settings: Flow<AppSettings> = context.dataStore.data
@@ -68,6 +71,7 @@ class SettingsStore(private val context: Context) {
                 lastSyncAt = prefs[Keys.LAST_SYNC_AT] ?: 0L,
                 seedVersion = prefs[Keys.SEED_VERSION] ?: 0,
                 sortOrder = SortOrder.fromKey(prefs[Keys.SORT_ORDER]),
+                cards = UserCards.decode(prefs[Keys.SAVED_CARDS]),
             )
         }
 
@@ -84,6 +88,9 @@ class SettingsStore(private val context: Context) {
     suspend fun setSeedVersion(version: Int) = context.dataStore.edit { it[Keys.SEED_VERSION] = version }
 
     suspend fun setSortOrder(order: SortOrder) = context.dataStore.edit { it[Keys.SORT_ORDER] = order.key }
+
+    suspend fun setCards(cards: List<UserCard>) =
+        context.dataStore.edit { it[Keys.SAVED_CARDS] = UserCards.encode(cards) }
 
     suspend fun markSynced(at: Long) = context.dataStore.edit { it[Keys.LAST_SYNC_AT] = at }
 }

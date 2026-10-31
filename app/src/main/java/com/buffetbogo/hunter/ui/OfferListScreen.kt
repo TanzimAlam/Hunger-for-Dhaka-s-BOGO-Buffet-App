@@ -30,6 +30,7 @@ import androidx.compose.material.icons.rounded.BrunchDining
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.CreditCard
 import androidx.compose.material.icons.rounded.DinnerDining
 import androidx.compose.material.icons.rounded.FreeBreakfast
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
@@ -56,6 +57,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -78,6 +80,8 @@ import com.buffetbogo.hunter.data.MealTime
 import com.buffetbogo.hunter.data.OfferUi
 import com.buffetbogo.hunter.data.RestaurantGroup
 import com.buffetbogo.hunter.data.SortOrder
+import com.buffetbogo.hunter.data.UserCard
+import com.buffetbogo.hunter.data.acceptsAnyCard
 import com.buffetbogo.hunter.data.isFiveStar
 import com.buffetbogo.hunter.data.nameKey
 import com.buffetbogo.hunter.data.parseMeals
@@ -113,11 +117,14 @@ fun OfferListScreen(
     query: String,
     filterName: String,
     mealKeys: String,
+    cards: List<UserCard>,
     onQueryChange: (String) -> Unit,
     onFilterChange: (FeedFilter) -> Unit,
     onToggleMeal: (MealTime) -> Unit,
     onRefresh: () -> Unit,
     onSortChange: (SortOrder) -> Unit,
+    onOpenCards: () -> Unit,
+    onCardFilterEmpty: () -> Unit,
     onOpenSettings: () -> Unit,
     onOpenOffer: (String) -> Unit,
 ) {
@@ -125,16 +132,39 @@ fun OfferListScreen(
     val filter = FeedFilter.valueOf(filterName)
     val meals = remember(mealKeys) { parseMeals(mealKeys) }
 
+    val cardFilterOn = sortOrder == SortOrder.MY_CARDS
+    // Deals at least one saved card unlocks. Card-free deals count too: they accept any card.
+    val cardMatches = remember(offers, cards) {
+        if (cards.isEmpty()) emptyList() else offers.filter { it.offer.acceptsAnyCard(cards) }
+    }
+
     // One card per restaurant: the deal chips pick the deals, the meal toggles pick the serving
-    // windows (any of them is enough), and the grouping collapses the venues.
-    val groups = remember(offers, query, filter, meals, sortOrder) {
+    // windows (any of them is enough), the wallet picks what the cards unlock, and the grouping
+    // collapses the venues.
+    val groups = remember(offers, query, filter, meals, sortOrder, cardMatches) {
         val needle = query.trim()
-        val matching = offers.filter { item ->
+        val pool = if (cardFilterOn) cardMatches else offers
+        val matching = pool.filter { item ->
             filter.matches(item) &&
                 item.offer.servesAny(meals) &&
                 (needle.isBlank() || item.matches(needle))
         }
         FeedGrouper.group(matching, sortOrder)
+    }
+
+    // "My cards" only works when something matches. Rather than leave an empty feed — which
+    // looks broken — say so once and fall back to every offer.
+    var reportedCardMiss by remember { mutableStateOf(false) }
+    LaunchedEffect(sortOrder, cards, cardMatches, offers.isEmpty()) {
+        if (sortOrder != SortOrder.MY_CARDS) {
+            reportedCardMiss = false
+            return@LaunchedEffect
+        }
+        if (cards.isEmpty() || offers.isEmpty() || cardMatches.isNotEmpty() || reportedCardMiss) {
+            return@LaunchedEffect
+        }
+        reportedCardMiss = true
+        onCardFilterEmpty()
     }
     val dealCount = remember(groups) { groups.sumOf { it.offerCount } }
 
@@ -178,14 +208,19 @@ fun OfferListScreen(
                 deals = dealCount,
                 running = sync.running,
                 sortOrder = sortOrder,
+                cardCount = cards.size,
                 onSortChange = onSortChange,
+                onOpenCards = onOpenCards,
                 onRefresh = onRefresh,
             )
 
             if (groups.isEmpty()) {
                 EmptyState(
                     modifier = Modifier.weight(1f),
-                    filtered = filter != FeedFilter.ALL || meals.isNotEmpty() || query.isNotBlank(),
+                    filtered = filter != FeedFilter.ALL ||
+                        meals.isNotEmpty() ||
+                        query.isNotBlank() ||
+                        cardFilterOn,
                     onRefresh = onRefresh,
                     onOpenSettings = onOpenSettings,
                 )
@@ -472,7 +507,9 @@ private fun MetaRow(
     deals: Int,
     running: Boolean,
     sortOrder: SortOrder,
+    cardCount: Int,
     onSortChange: (SortOrder) -> Unit,
+    onOpenCards: () -> Unit,
     onRefresh: () -> Unit,
 ) {
     Row(
@@ -501,7 +538,12 @@ private fun MetaRow(
             color = BuffetColors.TextSecondary,
             modifier = Modifier.weight(1f),
         )
-        SortMenu(sortOrder = sortOrder, onSortChange = onSortChange)
+        SortMenu(
+            sortOrder = sortOrder,
+            cardCount = cardCount,
+            onSortChange = onSortChange,
+            onOpenCards = onOpenCards,
+        )
         if (!running) {
             Spacer(Modifier.width(6.dp))
             Surface(
@@ -525,7 +567,12 @@ private fun MetaRow(
 }
 
 @Composable
-private fun SortMenu(sortOrder: SortOrder, onSortChange: (SortOrder) -> Unit) {
+private fun SortMenu(
+    sortOrder: SortOrder,
+    cardCount: Int,
+    onSortChange: (SortOrder) -> Unit,
+    onOpenCards: () -> Unit,
+) {
     var expanded by remember { mutableStateOf(false) }
     Box {
         Surface(
@@ -546,7 +593,11 @@ private fun SortMenu(sortOrder: SortOrder, onSortChange: (SortOrder) -> Unit) {
                 )
                 Spacer(Modifier.width(6.dp))
                 Text(
-                    text = sortOrder.label,
+                    text = if (sortOrder == SortOrder.MY_CARDS) {
+                        "My cards ($cardCount)"
+                    } else {
+                        sortOrder.label
+                    },
                     fontSize = 11.5.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = BuffetColors.TextPrimary,
@@ -560,7 +611,7 @@ private fun SortMenu(sortOrder: SortOrder, onSortChange: (SortOrder) -> Unit) {
             }
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            SortOrder.entries.forEach { order ->
+            SortOrder.entries.filter { it != SortOrder.MY_CARDS }.forEach { order ->
                 DropdownMenuItem(
                     text = {
                         Text(
@@ -585,6 +636,63 @@ private fun SortMenu(sortOrder: SortOrder, onSortChange: (SortOrder) -> Unit) {
                     },
                 )
             }
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+                    .height(1.dp)
+                    .background(BuffetColors.Border),
+            )
+            DropdownMenuItem(
+                text = {
+                    Column {
+                        Text(
+                            text = "My cards",
+                            fontSize = 13.sp,
+                            color = if (sortOrder == SortOrder.MY_CARDS) {
+                                BuffetColors.Accent
+                            } else {
+                                BuffetColors.TextPrimary
+                            },
+                        )
+                        Text(
+                            text = if (cardCount == 0) {
+                                "Add a card to use this"
+                            } else {
+                                "$cardCount card${if (cardCount == 1) "" else "s"} in your wallet"
+                            },
+                            fontSize = 10.5.sp,
+                            color = BuffetColors.TextSecondary,
+                        )
+                    }
+                },
+                onClick = {
+                    expanded = false
+                    if (cardCount == 0) onOpenCards() else onSortChange(SortOrder.MY_CARDS)
+                },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Rounded.CreditCard,
+                        contentDescription = null,
+                        tint = if (sortOrder == SortOrder.MY_CARDS) {
+                            BuffetColors.Accent
+                        } else {
+                            BuffetColors.TextSecondary
+                        },
+                        modifier = Modifier.size(18.dp),
+                    )
+                },
+                trailingIcon = {
+                    if (sortOrder == SortOrder.MY_CARDS) {
+                        Icon(
+                            imageVector = Icons.Rounded.Check,
+                            contentDescription = null,
+                            tint = BuffetColors.Accent,
+                            modifier = Modifier.size(16.dp),
+                        )
+                    }
+                },
+            )
         }
     }
 }

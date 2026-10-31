@@ -12,8 +12,9 @@ the serving-window toggles (Breakfast / Brunch / Lunch / Dinner, any number on a
 the list, and the default order is **by end date**, so whatever is about to run out is at the top.
 Choosing another order (Newest, Price low→high, Top rated) **jumps the list back to the top**, so
 the rearrangement is immediately visible instead of leaving you halfway down a silently reordered
-feed. Opening a deal and coming back still leaves the feed exactly where it was — same card, same
-search, same chips.
+feed. The menu also carries **My cards**: add the cards you actually hold and the feed keeps only
+the deals they unlock (more below). Opening a deal and coming back still leaves the feed exactly
+where it was — same card, same search, same chips.
 
 For now the feed and Settings also sit on a **playful food backdrop**: a scatter of food emoji over
 soft saffron, mint and tomato washes, with every card, chip and field still opaque white so nothing
@@ -163,13 +164,14 @@ overrides it. Keys stay on the device or in the local build — never in the APK
 | Area | Implementation |
 | --- | --- |
 | UI | Kotlin + Jetpack Compose (Material 3), light theme in white, cream and ink, single activity |
-| Storage | Room (`offers`, `restaurant_ratings`) with v1→v2 (price unit/source) and v2→v3 (ad link, ad label, timing, checked date) migrations, DataStore for settings and the chosen sort order |
+| Storage | Room (`offers`, `restaurant_ratings`) with v1→v2 (price unit/source) and v2→v3 (ad link, ad label, timing, checked date) migrations, DataStore for settings, the chosen sort order and the card wallet |
 | Background work | WorkManager every 30 minutes, plus a refresh on launch when the feed is older than 30 minutes |
 | Notifications | One notification per new offer (never a bundled summary), carrying that offer's id; tapping it opens that offer's own detail screen, and its action button opens the venue's ad directly |
 | Bundled catalogue | 18 real, sourced Dhaka offers in `app/src/main/assets/seed_offers.json` — priced wherever the ad prints a figure, and marked "price being checked" where a bank rate card states none |
 | Price book | 28 venues' checked buffet rates in `app/src/main/assets/venue_prices.json`, used to price bank ads that never state one |
 | Venue directory | 31 venues' official Facebook pages and dining pages in `app/src/main/assets/venue_socials.json` |
 | Grouping | `FeedGrouper` folds the offer list into one card per restaurant, orders venues by their best deal for the chosen sort, and keeps one copy of a deal that several banks list |
+| Card wallet | The diner's own credit/debit cards, added from two drop-downs (bank, then that bank's product). 50 banks and 410 products ship in `app/src/main/assets/bank_cards.json`, generated from `data/card-bins/` by `tools/MakeBankCards.ps1`. Stored on the phone; no card number is ever asked for |
 | Branding | Launcher icon, adaptive icon and in-app header logo generated from the supplied emblem by `tools/BrandIcons.java`; the whole round badge is fitted inside each icon, never cropped. The Compose palette is sampled from that emblem (white paper, steel blue, clay, saffron, bottle green) |
 | Parsing | `OfferParser` (English wording, prices, dates, serving windows), `StandardCharteredSource`, `BankPageSource` + `BankHtml` (fifteen more banks), `NewsRssSource`, `FacebookPageSource`, `AdEnricher`, `AdLinkResolver`, `LinkTargets` (repairs every link before it is opened) |
 
@@ -181,16 +183,21 @@ overrides it. Keys stay on the device or in the local build — never in the APK
    Lunch / Dinner). The categories are single-select; the meal chips are independent switches, so
    Breakfast and Dinner can both be on, and tapping one again clears it — with none on, every
    serving window shows. The sort menu sits above the list (default **Ends soonest**, plus Newest,
-   Price low→high, Top rated), and choosing an order returns the list to the top. One card per
-   restaurant: deal badges on the thumbnail's top-left, the Google rating on its top-right, then a
-   row per deal with its price and unit, payment condition and countdown. Tapping a row opens that
-   deal. A price filled in from the book or a search carries a small **typical** tag.
+   Price low→high, Top rated and **My cards**), and choosing an order returns the list to the top.
+   With no card saved, choosing My cards opens the wallet first. One card per restaurant: deal
+   badges on the thumbnail's top-left, the Google rating on its top-right, then a row per deal with
+   its price and unit, payment condition and countdown. Tapping a row opens that deal. A price
+   filled in from the book or a search carries a small **typical** tag.
 2. **Offer detail** — hero photo, offer text, price, rating with review count, validity and the
    serving window, payment conditions, an **ad reference card** naming the restaurant's page, a
    notice when no verified ad could be found (or only the venue's page, not the deal's post), the
    "Open the original ad" button (or "Search Facebook for this offer"), and "Hide this offer".
-3. **Settings** — Google ratings status and key, the optional Facebook Page token with its status,
-   alerts toggle, sources, manual check, reload listings, and the optional Brave key.
+3. **My cards** — the wallet: every saved card with its bank, product and network, an **Add a
+   card** sheet with the bank and card drop-downs, and a delete button per card. Reachable from
+   Settings and from the sort menu.
+4. **Settings** — the wallet's status and entry point, Google ratings status and key, the optional
+   Facebook Page token with its status, alerts toggle, sources, manual check, reload listings, and
+   the optional Brave key.
 
 The feed keeps its scroll position, search text and chosen filter while an offer is open, because
 that state lives above the screen switch in `AppRoot`.
@@ -294,6 +301,11 @@ References:
 - **Default order is `ENDS_SOONEST`** — restaurants whose first deal ends soonest at the top, and
   restaurants with no stated end date last. The other orders are `NEWEST` (latest deal), `PRICE_LOW_HIGH`
   (cheapest deal on the card) and `RATING_HIGH_LOW` (unrated last). The choice is stored in DataStore.
+- **`MY_CARDS` is a filter, not an ordering.** Before grouping, the feed keeps only the deals at
+  least one saved card unlocks, then orders what is left by `ENDS_SOONEST`. Because filtering runs
+  on individual deals, a restaurant whose other deal needs a different bank still appears — with
+  just the deal your card covers. When a saved wallet matches nothing, the app says so once, resets
+  the category and meal chips, and returns to the default order so the feed is never left empty.
 - New rows use the publish date when the source has one, otherwise the moment they were first
   found — and that first-seen date is preserved on later refreshes so standing offers do not jump
   back to the top.
@@ -309,6 +321,11 @@ References:
 - Prices filled from the book or a search are marked **typical**; they are the restaurant's
   standing rate, not necessarily the exact campaign price. Some venues publish no buffet price at
   all; their cards say **"Price being checked"** and stay in the feed rather than disappearing.
+- The card filter can only be as precise as the ad's wording. Offers that say "selected bank
+  cards" without naming the bank are left out of **My cards** rather than shown for every card;
+  relationship programmes (Priority Banking, Saadiq) are not product tiers in the BIN reference, so
+  only the card families it actually lists can match. The wallet's two lists cover the 50 banks and
+  410 products in `data/card-bins/`; a bank or product missing from that reference cannot be picked.
 - A few offers have no verifiable ad on the restaurant's side (see **When there is no verified
   ad**); the detail screen says so and the button falls back to a Facebook search.
 - The keyless price fallback reads DuckDuckGo's HTML results. It is fine for personal use but can
@@ -325,16 +342,63 @@ References:
   price anywhere readable, so their cards say "Price being checked" until the keyless search finds
   one. They are shown rather than hidden.
 
+## My cards — sorting by what your wallet unlocks
+
+**My cards** asks the diner to add the cards they carry, then keeps only the buffet deals those
+cards unlock. It is deliberately manual: the app never asks for a card number, so there is nothing
+to scan, verify or leak.
+
+**Adding a card.** Settings → **My cards** (or the sort menu → *My cards* when the wallet is empty)
+opens the wallet. **Add a card** opens two drop-downs: first the bank (all 50 banks in
+`data/card-bins/`, alphabetically), then the products that bank issues. The product list comes from
+the same BIN reference — e.g. *Mastercard Platinum Credit Card* under United Commercial Bank — and
+shows network · credit/debit · tier. Several cards can be saved, from the same bank or different
+ones; adding the same product twice is a no-op. Removing a card is one tap.
+
+**Privacy.** Only the bank name and the product name are saved, as JSON in DataStore on this phone.
+There is no card number, expiry date, CVV, PIN, name or account field anywhere in the screen, the
+model or the storage — the BIN reference behind the list is public routing data, not anyone's card.
+Nothing is uploaded, and the wallet is not part of any sync.
+
+**What counts as unlocked.** `CardAccess.kt` reads each deal's own payment note and terms and
+classifies it:
+
+| Rule | Example in the catalogue | Shown under My cards? |
+| --- | --- | --- |
+| Card-free | "Any payment method" (Hotel Sarina), "Card or cash" (Ascott Palace), "No card condition" (Teriyaki Boy) | Yes, for every saved card |
+| Bank + family | "UCB Platinum credit cardholders (Visa and Mastercard)" | Only a UCB Platinum **credit** card, Visa or Mastercard |
+| Whole bank | "All Standard Chartered debit and credit cards" | Any Standard Chartered card |
+| Named cards only | "Visa Signature credit, Priority Banking and Saadiq Priority debit" | Only the tiers in the list that the wallet can actually name (Signature) |
+| Unclear | "Selected bank cards" with no bank named (Beyond Buffet's B1G1 variant) | No — never guessed open to everyone |
+
+Matching joins on **bank + brand + credit/debit + tier**, the same keys the BIN reference uses. A
+restaurant keeps only its matching deals in this mode: Ascott Palace appears for a Standard
+Chartered wallet with both its card-free breakfast deal and its SCB breakfast deal, and for a BRAC
+wallet with the card-free one only.
+
+**When nothing matches.** The app shows *"Sorry — I couldn't find any offer for your saved cards.
+Showing all offers instead."*, resets the category and meal chips, and returns the order to **Ends
+soonest**, so the feed immediately shows every live offer again. Emptying the wallet while My cards
+is selected does the same on the next launch.
+
+**The bundled asset.** `app/src/main/assets/bank_cards.json` holds the 50 banks and 410 products
+(no BINs — the app needs names, not prefixes). Regenerate it after refreshing the reference:
+
+```bash
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/MakeBankCards.ps1
+```
+
 ## Bank cards and BINs (`data/card-bins/`)
 
 A reference dataset for matching an offer's card condition to the card a diner holds: 630
 Bangladeshi BINs across 50 banks, rolled up into 410 card products, plus 169 official product names
 from 21 banks' own card pages. See [`data/card-bins/README.md`](data/card-bins/README.md) for the
-schemas, the join keys and the caveats. It is data only — nothing in that folder ships in the APK.
+schemas, the join keys and the caveats. The folder itself is data only; its bank and product names
+are packaged into the APK as `assets/bank_cards.json`, but no BIN or card-range data ships.
 
 ## Next steps
 
 - Move discovery to a backend with a cron job so the phone needs no keys at all and every user
   shares one checked feed.
 - Add Bangla numeral/wording support and OCR for offer posters.
-- Filter by area or by the card you actually hold.
+- Filter by area, and let a diner type the first six digits of a card to identify its product.
