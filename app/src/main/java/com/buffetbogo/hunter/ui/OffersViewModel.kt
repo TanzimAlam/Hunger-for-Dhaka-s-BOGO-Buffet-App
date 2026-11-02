@@ -51,6 +51,18 @@ class OffersViewModel(
             initialValue = SortOrder.ENDS_SOONEST,
         )
 
+    /**
+     * null means "not read from the phone yet", so a returning diner never sees the first-run
+     * screen flash while DataStore is still opening the file.
+     */
+    val onboardingDone: StateFlow<Boolean?> = repository.settings
+        .map<AppSettings, Boolean?> { it.onboardingDone }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = null,
+        )
+
     private val _sync = MutableStateFlow(SyncState())
     val sync: StateFlow<SyncState> = _sync.asStateFlow()
 
@@ -119,18 +131,42 @@ class OffersViewModel(
 
     /** Adds a card picked from the bundled bank/card list; adding the same card twice is a no-op. */
     fun addCard(card: UserCard) {
-        viewModelScope.launch {
-            val current = settingsStore.settings.first().cards
-            if (current.none { it.key == card.key }) {
-                settingsStore.setCards(current + card)
-            }
-        }
+        viewModelScope.launch { settingsStore.addCard(card) }
     }
 
     fun removeCard(card: UserCard) {
+        viewModelScope.launch { settingsStore.removeCard(card) }
+    }
+
+    /**
+     * Closes the first-run screen. [card] is the selection still open on it, if any. Done (and
+     * adding a card from the My Cards empty state) switches the feed to the cards order as soon
+     * as the wallet actually holds a card; Skip leaves the full feed alone.
+     */
+    fun finishOnboarding(card: UserCard?, sortByCards: Boolean) {
         viewModelScope.launch {
-            val current = settingsStore.settings.first().cards
-            settingsStore.setCards(current.filterNot { it.key == card.key })
+            if (card != null) settingsStore.addCard(card)
+            val wallet = settingsStore.settings.first().cards
+            settingsStore.setOnboardingDone(true)
+            settingsStore.setSortOrder(
+                if (sortByCards && wallet.isNotEmpty()) SortOrder.MY_CARDS else SortOrder.ENDS_SOONEST,
+            )
+        }
+    }
+
+    /** Opened again from the My Cards empty state: no first-run gate, straight to the feed. */
+    fun finishCardInput(card: UserCard?) {
+        viewModelScope.launch {
+            if (card != null) settingsStore.addCard(card)
+            val wallet = settingsStore.settings.first().cards
+            if (wallet.isNotEmpty()) settingsStore.setSortOrder(SortOrder.MY_CARDS)
+        }
+    }
+
+    fun skipOnboarding() {
+        viewModelScope.launch {
+            settingsStore.setOnboardingDone(true)
+            settingsStore.setSortOrder(SortOrder.ENDS_SOONEST)
         }
     }
 

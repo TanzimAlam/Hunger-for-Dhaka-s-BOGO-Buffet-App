@@ -1,6 +1,9 @@
 package com.buffetbogo.hunter.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -11,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
@@ -20,10 +24,11 @@ import com.buffetbogo.hunter.BuffetApp
 import com.buffetbogo.hunter.data.SortOrder
 import com.buffetbogo.hunter.data.toggleMeal
 import com.buffetbogo.hunter.notify.DeepLinks
+import com.buffetbogo.hunter.ui.theme.BuffetColors
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-private enum class Screen { LIST, DETAIL, SETTINGS, CARDS }
+private enum class Screen { LIST, DETAIL, SETTINGS, CARDS, CARD_INPUT }
 
 @Composable
 fun AppRoot() {
@@ -36,6 +41,7 @@ fun AppRoot() {
     val offers by viewModel.offers.collectAsStateWithLifecycle()
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     val sortOrder by viewModel.sortOrder.collectAsStateWithLifecycle()
+    val onboardingDone by viewModel.onboardingDone.collectAsStateWithLifecycle()
     val sync by viewModel.sync.collectAsStateWithLifecycle()
     val pendingOfferId by DeepLinks.pendingOfferId.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -57,13 +63,8 @@ fun AppRoot() {
     // Every time the list comes back to the foreground, a feed older than half an hour refreshes.
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { viewModel.refreshOnOpen() }
 
-    // A wallet emptied while "My cards" was the chosen order must not leave a filter that can
-    // never match; fall back to the normal order rather than show an empty feed on launch.
-    LaunchedEffect(sortOrder, settings.cards) {
-        if (sortOrder == SortOrder.MY_CARDS && settings.cards.isEmpty()) {
-            viewModel.setSortOrder(SortOrder.ENDS_SOONEST)
-        }
-    }
+    // An empty wallet with the cards order on is a real screen, not an error: it explains the
+    // wallet and shows the gold add button, so it is left alone here.
 
     // A new sort order silently rearranges the list, so jump back to the top: leaving the user
     // halfway down a reordered feed looks as if nothing happened. This only fires on an actual
@@ -110,6 +111,27 @@ fun AppRoot() {
         if (Screen.valueOf(screenName) == Screen.CARDS) closeCards() else screenName = Screen.LIST.name
     }
 
+    // The first run opens on the card screen, once DataStore has confirmed it is really the
+    // first run. null is "not read yet": draw paper instead of flashing this at a returning
+    // diner, and Skip/Done persist the flag so it never appears again.
+    val done = onboardingDone
+    if (done == null) {
+        Box(Modifier.fillMaxSize().background(BuffetColors.Background))
+        return
+    }
+    if (!done) {
+        CardOnboardingScreen(
+            cards = settings.cards,
+            firstRun = true,
+            showBack = false,
+            onAddCard = viewModel::addCard,
+            onBack = {},
+            onSkip = viewModel::skipOnboarding,
+            onDone = { card -> viewModel.finishOnboarding(card, sortByCards = true) },
+        )
+        return
+    }
+
     when (Screen.valueOf(screenName)) {
         Screen.LIST -> OfferListScreen(
             offers = offers,
@@ -122,14 +144,27 @@ fun AppRoot() {
             mealKeys = feedMeals,
             cards = settings.cards,
             onQueryChange = { feedQuery = it },
-            onFilterChange = { feedFilter = it.name },
+            onFilterChange = { next ->
+                feedFilter = next.name
+                // "All Offers" is also the way out of the cards filter — otherwise tapping it
+                // while the gold chip is on would look like nothing happened.
+                if (next == FeedFilter.ALL && sortOrder == SortOrder.MY_CARDS) {
+                    viewModel.setSortOrder(SortOrder.ENDS_SOONEST)
+                }
+            },
             onToggleMeal = { meal -> feedMeals = toggleMeal(feedMeals, meal) },
             onRefresh = viewModel::refresh,
             onSortChange = viewModel::setSortOrder,
-            onOpenCards = {
-                cardsReturnTo = Screen.LIST.name
-                screenName = Screen.CARDS.name
+            onToggleCards = {
+                viewModel.setSortOrder(
+                    if (sortOrder == SortOrder.MY_CARDS) {
+                        SortOrder.ENDS_SOONEST
+                    } else {
+                        SortOrder.MY_CARDS
+                    },
+                )
             },
+            onOpenCardInput = { screenName = Screen.CARD_INPUT.name },
             onCardFilterEmpty = {
                 // Nothing among the diner's cards unlocks a current offer: say so, then show
                 // every live offer again so the feed is never left mysteriously empty.
@@ -190,6 +225,21 @@ fun AppRoot() {
             onBack = closeCards,
             onAddCard = viewModel::addCard,
             onRemoveCard = viewModel::removeCard,
+        )
+
+        // Reached from the gold button on the empty My Cards feed: the same first-run page, but
+        // with a back arrow and no first-run gate. Done returns to the feed filtered by cards.
+        Screen.CARD_INPUT -> CardOnboardingScreen(
+            cards = settings.cards,
+            firstRun = false,
+            showBack = true,
+            onAddCard = viewModel::addCard,
+            onBack = { screenName = Screen.LIST.name },
+            onSkip = { screenName = Screen.LIST.name },
+            onDone = { card ->
+                viewModel.finishCardInput(card)
+                screenName = Screen.LIST.name
+            },
         )
     }
 }

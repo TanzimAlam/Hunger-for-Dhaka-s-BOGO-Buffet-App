@@ -33,6 +33,8 @@ data class AppSettings(
     val sortOrder: SortOrder = SortOrder.ENDS_SOONEST,
     /** The diner's own cards, kept on this phone only. Never leaves the device. */
     val cards: List<UserCard> = emptyList(),
+    /** False only until the first-run card screen has been finished or skipped. */
+    val onboardingDone: Boolean = false,
 ) {
     val usesBrave: Boolean get() = braveApiKey.isNotBlank()
     val canFetchRatings: Boolean get() = placesApiKey.isNotBlank()
@@ -50,6 +52,7 @@ class SettingsStore(private val context: Context) {
         val SEED_VERSION = intPreferencesKey("seed_version")
         val SORT_ORDER = stringPreferencesKey("sort_order")
         val SAVED_CARDS = stringPreferencesKey("saved_cards")
+        val ONBOARDING_DONE = booleanPreferencesKey("onboarding_done")
     }
 
     val settings: Flow<AppSettings> = context.dataStore.data
@@ -72,6 +75,7 @@ class SettingsStore(private val context: Context) {
                 seedVersion = prefs[Keys.SEED_VERSION] ?: 0,
                 sortOrder = SortOrder.fromKey(prefs[Keys.SORT_ORDER]),
                 cards = UserCards.decode(prefs[Keys.SAVED_CARDS]),
+                onboardingDone = prefs[Keys.ONBOARDING_DONE] ?: false,
             )
         }
 
@@ -89,8 +93,23 @@ class SettingsStore(private val context: Context) {
 
     suspend fun setSortOrder(order: SortOrder) = context.dataStore.edit { it[Keys.SORT_ORDER] = order.key }
 
-    suspend fun setCards(cards: List<UserCard>) =
-        context.dataStore.edit { it[Keys.SAVED_CARDS] = UserCards.encode(cards) }
+    /**
+     * Appends inside the DataStore transaction, so adding two cards in quick succession cannot
+     * lose the first one. The old read-then-write in the ViewModel could: both callers read the
+     * same wallet and the second write replaced the first.
+     */
+    suspend fun addCard(card: UserCard) = context.dataStore.edit { prefs ->
+        val current = UserCards.decode(prefs[Keys.SAVED_CARDS])
+        prefs[Keys.SAVED_CARDS] = UserCards.encode(UserCards.add(current, card))
+    }
+
+    suspend fun removeCard(card: UserCard) = context.dataStore.edit { prefs ->
+        val current = UserCards.decode(prefs[Keys.SAVED_CARDS])
+        prefs[Keys.SAVED_CARDS] = UserCards.encode(current.filterNot { it.key == card.key })
+    }
+
+    suspend fun setOnboardingDone(done: Boolean) =
+        context.dataStore.edit { it[Keys.ONBOARDING_DONE] = done }
 
     suspend fun markSynced(at: Long) = context.dataStore.edit { it[Keys.LAST_SYNC_AT] = at }
 }

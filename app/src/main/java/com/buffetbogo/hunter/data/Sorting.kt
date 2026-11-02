@@ -12,7 +12,7 @@ enum class SortOrder(val key: String, val label: String) {
      * then orders what is left by when it ends. It lives here because it is chosen from the
      * same menu as the other orders.
      */
-    MY_CARDS("my_cards", "My cards"),
+    MY_CARDS("my_cards", "My Cards"),
     ;
 
     companion object {

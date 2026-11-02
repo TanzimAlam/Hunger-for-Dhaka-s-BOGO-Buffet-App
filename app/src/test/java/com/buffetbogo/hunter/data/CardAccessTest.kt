@@ -287,6 +287,23 @@ class CardAccessTest {
     }
 
     @Test
+    fun `several cards from one bank are all kept`() {
+        val gold = UserCard(
+            bank = "United Commercial Bank",
+            cardName = "United Commercial Bank VISA Gold Credit Card",
+            brand = "VISA",
+            type = "Credit",
+            tier = "Gold",
+        )
+        val wallet = UserCards.add(UserCards.add(listOf(ucbPlatinumCredit), gold), scbSignatureCredit)
+        assertEquals(3, wallet.size)
+        assertEquals(wallet, UserCards.decode(UserCards.encode(wallet)))
+
+        // The same product picked twice stays a single entry.
+        assertEquals(wallet, UserCards.add(wallet, gold))
+    }
+
+    @Test
     fun `a broken wallet is dropped instead of crashing the feed`() {
         assertEquals(emptyList<UserCard>(), UserCards.decode("{not json"))
         assertEquals(emptyList<UserCard>(), UserCards.decode("[{\"bank\":\"\"}]"))

@@ -24,8 +24,15 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.BrunchDining
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.ChevronRight
@@ -69,9 +76,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -90,6 +99,7 @@ import com.buffetbogo.hunter.data.servesAny
 import com.buffetbogo.hunter.ui.theme.BuffetColors
 import java.util.Locale
 import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.delay
 
 enum class FeedFilter(val label: String) {
     ALL("All Offers"),
@@ -123,7 +133,8 @@ fun OfferListScreen(
     onToggleMeal: (MealTime) -> Unit,
     onRefresh: () -> Unit,
     onSortChange: (SortOrder) -> Unit,
-    onOpenCards: () -> Unit,
+    onToggleCards: () -> Unit,
+    onOpenCardInput: () -> Unit,
     onCardFilterEmpty: () -> Unit,
     onOpenSettings: () -> Unit,
     onOpenOffer: (String) -> Unit,
@@ -160,6 +171,8 @@ fun OfferListScreen(
             reportedCardMiss = false
             return@LaunchedEffect
         }
+        // An empty wallet is not a failed match: the feed shows the wallet explanation and
+        // the gold add button instead of silently falling back to every offer.
         if (cards.isEmpty() || offers.isEmpty() || cardMatches.isNotEmpty() || reportedCardMiss) {
             return@LaunchedEffect
         }
@@ -180,6 +193,11 @@ fun OfferListScreen(
     Scaffold(
         containerColor = BuffetColors.Background,
         snackbarHost = { SnackbarHost(snackbarHostState) },
+        floatingActionButton = {
+            if (cardFilterOn && cards.isEmpty()) {
+                AddCardFab(onClick = onOpenCardInput)
+            }
+        },
     ) { padding ->
         Column(
             modifier = Modifier
@@ -199,8 +217,11 @@ fun OfferListScreen(
             FilterRow(
                 selected = filter,
                 meals = meals,
+                cardFilterOn = cardFilterOn,
+                cardCount = cards.size,
                 onSelect = onFilterChange,
                 onToggleMeal = onToggleMeal,
+                onToggleCards = onToggleCards,
             )
             Spacer(Modifier.height(9.dp))
             MetaRow(
@@ -210,11 +231,12 @@ fun OfferListScreen(
                 sortOrder = sortOrder,
                 cardCount = cards.size,
                 onSortChange = onSortChange,
-                onOpenCards = onOpenCards,
                 onRefresh = onRefresh,
             )
 
-            if (groups.isEmpty()) {
+            if (cardFilterOn && cards.isEmpty()) {
+                NoCardsState(modifier = Modifier.weight(1f))
+            } else if (groups.isEmpty()) {
                 EmptyState(
                     modifier = Modifier.weight(1f),
                     filtered = filter != FeedFilter.ALL ||
@@ -405,8 +427,11 @@ private fun SearchField(query: String, onQueryChange: (String) -> Unit) {
 private fun FilterRow(
     selected: FeedFilter,
     meals: Set<MealTime>,
+    cardFilterOn: Boolean,
+    cardCount: Int,
     onSelect: (FeedFilter) -> Unit,
     onToggleMeal: (MealTime) -> Unit,
+    onToggleCards: () -> Unit,
 ) {
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
@@ -414,7 +439,18 @@ private fun FilterRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        FeedFilter.entries.forEach { filter ->
+        item(key = FeedFilter.ALL.name) {
+            FilterChipView(
+                label = FeedFilter.ALL.label,
+                selected = selected == FeedFilter.ALL && !cardFilterOn,
+                onClick = { onSelect(FeedFilter.ALL) },
+            )
+        }
+        item(key = "my_cards") {
+            MyCardsChip(selected = cardFilterOn, count = cardCount, onClick = onToggleCards)
+        }
+        item(key = "cards_split") { ChipDivider() }
+        FeedFilter.entries.filter { it != FeedFilter.ALL }.forEach { filter ->
             item(key = filter.name) {
                 FilterChipView(
                     label = filter.label,
@@ -423,14 +459,7 @@ private fun FilterRow(
                 )
             }
         }
-        item(key = "meal_split") {
-            Box(
-                Modifier
-                    .padding(horizontal = 2.dp)
-                    .size(width = 1.dp, height = 22.dp)
-                    .background(BuffetColors.Border),
-            )
-        }
+        item(key = "meal_split") { ChipDivider() }
         items(MEAL_FILTERS, key = { it.name }) { meal ->
             MealChipView(
                 meal = meal,
@@ -443,6 +472,50 @@ private fun FilterRow(
 
 /** ALL_DAY is not a chip: with every toggle off, the feed already shows every serving window. */
 private val MEAL_FILTERS = MealTime.entries.filter { it != MealTime.ALL_DAY }
+
+@Composable
+private fun ChipDivider() {
+    Box(
+        Modifier
+            .padding(horizontal = 2.dp)
+            .size(width = 1.dp, height = 22.dp)
+            .background(BuffetColors.Border),
+    )
+}
+
+/**
+ * The wallet as a chip, right beside All Offers. Gold separates it from the blue category
+ * chips: it narrows the feed to what the saved cards unlock, while a category can still narrow
+ * it further. Tapping it again turns the card filter off.
+ */
+@Composable
+private fun MyCardsChip(selected: Boolean, count: Int, onClick: () -> Unit) {
+    Surface(
+        onClick = onClick,
+        shape = RoundedCornerShape(10.dp),
+        color = if (selected) BuffetColors.GoldDeep else BuffetColors.Chip,
+        contentColor = if (selected) Color.White else BuffetColors.GoldDeep,
+        border = if (selected) null else BorderStroke(1.dp, BuffetColors.Gold.copy(alpha = 0.65f)),
+    ) {
+        Row(
+            modifier = Modifier.padding(start = 10.dp, end = 12.dp, top = 8.dp, bottom = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.CreditCard,
+                contentDescription = null,
+                modifier = Modifier.size(13.dp),
+            )
+            Spacer(Modifier.width(5.dp))
+            Text(
+                text = if (count > 0) "My Cards ($count)" else "My Cards",
+                fontSize = 12.sp,
+                fontWeight = if (selected) FontWeight.Bold else FontWeight.SemiBold,
+                maxLines = 1,
+            )
+        }
+    }
+}
 
 @Composable
 private fun MealChipView(meal: MealTime, selected: Boolean, onClick: () -> Unit) {
@@ -509,7 +582,6 @@ private fun MetaRow(
     sortOrder: SortOrder,
     cardCount: Int,
     onSortChange: (SortOrder) -> Unit,
-    onOpenCards: () -> Unit,
     onRefresh: () -> Unit,
 ) {
     Row(
@@ -542,7 +614,6 @@ private fun MetaRow(
             sortOrder = sortOrder,
             cardCount = cardCount,
             onSortChange = onSortChange,
-            onOpenCards = onOpenCards,
         )
         if (!running) {
             Spacer(Modifier.width(6.dp))
@@ -571,7 +642,6 @@ private fun SortMenu(
     sortOrder: SortOrder,
     cardCount: Int,
     onSortChange: (SortOrder) -> Unit,
-    onOpenCards: () -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
     Box {
@@ -647,7 +717,7 @@ private fun SortMenu(
                 text = {
                     Column {
                         Text(
-                            text = "My cards",
+                            text = "My Cards",
                             fontSize = 13.sp,
                             color = if (sortOrder == SortOrder.MY_CARDS) {
                                 BuffetColors.Accent
@@ -668,7 +738,7 @@ private fun SortMenu(
                 },
                 onClick = {
                     expanded = false
-                    if (cardCount == 0) onOpenCards() else onSortChange(SortOrder.MY_CARDS)
+                    onSortChange(SortOrder.MY_CARDS)
                 },
                 leadingIcon = {
                     Icon(
@@ -959,6 +1029,136 @@ private fun EmptyState(
         Spacer(Modifier.height(18.dp))
         Button(onClick = onRefresh) { Text("Check now") }
         TextButton(onClick = onOpenSettings) { Text("Open settings") }
+    }
+}
+
+/**
+ * The wallet is empty and My Cards is on. This is not a failed filter — there is nothing to
+ * filter by yet — so the feed is replaced by an explanation and the gold add button is the one
+ * action on the screen.
+ */
+@Composable
+private fun NoCardsState(modifier: Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(start = 32.dp, end = 32.dp, bottom = 104.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(68.dp)
+                .clip(CircleShape)
+                .background(BuffetColors.GoldSoft),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.CreditCard,
+                contentDescription = null,
+                tint = BuffetColors.GoldDeep,
+                modifier = Modifier.size(32.dp),
+            )
+        }
+        Spacer(Modifier.height(16.dp))
+        Text(
+            text = "No cards in your wallet",
+            style = MaterialTheme.typography.titleLarge,
+            color = BuffetColors.TextPrimary,
+            textAlign = TextAlign.Center,
+        )
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = "Add the credit or debit cards you carry, and I'll show only the buffets " +
+                "they unlock. No card number, PIN or expiry is ever asked for.",
+            style = MaterialTheme.typography.bodySmall,
+            color = BuffetColors.TextSecondary,
+            textAlign = TextAlign.Center,
+        )
+        Spacer(Modifier.height(14.dp))
+        Text(
+            text = "Tap the gold card button to add your first card.",
+            fontSize = 11.5.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = BuffetColors.GoldDeep,
+            textAlign = TextAlign.Center,
+        )
+    }
+}
+
+/**
+ * The gold add-a-card button. It floats over the empty corner of the page, never over the copy,
+ * and pulses for two seconds when the empty wallet appears so the one action is noticed. The
+ * icon is a bank card with a plus badge, not a generic "+".
+ */
+@Composable
+private fun AddCardFab(onClick: () -> Unit) {
+    var glowing by remember { mutableStateOf(true) }
+    LaunchedEffect(Unit) {
+        delay(2_000L)
+        glowing = false
+    }
+
+    Box(contentAlignment = Alignment.Center) {
+        if (glowing) {
+            val transition = rememberInfiniteTransition(label = "card-button-glow")
+            val pulse by transition.animateFloat(
+                initialValue = 0f,
+                targetValue = 1f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(durationMillis = 900, easing = LinearEasing),
+                    repeatMode = RepeatMode.Restart,
+                ),
+                label = "card-button-pulse",
+            )
+            Box(
+                modifier = Modifier
+                    .size(64.dp)
+                    .graphicsLayer {
+                        scaleX = 1f + 0.35f * pulse
+                        scaleY = 1f + 0.35f * pulse
+                        alpha = 0.45f * (1f - pulse)
+                    }
+                    .background(BuffetColors.Gold, CircleShape),
+            )
+        }
+
+        Surface(
+            onClick = onClick,
+            shape = CircleShape,
+            color = BuffetColors.Surface,
+            contentColor = BuffetColors.GoldDeep,
+            border = BorderStroke(2.dp, BuffetColors.Gold),
+            shadowElevation = 8.dp,
+            modifier = Modifier.size(64.dp),
+        ) {
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Box(Modifier.size(40.dp)) {
+                    Icon(
+                        imageVector = Icons.Rounded.CreditCard,
+                        contentDescription = "Add a card",
+                        tint = BuffetColors.GoldDeep,
+                        modifier = Modifier
+                            .size(32.dp)
+                            .align(Alignment.Center),
+                    )
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .size(17.dp)
+                            .background(BuffetColors.Gold, CircleShape),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Add,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(12.dp),
+                        )
+                    }
+                }
+            }
+        }
     }
 }
 

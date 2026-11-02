@@ -45,6 +45,10 @@ object BuffetColors {
     val Star = Color(0xFFE0B05C)
     val Amber = Color(0xFF8A5C10)
     val AmberSoft = Color(0xFFFDF3DE)
+    /** Gold reserved for the wallet: the My Cards chip and the add-a-card button. */
+    val Gold = Color(0xFFC9A227)
+    val GoldDeep = Color(0xFF8A6417)
+    val GoldSoft = Color(0xFFFBF2D8)
     val Slate = Color(0xFF5D7486)
     /** Ink scrim used under text laid over a photo. */
     val Scrim = Color(0xFF111A24)

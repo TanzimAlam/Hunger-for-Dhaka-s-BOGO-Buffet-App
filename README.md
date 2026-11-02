@@ -12,8 +12,10 @@ the serving-window toggles (Breakfast / Brunch / Lunch / Dinner, any number on a
 the list, and the default order is **by end date**, so whatever is about to run out is at the top.
 Choosing another order (Newest, Price low→high, Top rated) **jumps the list back to the top**, so
 the rearrangement is immediately visible instead of leaving you halfway down a silently reordered
-feed. The menu also carries **My cards**: add the cards you actually hold and the feed keeps only
-the deals they unlock (more below). Opening a deal and coming back still leaves the feed exactly
+feed. **My Cards** now sits as a gold chip right beside **All Offers**: add the cards you actually
+hold and the feed keeps only the deals they unlock. On a fresh install the app opens on the card
+screen first — Skip, Add another card, or Done — so several cards can be listed before the feed
+appears (more below). Opening a deal and coming back still leaves the feed exactly
 where it was — same card, same search, same chips.
 
 For now the feed and Settings also sit on a **playful food backdrop**: a scatter of food emoji over
@@ -164,7 +166,7 @@ overrides it. Keys stay on the device or in the local build — never in the APK
 | Area | Implementation |
 | --- | --- |
 | UI | Kotlin + Jetpack Compose (Material 3), light theme in white, cream and ink, single activity |
-| Storage | Room (`offers`, `restaurant_ratings`) with v1→v2 (price unit/source) and v2→v3 (ad link, ad label, timing, checked date) migrations, DataStore for settings, the chosen sort order and the card wallet |
+| Storage | Room (`offers`, `restaurant_ratings`) with v1→v2 (price unit/source) and v2→v3 (ad link, ad label, timing, checked date) migrations, DataStore for settings, the chosen sort order, the first-run flag and the card wallet |
 | Background work | WorkManager every 30 minutes, plus a refresh on launch when the feed is older than 30 minutes |
 | Notifications | One notification per new offer (never a bundled summary), carrying that offer's id; tapping it opens that offer's own detail screen, and its action button opens the venue's ad directly |
 | Bundled catalogue | 18 real, sourced Dhaka offers in `app/src/main/assets/seed_offers.json` — priced wherever the ad prints a figure, and marked "price being checked" where a bank rate card states none |
@@ -177,25 +179,31 @@ overrides it. Keys stay on the device or in the local build — never in the APK
 
 ### Screens
 
-1. **Feed** — the emblem in the header with the app name, LIVE chip and an alerts bell (counts
-   offers ending within three days), search field, category chips (All / Buy 1 Get 1+ / Eat 3-4-5
-   Pay 1 / 5★ Hotels) and, after a divider in the same row, the meal toggles (Breakfast / Brunch /
-   Lunch / Dinner). The categories are single-select; the meal chips are independent switches, so
-   Breakfast and Dinner can both be on, and tapping one again clears it — with none on, every
-   serving window shows. The sort menu sits above the list (default **Ends soonest**, plus Newest,
-   Price low→high, Top rated and **My cards**), and choosing an order returns the list to the top.
-   With no card saved, choosing My cards opens the wallet first. One card per restaurant: deal
+1. **Card input (first run)** — the bank and card drop-downs on the app's food backdrop, with the
+   cards added so far shown as gold pills and three actions: **Skip for now**, **Add another
+   card** (saves that page and resets the pickers) and **Done** (saves and opens the feed ordered
+   by My Cards). The choice is stored, so this screen does not return on its own.
+2. **Feed** — the emblem in the header with the app name, LIVE chip and an alerts bell (counts
+   offers ending within three days), search field, category chips (All / **My Cards** in gold /
+   Buy 1 Get 1+ / Eat 3-4-5 Pay 1 / 5★ Hotels) and, after a divider in the same row, the meal
+   toggles (Breakfast / Brunch / Lunch / Dinner). The categories are single-select; My Cards is an
+   independent gold toggle beside All Offers, and the meal chips are independent switches, so
+   Breakfast and Dinner can both be on. Tapping My Cards again clears it, and tapping **All
+   Offers** always returns to the full feed. The sort menu sits above the list (default **Ends
+   soonest**, plus Newest, Price low→high, Top rated and **My Cards**), and choosing an order
+   returns the list to the top. With no card saved, choosing My Cards shows the empty-wallet
+   explanation and the gold add button instead of an empty list. One card per restaurant: deal
    badges on the thumbnail's top-left, the Google rating on its top-right, then a row per deal with
    its price and unit, payment condition and countdown. Tapping a row opens that deal. A price
    filled in from the book or a search carries a small **typical** tag.
-2. **Offer detail** — hero photo, offer text, price, rating with review count, validity and the
+3. **Offer detail** — hero photo, offer text, price, rating with review count, validity and the
    serving window, payment conditions, an **ad reference card** naming the restaurant's page, a
    notice when no verified ad could be found (or only the venue's page, not the deal's post), the
    "Open the original ad" button (or "Search Facebook for this offer"), and "Hide this offer".
-3. **My cards** — the wallet: every saved card with its bank, product and network, an **Add a
+4. **My cards** — the wallet: every saved card with its bank, product and network, an **Add a
    card** sheet with the bank and card drop-downs, and a delete button per card. Reachable from
-   Settings and from the sort menu.
-4. **Settings** — the wallet's status and entry point, Google ratings status and key, the optional
+   Settings, the sort menu, and the gold button on the empty My Cards feed.
+5. **Settings** — the wallet's status and entry point, Google ratings status and key, the optional
    Facebook Page token with its status, alerts toggle, sources, manual check, reload listings, and
    the optional Brave key.
 
@@ -215,10 +223,14 @@ Open the folder in Android Studio and press Run (Android 8.0 / API 26+).
 
 ## First run
 
-1. Launch — the checked catalogue shows immediately, and a refresh against the keyless sources
-   starts in the background.
-2. Tap the refresh chip any time, or wait for the half-hourly check.
-3. Optional: paste a Places key for live ratings, a
+1. On a fresh install Android asks for notification permission first. The card screen then opens:
+   pick a bank and one of its cards, press **Add another card** as many times as needed, **Done**
+   to open the feed ordered by those cards, or **Skip for now** for the full list. Skip and Done
+   are both remembered; the screen appears only once.
+2. The checked catalogue shows immediately, and a refresh against the keyless sources starts in
+   the background.
+3. Tap the refresh chip any time, or wait for the half-hourly check.
+4. Optional: paste a Places key for live ratings, a
    [Brave key](https://brave.com/search/api/) for broader search, and/or a Facebook Page token to
    read the venues' own posts through the Graph API.
 
@@ -348,12 +360,14 @@ References:
 cards unlock. It is deliberately manual: the app never asks for a card number, so there is nothing
 to scan, verify or leak.
 
-**Adding a card.** Settings → **My cards** (or the sort menu → *My cards* when the wallet is empty)
-opens the wallet. **Add a card** opens two drop-downs: first the bank (all 50 banks in
-`data/card-bins/`, alphabetically), then the products that bank issues. The product list comes from
-the same BIN reference — e.g. *Mastercard Platinum Credit Card* under United Commercial Bank — and
-shows network · credit/debit · tier. Several cards can be saved, from the same bank or different
-ones; adding the same product twice is a no-op. Removing a card is one tap.
+**Adding a card.** On first launch the card screen appears before the feed. Afterwards, Settings →
+**My cards** opens the wallet, the sort menu offers it, and the gold button on the empty My Cards
+feed reopens the same card page. **Add a card** opens two drop-downs: first the bank (all 50 banks
+in `data/card-bins/`, alphabetically), then the products that bank issues. The product list comes
+from the same BIN reference — e.g. *Mastercard Platinum Credit Card* under United Commercial Bank —
+and shows network · credit/debit · tier. Several cards can be saved, from the same bank or
+different ones; each add is written inside one DataStore transaction, so two quick additions cannot
+overwrite each other. Adding the same product twice is a no-op. Removing a card is one tap.
 
 **Privacy.** Only the bank name and the product name are saved, as JSON in DataStore on this phone.
 There is no card number, expiry date, CVV, PIN, name or account field anywhere in the screen, the
@@ -380,8 +394,13 @@ is named in its text.
 
 **When nothing matches.** The app shows *"Sorry — I couldn't find any offer for your saved cards.
 Showing all offers instead."*, resets the category and meal chips, and returns the order to **Ends
-soonest**, so the feed immediately shows every live offer again. Emptying the wallet while My cards
-is selected does the same on the next launch.
+soonest**, so the feed immediately shows every live offer again.
+
+**When the wallet is empty.** Choosing **My Cards** with no card saved is not a failed match: the
+feed is replaced by a short explanation and a 64 dp gold card-with-plus button in the bottom right,
+clear of the copy and large enough to notice. The button pulses for two seconds when it appears and
+then settles. Tapping it reopens the card page, so cards can be added without hunting through
+Settings. Tapping **All Offers**, or the gold chip again, goes back to the full feed.
 
 **The bundled asset.** `app/src/main/assets/bank_cards.json` holds the 50 banks and 410 products
 (no BINs — the app needs names, not prefixes). Regenerate it after refreshing the reference:

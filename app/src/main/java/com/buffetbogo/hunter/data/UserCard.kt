@@ -39,6 +39,10 @@ data class UserCard(
 /** Reads and writes the wallet stored in DataStore. Malformed rows are dropped, never fatal. */
 object UserCards {
 
+    /** Adds [card] unless the same product is already in [existing]; order is kept. */
+    fun add(existing: List<UserCard>, card: UserCard): List<UserCard> =
+        if (existing.any { it.key == card.key }) existing else existing + card
+
     fun decode(raw: String?): List<UserCard> {
         if (raw.isNullOrBlank()) return emptyList()
         return runCatching {

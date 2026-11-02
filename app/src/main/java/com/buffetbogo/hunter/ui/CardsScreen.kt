@@ -332,8 +332,6 @@ private fun AddCardSheet(
 ) {
     var bank by remember { mutableStateOf<BankCards?>(null) }
     var product by remember { mutableStateOf<CardProduct?>(null) }
-    var bankMenu by remember { mutableStateOf(false) }
-    var cardMenu by remember { mutableStateOf(false) }
 
     val chosen = bank?.let { selectedBank ->
         product?.let { selectedProduct ->
@@ -384,113 +382,16 @@ private fun AddCardSheet(
             return@Column
         }
 
-        Box(Modifier.fillMaxWidth()) {
-            PickerField(
-                label = "Bank",
-                value = bank?.bank,
-                placeholder = "Choose your bank",
-                enabled = true,
-                onClick = { bankMenu = true },
-            )
-            DropdownMenu(
-                expanded = bankMenu,
-                onDismissRequest = { bankMenu = false },
-                modifier = Modifier.heightIn(max = 420.dp),
-            ) {
-                catalogue.forEach { option ->
-                    val selected = option.bank == bank?.bank
-                    DropdownMenuItem(
-                        text = {
-                            Text(
-                                text = option.bank,
-                                fontSize = 13.sp,
-                                fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal,
-                                color = if (selected) BuffetColors.Accent else BuffetColors.TextPrimary,
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        },
-                        onClick = {
-                            bank = option
-                            product = null
-                            bankMenu = false
-                        },
-                        trailingIcon = {
-                            if (selected) {
-                                Icon(
-                                    imageVector = Icons.Rounded.Check,
-                                    contentDescription = null,
-                                    tint = BuffetColors.Accent,
-                                    modifier = Modifier.size(16.dp),
-                                )
-                            }
-                        },
-                    )
-                }
-            }
-        }
-
-        Spacer(Modifier.height(10.dp))
-        Box(Modifier.fillMaxWidth()) {
-            PickerField(
-                label = "Card",
-                value = product?.let { it.shortName(bank?.bank.orEmpty()) },
-                placeholder = if (bank == null) {
-                    "Choose a bank first"
-                } else {
-                    "Choose your ${bank?.bank} card"
-                },
-                enabled = bank != null,
-                onClick = { if (bank != null) cardMenu = true },
-            )
-            DropdownMenu(
-                expanded = cardMenu,
-                onDismissRequest = { cardMenu = false },
-                modifier = Modifier.heightIn(max = 420.dp),
-            ) {
-                val selectedBank = bank
-                if (selectedBank != null) {
-                    selectedBank.cards.forEach { option ->
-                        val selected = option.name == product?.name
-                        DropdownMenuItem(
-                            text = {
-                                Column {
-                                    Text(
-                                        text = option.shortName(selectedBank.bank),
-                                        fontSize = 13.sp,
-                                        fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal,
-                                        color = if (selected) BuffetColors.Accent else BuffetColors.TextPrimary,
-                                        maxLines = 2,
-                                        overflow = TextOverflow.Ellipsis,
-                                    )
-                                    if (option.detail.isNotBlank()) {
-                                        Text(
-                                            text = option.detail,
-                                            fontSize = 10.5.sp,
-                                            color = BuffetColors.TextSecondary,
-                                        )
-                                    }
-                                }
-                            },
-                            onClick = {
-                                product = option
-                                cardMenu = false
-                            },
-                            trailingIcon = {
-                                if (selected) {
-                                    Icon(
-                                        imageVector = Icons.Rounded.Check,
-                                        contentDescription = null,
-                                        tint = BuffetColors.Accent,
-                                        modifier = Modifier.size(16.dp),
-                                    )
-                                }
-                            },
-                        )
-                    }
-                }
-            }
-        }
+        CardPickerFields(
+            catalogue = catalogue,
+            bank = bank,
+            product = product,
+            onBankSelected = { option ->
+                bank = option
+                product = null
+            },
+            onProductSelected = { option -> product = option },
+        )
 
         if (alreadyAdded) {
             Spacer(Modifier.height(10.dp))
@@ -534,6 +435,129 @@ private fun AddCardSheet(
             lineHeight = 15.sp,
             color = BuffetColors.TextSecondary,
         )
+    }
+}
+
+/**
+ * The bank then card pair, shared by the wallet sheet and the first-run screen. The card list is
+ * empty until a bank is chosen, and changing the bank clears the product chosen under it.
+ */
+@Composable
+internal fun CardPickerFields(
+    catalogue: List<BankCards>,
+    bank: BankCards?,
+    product: CardProduct?,
+    onBankSelected: (BankCards) -> Unit,
+    onProductSelected: (CardProduct) -> Unit,
+) {
+    var bankMenu by remember { mutableStateOf(false) }
+    var cardMenu by remember { mutableStateOf(false) }
+
+    Box(Modifier.fillMaxWidth()) {
+        PickerField(
+            label = "Bank",
+            value = bank?.bank,
+            placeholder = "Choose your bank",
+            enabled = true,
+            onClick = { bankMenu = true },
+        )
+        DropdownMenu(
+            expanded = bankMenu,
+            onDismissRequest = { bankMenu = false },
+            modifier = Modifier.heightIn(max = 420.dp),
+        ) {
+            catalogue.forEach { option ->
+                val selected = option.bank == bank?.bank
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            text = option.bank,
+                            fontSize = 13.sp,
+                            fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal,
+                            color = if (selected) BuffetColors.Accent else BuffetColors.TextPrimary,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    },
+                    onClick = {
+                        onBankSelected(option)
+                        bankMenu = false
+                    },
+                    trailingIcon = {
+                        if (selected) {
+                            Icon(
+                                imageVector = Icons.Rounded.Check,
+                                contentDescription = null,
+                                tint = BuffetColors.Accent,
+                                modifier = Modifier.size(16.dp),
+                            )
+                        }
+                    },
+                )
+            }
+        }
+    }
+
+    Spacer(Modifier.height(10.dp))
+    Box(Modifier.fillMaxWidth()) {
+        PickerField(
+            label = "Card",
+            value = product?.let { it.shortName(bank?.bank.orEmpty()) },
+            placeholder = if (bank == null) {
+                "Choose a bank first"
+            } else {
+                "Choose your ${bank.bank} card"
+            },
+            enabled = bank != null,
+            onClick = { if (bank != null) cardMenu = true },
+        )
+        DropdownMenu(
+            expanded = cardMenu,
+            onDismissRequest = { cardMenu = false },
+            modifier = Modifier.heightIn(max = 420.dp),
+        ) {
+            val selectedBank = bank
+            if (selectedBank != null) {
+                selectedBank.cards.forEach { option ->
+                    val selected = option.name == product?.name
+                    DropdownMenuItem(
+                        text = {
+                            Column {
+                                Text(
+                                    text = option.shortName(selectedBank.bank),
+                                    fontSize = 13.sp,
+                                    fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal,
+                                    color = if (selected) BuffetColors.Accent else BuffetColors.TextPrimary,
+                                    maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                                if (option.detail.isNotBlank()) {
+                                    Text(
+                                        text = option.detail,
+                                        fontSize = 10.5.sp,
+                                        color = BuffetColors.TextSecondary,
+                                    )
+                                }
+                            }
+                        },
+                        onClick = {
+                            onProductSelected(option)
+                            cardMenu = false
+                        },
+                        trailingIcon = {
+                            if (selected) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Check,
+                                    contentDescription = null,
+                                    tint = BuffetColors.Accent,
+                                    modifier = Modifier.size(16.dp),
+                                )
+                            }
+                        },
+                    )
+                }
+            }
+        }
     }
 }
 
