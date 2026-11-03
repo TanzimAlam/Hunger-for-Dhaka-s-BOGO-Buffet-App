@@ -227,8 +227,9 @@ fun AppRoot() {
             onRemoveCard = viewModel::removeCard,
         )
 
-        // Reached from the gold button on the empty My Cards feed: the same first-run page, but
-        // with a back arrow and no first-run gate. Done returns to the feed filtered by cards.
+        // Reached from the gold add-card button in the header, or from the empty My Cards feed:
+        // the same card page, with a back arrow and no first-run gate. Done appends the card to
+        // the wallet and returns to the feed.
         Screen.CARD_INPUT -> CardOnboardingScreen(
             cards = settings.cards,
             firstRun = false,

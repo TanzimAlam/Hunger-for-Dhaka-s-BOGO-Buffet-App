@@ -42,7 +42,6 @@ import androidx.compose.material.icons.rounded.DinnerDining
 import androidx.compose.material.icons.rounded.FreeBreakfast
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.LunchDining
-import androidx.compose.material.icons.rounded.NotificationsNone
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Restaurant
 import androidx.compose.material.icons.rounded.Search
@@ -56,7 +55,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -68,7 +66,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -98,7 +95,6 @@ import com.buffetbogo.hunter.data.priceIsEstimate
 import com.buffetbogo.hunter.data.servesAny
 import com.buffetbogo.hunter.ui.theme.BuffetColors
 import java.util.Locale
-import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.delay
 
 enum class FeedFilter(val label: String) {
@@ -139,7 +135,6 @@ fun OfferListScreen(
     onOpenSettings: () -> Unit,
     onOpenOffer: (String) -> Unit,
 ) {
-    var showAlerts by rememberSaveable { mutableStateOf(false) }
     val filter = FeedFilter.valueOf(filterName)
     val meals = remember(mealKeys) { parseMeals(mealKeys) }
 
@@ -181,15 +176,6 @@ fun OfferListScreen(
     }
     val dealCount = remember(groups) { groups.sumOf { it.offerCount } }
 
-    val endingSoon = remember(offers) {
-        val now = System.currentTimeMillis()
-        val horizon = now + TimeUnit.DAYS.toMillis(3)
-        offers.filter { item ->
-            val until = item.offer.validUntil
-            until != null && until in now..horizon
-        }.sortedBy { it.offer.validUntil }
-    }
-
     Scaffold(
         containerColor = BuffetColors.Background,
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -208,10 +194,7 @@ fun OfferListScreen(
                     bottom = padding.calculateBottomPadding(),
                 ),
         ) {
-            Header(
-                alerts = endingSoon.size,
-                onShowAlerts = { showAlerts = true },
-            )
+            Header(onAddCard = onOpenCardInput)
             SearchField(query = query, onQueryChange = onQueryChange)
             Spacer(Modifier.height(14.dp))
             FilterRow(
@@ -263,32 +246,10 @@ fun OfferListScreen(
         }
     }
 
-    if (showAlerts) {
-        ModalBottomSheet(
-            onDismissRequest = { showAlerts = false },
-            containerColor = BuffetColors.Surface,
-            contentColor = BuffetColors.TextPrimary,
-        ) {
-            AlertsSheet(
-                offers = endingSoon,
-                onOpen = { id ->
-                    showAlerts = false
-                    onOpenOffer(id)
-                },
-                onOpenSettings = {
-                    showAlerts = false
-                    onOpenSettings()
-                },
-            )
-        }
-    }
 }
 
 @Composable
-private fun Header(
-    alerts: Int,
-    onShowAlerts: () -> Unit,
-) {
+private fun Header(onAddCard: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -321,43 +282,48 @@ private fun Header(
             }
         }
         Spacer(Modifier.width(6.dp))
-        AlertsButton(count = alerts, onClick = onShowAlerts)
+        AddCardButton(onClick = onAddCard)
     }
 }
 
+/**
+ * The always-available way into the wallet: a golden card with a plus badge, in the spot the
+ * alerts bell used to take. Adding a card no longer needs the sort menu or Settings, and on the
+ * empty My Cards feed it works alongside the pulsing button in the corner.
+ */
 @Composable
-private fun AlertsButton(count: Int, onClick: () -> Unit) {
-    Box(contentAlignment = Alignment.TopEnd) {
-        Surface(
-            onClick = onClick,
-            shape = RoundedCornerShape(14.dp),
-            color = BuffetColors.SurfaceHigh,
-            border = BorderStroke(1.dp, BuffetColors.Border),
-            modifier = Modifier.size(44.dp),
-        ) {
-            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+private fun AddCardButton(onClick: () -> Unit) {
+    Surface(
+        onClick = onClick,
+        shape = RoundedCornerShape(14.dp),
+        color = BuffetColors.GoldSoft,
+        border = BorderStroke(1.dp, BuffetColors.Gold),
+        modifier = Modifier.size(44.dp),
+    ) {
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Box(Modifier.size(34.dp)) {
                 Icon(
-                    imageVector = Icons.Rounded.NotificationsNone,
-                    contentDescription = "Offers ending soon",
-                    tint = BuffetColors.TextPrimary,
-                    modifier = Modifier.size(21.dp),
+                    imageVector = Icons.Rounded.CreditCard,
+                    contentDescription = "Add a bank card",
+                    tint = BuffetColors.GoldDeep,
+                    modifier = Modifier
+                        .size(25.dp)
+                        .align(Alignment.Center),
                 )
-            }
-        }
-        if (count > 0) {
-            Box(
-                modifier = Modifier
-                    .size(18.dp)
-                    .clip(CircleShape)
-                    .background(BuffetColors.Clay),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(
-                    text = if (count > 9) "9+" else count.toString(),
-                    fontSize = 9.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = BuffetColors.OnClay,
-                )
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .size(14.dp)
+                        .background(BuffetColors.Gold, CircleShape),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Add,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(9.dp),
+                    )
+                }
             }
         }
     }
@@ -706,63 +672,6 @@ private fun SortMenu(
                     },
                 )
             }
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp)
-                    .height(1.dp)
-                    .background(BuffetColors.Border),
-            )
-            DropdownMenuItem(
-                text = {
-                    Column {
-                        Text(
-                            text = "My Cards",
-                            fontSize = 13.sp,
-                            color = if (sortOrder == SortOrder.MY_CARDS) {
-                                BuffetColors.Accent
-                            } else {
-                                BuffetColors.TextPrimary
-                            },
-                        )
-                        Text(
-                            text = if (cardCount == 0) {
-                                "Add a card to use this"
-                            } else {
-                                "$cardCount card${if (cardCount == 1) "" else "s"} in your wallet"
-                            },
-                            fontSize = 10.5.sp,
-                            color = BuffetColors.TextSecondary,
-                        )
-                    }
-                },
-                onClick = {
-                    expanded = false
-                    onSortChange(SortOrder.MY_CARDS)
-                },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Rounded.CreditCard,
-                        contentDescription = null,
-                        tint = if (sortOrder == SortOrder.MY_CARDS) {
-                            BuffetColors.Accent
-                        } else {
-                            BuffetColors.TextSecondary
-                        },
-                        modifier = Modifier.size(18.dp),
-                    )
-                },
-                trailingIcon = {
-                    if (sortOrder == SortOrder.MY_CARDS) {
-                        Icon(
-                            imageVector = Icons.Rounded.Check,
-                            contentDescription = null,
-                            tint = BuffetColors.Accent,
-                            modifier = Modifier.size(16.dp),
-                        )
-                    }
-                },
-            )
         }
     }
 }
@@ -907,83 +816,6 @@ private fun OfferLine(item: OfferUi, onClick: () -> Unit) {
                 tint = BuffetColors.TextSecondary,
                 modifier = Modifier.size(18.dp),
             )
-        }
-    }
-}
-
-@Composable
-private fun AlertsSheet(
-    offers: List<OfferUi>,
-    onOpen: (String) -> Unit,
-    onOpenSettings: () -> Unit,
-) {
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp, bottom = 28.dp),
-    ) {
-        Text("Ending soon", style = MaterialTheme.typography.titleLarge, color = BuffetColors.TextPrimary)
-        Spacer(Modifier.height(4.dp))
-        Text(
-            text = "Offers that disappear within three days.",
-            style = MaterialTheme.typography.bodySmall,
-            color = BuffetColors.TextSecondary,
-        )
-        Spacer(Modifier.height(14.dp))
-        if (offers.isEmpty()) {
-            Text(
-                text = "Nothing is about to expire right now.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = BuffetColors.TextSecondary,
-            )
-            TextButton(onClick = onOpenSettings) {
-                Text("Settings", color = BuffetColors.Accent)
-            }
-            return@Column
-        }
-        offers.take(8).forEach { item ->
-            Surface(
-                onClick = { onOpen(item.offer.id) },
-                shape = RoundedCornerShape(12.dp),
-                color = BuffetColors.SurfaceHigh,
-                border = BorderStroke(1.dp, BuffetColors.Border),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-            ) {
-                Row(
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Column(Modifier.weight(1f)) {
-                        Text(
-                            text = item.offer.restaurant,
-                            fontSize = 13.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = BuffetColors.TextPrimary,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                        Text(
-                            text = item.offer.headline,
-                            fontSize = 11.5.sp,
-                            color = BuffetColors.TextSecondary,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    }
-                    Spacer(Modifier.width(10.dp))
-                    Text(
-                        text = expiryLabel(item.offer.validUntil),
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = if (endsSoon(item.offer.validUntil)) BuffetColors.Green else BuffetColors.TextSecondary,
-                    )
-                }
-            }
-        }
-        TextButton(onClick = onOpenSettings) {
-            Text("Settings", color = BuffetColors.Accent)
         }
     }
 }

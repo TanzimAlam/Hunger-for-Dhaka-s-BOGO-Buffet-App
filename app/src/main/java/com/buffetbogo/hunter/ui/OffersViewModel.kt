@@ -154,13 +154,13 @@ class OffersViewModel(
         }
     }
 
-    /** Opened again from the My Cards empty state: no first-run gate, straight to the feed. */
+    /**
+     * Closes the card page opened from the header or the empty My Cards feed. The card is appended
+     * to whatever is already saved, and the current order is left alone: adding a card from the
+     * header should not silently re-filter the feed.
+     */
     fun finishCardInput(card: UserCard?) {
-        viewModelScope.launch {
-            if (card != null) settingsStore.addCard(card)
-            val wallet = settingsStore.settings.first().cards
-            if (wallet.isNotEmpty()) settingsStore.setSortOrder(SortOrder.MY_CARDS)
-        }
+        viewModelScope.launch { if (card != null) settingsStore.addCard(card) }
     }
 
     fun skipOnboarding() {

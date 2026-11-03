@@ -180,19 +180,19 @@ overrides it. Keys stay on the device or in the local build — never in the APK
 ### Screens
 
 1. **Card input (first run)** — the bank and card drop-downs on the app's food backdrop, with the
-   cards added so far shown as gold pills and three actions: **Skip for now**, **Add another
+   cards added so far shown as gold pills and three actions: **Skip**, **Add another
    card** (saves that page and resets the pickers) and **Done** (saves and opens the feed ordered
    by My Cards). The choice is stored, so this screen does not return on its own.
-2. **Feed** — the emblem in the header with the app name, LIVE chip and an alerts bell (counts
-   offers ending within three days), search field, category chips (All / **My Cards** in gold /
-   Buy 1 Get 1+ / Eat 3-4-5 Pay 1 / 5★ Hotels) and, after a divider in the same row, the meal
-   toggles (Breakfast / Brunch / Lunch / Dinner). The categories are single-select; My Cards is an
-   independent gold toggle beside All Offers, and the meal chips are independent switches, so
-   Breakfast and Dinner can both be on. Tapping My Cards again clears it, and tapping **All
+2. **Feed** — the emblem in the header with the app name, LIVE chip and a gold add-card button (a
+   bank card with a plus, opening the card page), search field, category chips (All / **My Cards**
+   in gold / Buy 1 Get 1+ / Eat 3-4-5 Pay 1 / 5★ Hotels) and, after a divider in the same row, the
+   meal toggles (Breakfast / Brunch / Lunch / Dinner). The categories are single-select; My Cards
+   is an independent gold toggle beside All Offers, and the meal chips are independent switches,
+   so Breakfast and Dinner can both be on. Tapping My Cards again clears it, and tapping **All
    Offers** always returns to the full feed. The sort menu sits above the list (default **Ends
-   soonest**, plus Newest, Price low→high, Top rated and **My Cards**), and choosing an order
-   returns the list to the top. With no card saved, choosing My Cards shows the empty-wallet
-   explanation and the gold add button instead of an empty list. One card per restaurant: deal
+   soonest**, plus Newest, Price low→high and Top rated), and choosing an order returns the list to
+   the top. With no card saved, choosing My Cards shows the empty-wallet explanation and the gold
+   add button instead of an empty list. One card per restaurant: deal
    badges on the thumbnail's top-left, the Google rating on its top-right, then a row per deal with
    its price and unit, payment condition and countdown. Tapping a row opens that deal. A price
    filled in from the book or a search carries a small **typical** tag.
@@ -202,7 +202,8 @@ overrides it. Keys stay on the device or in the local build — never in the APK
    "Open the original ad" button (or "Search Facebook for this offer"), and "Hide this offer".
 4. **My cards** — the wallet: every saved card with its bank, product and network, an **Add a
    card** sheet with the bank and card drop-downs, and a delete button per card. Reachable from
-   Settings, the sort menu, and the gold button on the empty My Cards feed.
+   Settings, the gold add-card button in the header, and the gold button on the empty My Cards
+   feed. Adding from any of them appends to the cards already saved.
 5. **Settings** — the wallet's status and entry point, Google ratings status and key, the optional
    Facebook Page token with its status, alerts toggle, sources, manual check, reload listings, and
    the optional Brave key.
@@ -225,7 +226,7 @@ Open the folder in Android Studio and press Run (Android 8.0 / API 26+).
 
 1. On a fresh install Android asks for notification permission first. The card screen then opens:
    pick a bank and one of its cards, press **Add another card** as many times as needed, **Done**
-   to open the feed ordered by those cards, or **Skip for now** for the full list. Skip and Done
+   to open the feed ordered by those cards, or **Skip** for the full feed. Skip and Done
    are both remembered; the screen appears only once.
 2. The checked catalogue shows immediately, and a refresh against the keyless sources starts in
    the background.
@@ -361,7 +362,7 @@ cards unlock. It is deliberately manual: the app never asks for a card number, s
 to scan, verify or leak.
 
 **Adding a card.** On first launch the card screen appears before the feed. Afterwards, Settings →
-**My cards** opens the wallet, the sort menu offers it, and the gold button on the empty My Cards
+**My cards** opens the wallet, the gold add-card button in the header does the same, and the gold button on the empty My Cards
 feed reopens the same card page. **Add a card** opens two drop-downs: first the bank (all 50 banks
 in `data/card-bins/`, alphabetically), then the products that bank issues. The product list comes
 from the same BIN reference — e.g. *Mastercard Platinum Credit Card* under United Commercial Bank —
