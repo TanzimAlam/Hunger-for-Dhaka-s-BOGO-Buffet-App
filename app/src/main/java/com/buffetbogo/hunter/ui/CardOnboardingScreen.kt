@@ -355,7 +355,7 @@ private fun OnboardingActions(
             }
             TextButton(onClick = onSkip, modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "Skip for now",
+                    text = "Skip",
                     fontSize = 12.5.sp,
                     color = BuffetColors.TextSecondary,
                     textAlign = TextAlign.Center,
